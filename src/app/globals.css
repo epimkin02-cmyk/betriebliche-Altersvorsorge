@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+/* ============================================================
+   FÜHRUNGSVORSORGE — Design Tokens
+   Quelle: Brand & Communication Guidelines v1.0 (Juni 2026)
+   Farbverhältnis 60/30/10: 60 % Weißraum · 30 % Anthrazit · 10 % Petrol
+   ============================================================ */
+
+@theme {
+  /* Primärfarben */
+  --color-petrol: #157879;
+  --color-petrol-hover: #136667;
+  --color-deep: #0d2820;
+  --color-ink: #101217;
+
+  /* Petrol-Tonleiter */
+  --color-petrol-50: #f4f8f8;
+  --color-petrol-100: #e0eeee;
+  --color-petrol-200: #bbd7d8;
+  --color-petrol-300: #86b9ba;
+  --color-petrol-400: #4c9899;
+  --color-petrol-500: #157879;
+  --color-petrol-600: #136667;
+  --color-petrol-700: #0f5253;
+  --color-petrol-800: #0d2820;
+
+  /* Neutral & Sekundär */
+  --color-nebel: #d4dede;
+  --color-graybrand: #8b8b8b;
+  --color-soft: #f4f8f8;
+  --color-tint: #e7f0f0;
+  --color-line: #e2eaea;
+  --color-line-strong: #cbd9d9;
+
+  /* Typografie */
+  --font-head: "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Merriweather", Georgia, serif;
+
+  /* Radius & Schatten */
+  --radius-brand: 12px;
+  --shadow-soft: 0 1px 2px rgba(16, 18, 23, 0.06), 0 2px 8px rgba(16, 18, 23, 0.05);
+  --shadow-mid: 0 8px 30px rgba(16, 18, 23, 0.1);
+  --shadow-deep: 0 24px 60px rgba(13, 40, 32, 0.18);
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(7px);
+  }
+}
+
+.animate-bob {
+  animation: bob 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-petrol);
+  color: #fff;
+}
+
+/* Headlines: Roboto, eng (Tracking −2 %), Zeilenhöhe 1,1 */
+.h-display {
+  font-family: var(--font-head);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+}
+
+.h-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+
+.eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.serif {
+  font-family: var(--font-serif);
+}
+
+/* Scroll-Reveal (IntersectionObserver, siehe components/Reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-bob {
+    animation: none !important;
+  }
+}
+
+/* Feines Raster für dunkle Flächen (Cover-Optik aus der Guideline) */
+.grid-veil::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 54px 54px;
+  -webkit-mask-image: radial-gradient(900px 620px at 72% 12%, #000, transparent 78%);
+  mask-image: radial-gradient(900px 620px at 72% 12%, #000, transparent 78%);
+  pointer-events: none;
+}
+
+/* Range-Slider im Förder-Rechner */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-nebel);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-nebel);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -9px;
+  height: 24px;
+  width: 24px;
+  border-radius: 999px;
+  background: var(--color-petrol);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 10px rgba(21, 120, 121, 0.4);
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 24px;
+  width: 24px;
+  border-radius: 999px;
+  background: var(--color-petrol);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 10px rgba(21, 120, 121, 0.4);
+  cursor: pointer;
+}
+
+input[type="range"]:focus-visible::-webkit-slider-thumb {
+  outline: 3px solid var(--color-petrol-300);
+  outline-offset: 2px;
+}
