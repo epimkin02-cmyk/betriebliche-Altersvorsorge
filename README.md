@@ -104,15 +104,22 @@ nicht angefasst werden.
 Diese Punkte sind bewusst als sichtbare Platzhalter angelegt, damit nichts Unbelegtes
 online geht:
 
-- [ ] **Testimonials** – die zehn Namen in `src/content/site.ts` stehen mit
-      Platzhalter-Zitaten. Durch echte, freigegebene O-Töne ersetzen (Name, Funktion,
-      möglichst ein konkretes Ergebnis). Nicht freigegebene Namen ersatzlos löschen.
-      Der sichtbare Hinweiskasten unter dem Slider entfällt danach
-      (`src/components/sections/Testimonials.tsx`).
-- [ ] **„Bekannt aus"** – echte Verlags-Logos und Artikel-Links ergänzen
-      (`press` in `site.ts`, Darstellung unten in `sections/SectionHero.tsx`).
-- [ ] **Porträtfoto** von Marius einsetzen (`sections/About.tsx`, Briefing steht im Code).
-- [ ] **3D-Mockup** in `components/FreebieMockup.tsx` gegen das gelieferte Asset tauschen.
+- [x] **Testimonials** – ersetzt durch zehn echte, öffentlich einsehbare Google-Bewertungen
+      (Quelle: `vertretung.allianz.de/marius.michael`). Bewusst **ohne** Berufsbezeichnung:
+      die Rezensenten haben ihre Funktion nicht angegeben, „Geschäftsführer" wäre erfunden.
+      Statt der Rolle steht Plattform + Datum, darunter die verlinkte Quellenangabe.
+      Wenn Marius für einzelne Kunden eine Funktionsangabe **schriftlich** freigeben lässt,
+      kann sie in `testimonials` in `site.ts` ergänzt werden.
+- [x] **„Bekannt aus"** – echte Verlagsnamen statt `[Medium 2–9]`, dazu ein neuer
+      Pressespiegel (`components/blocks/PressWall.tsx`) mit den vier Artikel-Ausschnitten
+      aus `public/presse`. ⚠️ Offen: die **Artikel-URLs** in `press[].url` in `site.ts`.
+      Sobald dort eine URL steht, wird die Kachel automatisch verlinkt.
+- [x] **Porträtfoto** eingesetzt (`public/marius-michael.png`, freigestellt, aus dem
+      Ratgeber-Cover). Steht auf einem Petrol-Verlauf, damit Seite und Freebie
+      dieselbe Bildsprache haben.
+- [x] **3D-Mockup** – der CSS-Nachbau ist raus, `FreebieMockup.tsx` zeigt jetzt die echte
+      Titelseite (`public/ratgeber-cover.png`). Seitenstapel, Schnittkante und
+      Maus-Parallax bleiben.
 - [ ] **Impressum & Datenschutz** durch die geprüften Fassungen ersetzen – inklusive der
       Pflichtangaben für Versicherungsvermittler (§ 15 VersVermV) und der Registernummer.
 - [ ] **`LEAD_WEBHOOK_URL`** in Vercel setzen, sonst geht jeder Lead verloren.

@@ -1,7 +1,12 @@
 import Link from "next/link";
 import FreebieMockup from "../FreebieMockup";
 import { ArrowIcon, Badge, CheckIcon, Container } from "../ui";
-import { cta, hero, press, proof } from "@/content/site";
+import { cta, hero, press, pressMentions, pressMeta, proof } from "@/content/site";
+
+/** Verlagsnamen für die schmale „Bekannt aus"-Leiste, ohne Dopplungen. */
+const outlets = Array.from(
+  new Set<string>([...press.map((p) => p.outlet), ...pressMentions]),
+);
 
 /**
  * SECTION 1 · Hero
@@ -91,21 +96,22 @@ export default function SectionHero() {
         </Container>
       </div>
 
-      {/* „Bekannt aus" – ⚠️ TODO · MARIUS: echte Verlags-Logos & Artikel-Links */}
+      {/* „Bekannt aus" – belegte redaktionelle Erwähnungen, der Pressespiegel
+          mit den Artikel-Screenshots steht weiter unten in SectionPress. */}
       <div className="relative z-10 border-t border-white/10 bg-black/25">
         <Container className="flex flex-col items-center gap-4 py-6 lg:flex-row lg:gap-8">
           <p className="eyebrow shrink-0 text-white/35">Bekannt aus</p>
           <div className="flex flex-1 flex-wrap items-center justify-center gap-x-7 gap-y-2 lg:justify-start">
-            {press.map((p) => (
+            {outlets.map((name) => (
               <span
-                key={p}
+                key={name}
                 className="font-[family-name:var(--font-head)] text-[0.85rem] font-bold text-white/30"
               >
-                {p}
+                {name}
               </span>
             ))}
           </div>
-          <p className="shrink-0 text-[0.7rem] text-white/25">10 Beiträge · 9 Medien · 2022–2023</p>
+          <p className="shrink-0 text-[0.7rem] text-white/25">{pressMeta.summary}</p>
         </Container>
       </div>
     </section>

@@ -1,9 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 import Reveal from "../Reveal";
 import FaqList from "../blocks/FaqList";
+import PressWall from "../blocks/PressWall";
 import TestimonialSlider from "../blocks/TestimonialSlider";
 import { ArrowIcon, CheckIcon, Container, Overline } from "../ui";
-import { about, brand, cta, difference, faq, finalCta, freebie, steps } from "@/content/site";
+import { about, brand, cta, difference, faq, finalCta, freebie, reviews, steps } from "@/content/site";
 
 /**
  * SECTION 4 · Vertrauen & Abschluss (weicher Grund)
@@ -74,29 +76,40 @@ export default function SectionTrust() {
           </div>
         </Reveal>
 
+        {/* Pressespiegel – belegte redaktionelle Beiträge, siehe Wireframe „Trust & Proof" */}
+        <Reveal>
+          <div className="mt-24">
+            <div className="mx-auto max-w-2xl text-center">
+              <div className="flex justify-center">
+                <Overline>Bekannt aus der Fachpresse</Overline>
+              </div>
+              <h2 className="h-display mt-3 text-[clamp(1.7rem,3.6vw,2.5rem)]">
+                Was die Fachpresse schreibt
+              </h2>
+            </div>
+            <div className="mt-10">
+              <PressWall />
+            </div>
+          </div>
+        </Reveal>
+
         {/* Berater */}
         <div className="mt-24 grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <Reveal>
-            {/* TODO · MARIUS: Porträtfoto einsetzen (public/marius.jpg) und diesen
-                Platzhalter durch <Image /> ersetzen. Briefing: ruhiger Hintergrund,
-                Petrol-Akzent, Augenhöhe statt Verkäufer-Pose. */}
-            <div className="flex aspect-[4/5] w-full flex-col items-center justify-center rounded-[14px] border border-dashed border-line-strong bg-white p-8 text-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-petrol-100">
-                <svg viewBox="0 0 24 24" className="h-7 w-7 text-petrol" fill="none" aria-hidden="true">
-                  <circle cx="12" cy="8.5" r="3.6" stroke="currentColor" strokeWidth="1.6" />
-                  <path
-                    d="M4.6 20c1.2-3.6 4-5.4 7.4-5.4S18.2 16.4 19.4 20"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-              <p className="h-title mt-5 text-[1rem] text-ink/70">Platzhalter · Porträt</p>
-              <p className="mt-2 max-w-[26ch] text-[0.85rem] leading-relaxed text-graybrand">
-                Souveränes Porträt von Marius Michael – ruhiger Hintergrund, Petrol-Akzent,
-                Augenhöhe statt Verkäufer-Pose.
-              </p>
+            {/* Freigestelltes Porträt auf Petrol-Verlauf: der Zuschnitt stammt aus
+                dem Ratgeber-Cover, dadurch sind Seite und Freebie visuell dasselbe. */}
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[14px] bg-[linear-gradient(160deg,#12302f_0%,#0f1a1c_55%,#0b0d11_100%)] ring-1 ring-white/10">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-[radial-gradient(420px_320px_at_74%_-6%,rgba(21,120,121,0.55),transparent_66%)]"
+              />
+              <Image
+                src="/marius-michael.png"
+                alt={`${brand.person}, ${brand.role}`}
+                fill
+                sizes="(min-width: 1024px) 380px, 90vw"
+                className="object-contain object-bottom"
+              />
             </div>
             <div className="mt-4 rounded-[14px] border border-line bg-white px-6 py-5">
               <p className="text-[0.85rem] font-semibold text-ink">{brand.person}</p>
@@ -140,11 +153,14 @@ export default function SectionTrust() {
           <Reveal>
             <div className="max-w-xl">
               <Overline>Stimmen</Overline>
+              {/* Formulierung bewusst neutral: die Rezensenten haben ihre Funktion
+                  nicht angegeben, „Geschäftsführer" wäre eine unbelegte Zuschreibung. */}
               <h2 className="h-display text-[clamp(1.7rem,3.6vw,2.5rem)]">
-                Was Geschäftsführer danach sagen
+                Was Kundinnen und Kunden sagen
               </h2>
               <p className="mt-4 max-w-[52ch] text-[1rem] leading-relaxed text-ink/60">
-                77,8 % Weiterempfehlungsquote – hier sprechen die Menschen dahinter.
+                {reviews.rating} von 5 bei {reviews.count} {reviews.platform}-Bewertungen. Nachlesbar,
+                nicht behauptet.
               </p>
             </div>
           </Reveal>

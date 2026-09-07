@@ -338,31 +338,135 @@ export const freebie = {
   cta: "Ratgeber kostenlos sichern",
 } as const;
 
+/**
+ * Kundenstimmen – echte, öffentlich einsehbare Google-Bewertungen der Allianz
+ * Hauptvertretung Marius Michael, im Wortlaut übernommen.
+ * Quelle: vertretung.allianz.de/marius.michael (Stand: September 2026)
+ *
+ * ⚠️ BEWUSST OHNE BERUFSBEZEICHNUNG: Die Rezensenten haben ihre Funktion nicht
+ * angegeben. Titel wie „Geschäftsführer“ wären erfunden – auf einer Seite, die
+ * mit Seriosität wirbt, ist das keine Option. Statt der Rolle steht die
+ * überprüfbare Quelle (Plattform + Datum). Wenn Marius für einzelne Kunden eine
+ * Funktionsangabe schriftlich freigeben lässt, kann sie hier ergänzt werden.
+ */
+export const reviews = {
+  platform: "Google",
+  rating: "5,0",
+  count: 57,
+  countAll: 231,
+  note: "5,0 von 5 bei 57 Google-Bewertungen (231 inkl. eKomi). Stand: September 2026.",
+  profileUrl: "https://vertretung.allianz.de/marius.michael/#kundenbewertungen",
+} as const;
+
 export const testimonials = [
-  { name: "Helmut Weidmann", role: "Geschäftsführer", quote: "[PLATZHALTER – echtes Zitat von Marius einholen und hier einsetzen.]" },
-  { name: "Ben Logan", role: "Gesellschafter-Geschäftsführer", quote: "[PLATZHALTER – echtes Zitat von Marius einholen und hier einsetzen.]" },
-  { name: "Tracy Yu", role: "Geschäftsführerin", quote: "[PLATZHALTER – echtes Zitat von Marius einholen und hier einsetzen.]" },
-  { name: "Torben Jahn", role: "Geschäftsführer", quote: "[PLATZHALTER – echtes Zitat von Marius einholen und hier einsetzen.]" },
-  { name: "Thomas Steingaß", role: "Inhaber", quote: "[PLATZHALTER – echtes Zitat von Marius einholen und hier einsetzen.]" },
-  { name: "Dirk Kujat", role: "Geschäftsführer", quote: "[PLATZHALTER – echtes Zitat von Marius einholen und hier einsetzen.]" },
-  { name: "Wolfgang Koch", role: "Gesellschafter", quote: "[PLATZHALTER – echtes Zitat von Marius einholen und hier einsetzen.]" },
-  { name: "Kadri Aygün", role: "Geschäftsführerin", quote: "[PLATZHALTER – echtes Zitat von Marius einholen und hier einsetzen.]" },
-  { name: "Jürgen Kamolz", role: "Geschäftsführer", quote: "[PLATZHALTER – echtes Zitat von Marius einholen und hier einsetzen.]" },
-  { name: "Gerhard Stein", role: "Unternehmer", quote: "[PLATZHALTER – echtes Zitat von Marius einholen und hier einsetzen.]" },
+  {
+    name: "Helmut Weidmann",
+    date: "19.03.2025",
+    quote:
+      "Wir sind seit vielen Jahren Kunde bei Marius Michael und haben sowohl unsere Unternehmens- als auch unsere privaten Versicherungen bei ihm abgeschlossen. Die Beratung ist stets kompetent, individuell und auf unsere Bedürfnisse abgestimmt. Besonders schätzen wir die schnelle Erreichbarkeit und die zuverlässige Unterstützung bei allen Fragen. Ein absolut vertrauenswürdiger Ansprechpartner – wir können ihn uneingeschränkt weiterempfehlen!",
+  },
+  {
+    name: "Lydia Gür",
+    date: "27.04.2026",
+    quote:
+      "Bei Herrn Michael habe ich mich von Anfang an sehr gut aufgehoben gefühlt. Er nimmt sich viel Zeit und berücksichtigt persönliche Situationen und individuelle Bedürfnisse. Man erhält passende und durchdachte Angebote. Vor allem war die Beratung sehr transparent, ehrlich und verständlich! Bei komplexeren Themen und Nachfragen wurde immer alles geduldig erklärt. Insgesamt eine Beratung auf einem sehr hohen Niveau, vertrauenswürdig und kompetent. Klare Weiterempfehlung!",
+  },
+  {
+    name: "Patricia",
+    date: "26.08.2024",
+    quote:
+      "Seit mittlerweile 15 Jahren ist Marius Michael mein absolut vertrauenswürdiger Berater in allen Belangen. Er nimmt sich immer die notwendige Zeit, um auf meine individuellen Bedürfnisse einzugehen, was mir das Gefühl gibt, dass er sich wirklich um meine Anliegen kümmert. Durch seine kompetente, einfühlsame und geduldige Art habe ich über die Jahre großes Vertrauen in seine Expertise gewonnen.",
+  },
+  {
+    name: "Sabrina Kaemper",
+    date: "26.03.2025",
+    quote:
+      "Sehr netter und kompetenter Berater, hilft wo er kann und ist sehr bemüht für einen die richtige Versicherung zu finden. Was mir sehr gefällt, ist dass er in keinster Weise aufdringlich ist oder versucht einem etwas aufzuschwätzen, ich fühle mich rund um sehr gut betreut und bin meiner Meinung nach in den besten Händen.",
+  },
+  {
+    name: "Patrizia Ardizzone",
+    date: "24.10.2025",
+    quote:
+      "Ich bin super zufrieden mit Marius Michael. Ehrlich, kompetent und immer für einen da. Bei ihm fühlt man sich einfach gut aufgehoben. Er nimmt sich Zeit und findet immer die passende Lösung. Ich kann ihn absolut weiterempfehlen.",
+  },
+  {
+    name: "Ben Logan",
+    date: "26.11.2025",
+    quote:
+      "Marius hat viel Zeit für mich genommen und wirklich alles erklärt bei dem Wechsel. Ich kannte das private Krankenversicherungssystem überhaupt nicht vorher, aber es hat sich wirklich für mich gelohnt und Sinn gemacht. Ich kann Marius nur weiterempfehlen, klasse!",
+  },
+  {
+    name: "Lucas",
+    date: "23.04.2025",
+    quote:
+      "Vorbildliche Beratung von Herrn Michael, sehr freundlich und professionell. Alle Fragen wurden sorgfältig beantwortet, auch wenn es sehr fachlich wurde. Gerne wieder!",
+  },
+  {
+    name: "Julia-Maria Symalla",
+    date: "07.04.2024",
+    quote:
+      "Wir kennen es alle. Nicht jeder weiß auf Anhieb, welche Versicherungen definitiv notwendig sind oder wofür diese überhaupt da sind. Marius Michael führt einen auf einfachem Wege ausführlich in die Welt der Versicherungen ein. Die Zufriedenheit seiner Kunden liegt ihm sehr am Herzen.",
+  },
+  {
+    name: "Anna",
+    date: "29.04.2025",
+    quote:
+      "Herr Michael ist ein sehr netter und kompetenter Berater. Er hilft, wo er kann, und ist immer sehr bemüht, die richtige Lösung zu finden. Das Ganze aber nie aufdringlich. Wir sind mit der ganzen Familie schon Jahre bei Herrn Michael und können ihn zu hundert Prozent weiterempfehlen.",
+  },
+  {
+    name: "Torben Jahn",
+    date: "07.12.2025",
+    quote: "Super nette, verständliche Beratung und sehr gut erreichbar.",
+  },
 ] as const;
 
-/*  TODO · MARIUS: echte Verlagsnamen + Artikel-Links ergänzen. */
+/**
+ * Presse – belegte redaktionelle Erwähnungen.
+ * ⚠️ TODO · MARIUS: Artikel-URLs ergänzen, dann werden die Kacheln verlinkt.
+ * Die Screenshots liegen unter /public/presse und stammen aus dem Figma-Board.
+ */
 export const press = [
-  "unternehmen-heute.de",
-  "[Medium 2]",
-  "[Medium 3]",
-  "[Medium 4]",
-  "[Medium 5]",
-  "[Medium 6]",
-  "[Medium 7]",
-  "[Medium 8]",
-  "[Medium 9]",
+  {
+    outlet: "wallstreet:ONLINE",
+    headline: "Interview mit Marius Michael",
+    image: "/presse/wallstreet-online.png",
+    url: "",
+  },
+  {
+    outlet: "Frankfurt Live",
+    headline:
+      "Mitarbeiter finden und binden – eine betriebliche Krankenversicherung hilft",
+    image: "/presse/frankfurt-live.png",
+    url: "",
+  },
+  {
+    outlet: "Mittelstand Nachrichten",
+    headline: "Betriebliche Krankenversicherung & Altersvorsorge",
+    image: "/presse/mittelstand-nachrichten.png",
+    url: "",
+  },
+  {
+    outlet: "unternehmen-heute.de",
+    headline:
+      "Allianz-Experte Marius Michael – Employer Branding dank smarter Gehalts-Extras",
+    image: "/presse/unternehmen-heute.png",
+    url: "",
+  },
 ] as const;
+
+/** Weitere Medien ohne Screenshot – als Textzeile unter dem Pressespiegel. */
+export const pressMentions = [
+  "Allgemeine Zeitung",
+  "Mitteldeutsche Zeitung",
+  "Mittelstand Nachrichten",
+  "Starting Up",
+  "PT-MAGAZIN",
+] as const;
+
+export const pressMeta = {
+  summary: "10 redaktionelle Beiträge in 9 Medien · 2022–2023",
+  note: "Die Nennungen kennzeichnen redaktionelle Erwähnungen und sind Eigentum der jeweiligen Verlage.",
+} as const;
 
 export const faq = [
   {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { testimonials } from "@/content/site";
+import { brand, reviews, testimonials } from "@/content/site";
 
 function initials(name: string) {
   return name
@@ -72,7 +72,9 @@ export default function TestimonialSlider() {
                   </span>
                   <span>
                     <span className="block text-[0.9rem] font-semibold text-ink">{t.name}</span>
-                    <span className="block text-[0.8rem] text-graybrand">{t.role}</span>
+                    <span className="block text-[0.8rem] text-graybrand">
+                      {reviews.platform}-Bewertung · {t.date}
+                    </span>
                   </span>
                 </figcaption>
               </figure>
@@ -81,12 +83,18 @@ export default function TestimonialSlider() {
         </ul>
       </div>
 
-      {/* Hinweis für das Team – vor Livegang entfernen */}
-      <p className="mt-6 rounded-[10px] border border-dashed border-line-strong bg-white px-5 py-4 text-[0.8rem] leading-relaxed text-graybrand">
-        <strong className="text-ink/70">Hinweis fürs Team:</strong> Die Zitate sind Platzhalter. Vor
-        dem Livegang durch echte, freigegebene O-Töne ersetzen (Name, Funktion, konkretes Ergebnis) –
-        siehe <code className="rounded bg-soft px-1.5 py-0.5">src/content/site.ts</code>. Nicht
-        freigegebene Namen bitte ersatzlos löschen.
+      {/* Quellenangabe – macht die Stimmen überprüfbar statt behauptet. */}
+      <p className="mt-6 text-[0.8rem] leading-relaxed text-graybrand">
+        Echte {reviews.platform}-Bewertungen der {brand.company} {brand.person}, im Wortlaut
+        zitiert.{" "}
+        <a
+          href={reviews.profileUrl}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="font-semibold text-petrol underline-offset-4 hover:underline"
+        >
+          {reviews.note}
+        </a>
       </p>
     </div>
   );
