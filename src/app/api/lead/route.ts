@@ -29,6 +29,8 @@ type LeadPayload = {
   phone?: string;
   email?: string;
   consent?: boolean;
+  /** Woher der Lead kommt: "freebie-optin" (zwei Felder) oder "landingpage-check" (Quiz). */
+  source?: string;
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -46,8 +48,17 @@ export async function POST(request: Request) {
   const email = (data.email ?? "").trim();
   const phone = (data.phone ?? "").trim();
 
-  if (name.length < 2 || !EMAIL_RE.test(email) || phone.length < 6) {
-    return NextResponse.json({ error: "Bitte prüfe Name, E-Mail und Telefonnummer." }, { status: 422 });
+  /* Das Opt-in-Formular in Sektion 3 fragt bewusst nur Vorname und E-Mail ab –
+     jedes zusätzliche Feld kostet Conversion. Die Telefonnummer ist deshalb nur
+     dort Pflicht, wo sie auch erhoben wird: im Quiz-Funnel unter /check. */
+  const fromOptin = data.source === "freebie-optin";
+
+  if (name.length < 2 || !EMAIL_RE.test(email)) {
+    return NextResponse.json({ error: "Bitte prüfe Name und E-Mail-Adresse." }, { status: 422 });
+  }
+
+  if (!fromOptin && phone.length < 6) {
+    return NextResponse.json({ error: "Bitte prüfe deine Telefonnummer." }, { status: 422 });
   }
 
   if (data.consent !== true) {
@@ -64,7 +75,7 @@ export async function POST(request: Request) {
     measures: Array.isArray(data.measures) ? data.measures : [],
     bottleneck: (data.bottleneck ?? "").slice(0, 800),
     timing: data.timing ?? "",
-    source: "landingpage-check",
+    source: fromOptin ? "freebie-optin" : "landingpage-check",
   };
 
   const webhook = process.env.LEAD_WEBHOOK_URL;

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { freebie } from "@/content/site";
+import { freebie, hero } from "@/content/site";
 
 /**
  * =============================================================================
@@ -77,9 +77,7 @@ export default function FreebieMockup() {
         className="pointer-events-none mx-auto mt-6 h-8 w-4/5 rounded-[50%] bg-black/45 blur-xl"
       />
 
-      <p className="mt-5 text-center text-[0.78rem] text-white/40">
-        18 Seiten · PDF · kostenfrei · Ausgabe 2026
-      </p>
+      <p className="mt-5 text-center text-[0.78rem] text-white/40">{hero.mockupMeta}</p>
     </div>
   );
 }

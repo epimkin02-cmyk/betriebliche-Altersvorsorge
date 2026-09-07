@@ -18,18 +18,18 @@ export default function StickyCta() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md transition-transform duration-300 sm:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-ink/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md transition-transform duration-300 sm:hidden ${
         show ? "translate-y-0" : "translate-y-full"
       }`}
     >
       <Link
         href={cta.href}
-        className="flex w-full items-center justify-center gap-2 rounded-[10px] bg-petrol px-5 py-3.5 font-semibold text-white"
+        className="flex w-full items-center justify-center gap-2 rounded-[10px] bg-[linear-gradient(90deg,#157879_0%,#1fa096_100%)] px-5 py-3.5 font-semibold text-white"
       >
         {cta.primary}
         <ArrowIcon />
       </Link>
-      <p className="mt-1.5 text-center text-[0.72rem] text-graybrand">{cta.reassuranceShort} · 2 Min.</p>
+      <p className="mt-1.5 text-center text-[0.72rem] text-white/45">{cta.reassuranceShort} · 2 Min.</p>
     </div>
   );
 }

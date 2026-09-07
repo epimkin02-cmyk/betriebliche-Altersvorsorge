@@ -35,12 +35,16 @@ export default function SectionHero() {
             {hero.eyebrow}
           </Badge>
 
-          <h1 className="h-display mt-7 max-w-[13ch] text-[clamp(2.1rem,4.9vw,3.25rem)] lg:max-w-none">
+          <h1 className="h-display mt-7 max-w-[18ch] text-[clamp(1.95rem,4.2vw,2.9rem)] lg:max-w-none">
             <span className="block text-white">{hero.headline[0]}</span>
-            <span className="block text-petrol-300">{hero.headline[1]}</span>
+            <span className="serif block italic text-petrol-300">{hero.headline[1]}</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-[1.05rem] leading-relaxed text-white/70 sm:text-[1.15rem]">
+          <p className="h-display mt-5 max-w-[22ch] text-[clamp(1.4rem,2.9vw,2rem)] text-white/90 lg:max-w-[24ch]">
+            {hero.headlineKicker}
+          </p>
+
+          <p className="mt-6 max-w-xl text-[1rem] leading-relaxed text-white/65 sm:text-[1.08rem]">
             {hero.sub}
           </p>
 
@@ -53,19 +57,14 @@ export default function SectionHero() {
             ))}
           </ul>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+          {/* Ein einziger CTA, wie im Wireframe – er scrollt zum Opt-in-Formular. */}
+          <div className="mt-9">
             <Link
               href={cta.href}
-              className="inline-flex items-center justify-center gap-2 rounded-[10px] bg-petrol px-7 py-4 text-[1.02rem] font-semibold text-white shadow-[0_14px_40px_rgba(21,120,121,0.45)] transition-all hover:-translate-y-0.5 hover:bg-petrol-600"
+              className="inline-flex items-center justify-center gap-2 rounded-[10px] bg-[linear-gradient(90deg,#157879_0%,#1fa096_100%)] px-7 py-4 text-[1.02rem] font-semibold text-white shadow-[0_14px_40px_rgba(21,120,121,0.45)] transition-all hover:-translate-y-0.5"
             >
               {cta.primary}
               <ArrowIcon className="h-4 w-4" />
-            </Link>
-            <Link
-              href="#problem"
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[10px] border border-white/20 px-6 py-4 text-[0.98rem] font-semibold text-white/85 transition-colors hover:border-white/45 hover:text-white"
-            >
-              Wie es funktioniert
             </Link>
           </div>
 

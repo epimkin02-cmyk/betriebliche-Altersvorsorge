@@ -7,12 +7,9 @@ import { Logo } from "./Logo";
 import { ArrowIcon, Container } from "./ui";
 import { cta } from "@/content/site";
 
-/* Vier Sections – vier Anker. */
-const nav = [
-  { href: "/#problem", label: "Das Problem" },
-  { href: "/#loesung", label: "Die Lösung" },
-  { href: "/#vertrauen", label: "Berater & FAQ" },
-];
+/* Drei Sections – die Startseite hat nur noch einen Anker, der sich zu
+   verlinken lohnt. Der Rest läuft über den CTA. */
+const nav = [{ href: "/#vertrauen", label: "Berater & Presse" }];
 
 /** Seiten mit dunklem Hero – dort steht der Header zunächst auf Dunkel. */
 const darkHeroRoutes = ["/", "/danke"];
@@ -21,7 +18,10 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const onDark = darkHeroRoutes.includes(pathname) && !scrolled && !open;
+  /* Startseite und Danke-Seite sind durchgehend dunkel – der Header bleibt es
+     deshalb auch nach dem Scrollen. Nur das mobile Menue kippt auf Hell. */
+  const darkRoute = darkHeroRoutes.includes(pathname);
+  const onDark = darkRoute && !open;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -41,7 +41,9 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled || open
-          ? "border-b border-line bg-white/90 backdrop-blur-md"
+          ? darkRoute && !open
+            ? "border-b border-white/10 bg-ink/80 backdrop-blur-md"
+            : "border-b border-line bg-white/90 backdrop-blur-md"
           : "border-b border-transparent bg-transparent"
       }`}
     >

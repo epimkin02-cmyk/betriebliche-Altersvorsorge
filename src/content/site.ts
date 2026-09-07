@@ -41,12 +41,17 @@ export const proof = [
   { value: "< 60", suffix: " Min.", label: "von der Analyse bis zur Umsetzung" },
 ] as const;
 
+/**
+ * Der Haupt-CTA scrollt zum Opt-in-Formular in Sektion 3 (Wireframe
+ * „Landingpage · Freebie-Optin"). Der Quiz-Funnel unter /check bleibt als
+ * eigene Seite bestehen und ist noch nicht final verdrahtet.
+ */
 export const cta = {
-  primary: "Potenzial kostenlos prüfen",
-  primaryShort: "Potenzial prüfen",
-  reassurance: "Kostenlos & unverbindlich · 2 Minuten · Ergebnis per WhatsApp",
+  primary: "Jetzt Report sichern",
+  primaryShort: "Report sichern",
+  reassurance: "Kostenlos & unverbindlich · 2 Minuten · direkt als PDF",
   reassuranceShort: "Kostenlos & unverbindlich",
-  href: "/check",
+  href: "#ratgeber",
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -55,16 +60,56 @@ export const cta = {
 
 export const hero = {
   eyebrow: "Für Gesellschafter-Geschäftsführer",
-  headline: ["GmbH-Vermögen sicher", "ins Privatvermögen."],
-  sub: "Von 100 € aus deiner GmbH kommen auf dem klassischen Weg nur rund 51 bis 53 € privat an. Es geht besser – legal, planbar und ohne Blick über die Schulter.",
+  /** Zeile 2 läuft in Merriweather-Kursiv und Petrol, wie im Wireframe. */
+  headline: ["Fünfstellige Jahresbeträge sicher aus der GmbH", "ins Privatvermögen."],
+  headlineKicker: "Ohne Konstrukte, die dir bei der nächsten Betriebsprüfung um die Ohren fliegen.",
+  sub: "Die drei sicheren Hebel, um als GmbH-Geschäftsführer mehr Privatvermögen aufzubauen. Ohne die Hälfte ans Finanzamt zu verlieren.",
   bullets: [
-    "Ab 8.112 € pro Jahr komplett steuerfrei dotierbar",
+    "Steuerfrei dotierbar",
     "Fünfstellige Jahresbeträge, ohne die Bilanz zu belasten",
     "Betriebsprüfungsfest – gemeinsam mit deiner Steuerberatung",
   ],
   note: "Alle Angaben als „bis zu“ und je nach individueller Situation. Rechengrößen 2026.",
   mockupLabel: "Gratis dazu · dein Ratgeber",
+  mockupMeta: "18 Seiten · PDF · kostenfrei · Ausgabe 2026",
 } as const;
+
+/* -------------------------------------------------------------------------- */
+/* SECTION 3 · OPT-IN                                                          */
+/* -------------------------------------------------------------------------- */
+
+export const optin = {
+  eyebrow: "Dein Ratgeber · 18 Seiten · PDF · kostenfrei",
+  title: "Wohin dürfen wir den Ratgeber schicken?",
+  fields: {
+    firstName: "Vorname",
+    email: "E-Mail-Adresse",
+  },
+  submit: "Ratgeber kostenfrei anfordern",
+  submitting: "Wird gesendet …",
+  microcopy: "18 Seiten · PDF · kostenfrei · kein Anruf ohne deine Zustimmung",
+  consent:
+    "Mit dem Absenden willigst du ein, dass wir dir den Ratgeber per E-Mail schicken. Deine Daten werden nicht weitergegeben, du kannst jederzeit widersprechen.",
+  errors: {
+    firstName: "Bitte trage deinen Vornamen ein.",
+    email: "Bitte prüfe deine E-Mail-Adresse.",
+    generic: "Das hat gerade nicht geklappt. Bitte versuch es noch einmal oder ruf uns an.",
+  },
+} as const;
+
+/* ==========================================================================
+   AKTUELL NICHT AUF DER STARTSEITE
+   --------------------------------------------------------------------------
+   Die Startseite besteht seit dem Wireframe-Umbau aus drei Sections
+   (Hero · Trust & Proof · Opt-in). Die folgenden Bloecke – problem,
+   calculator, solution, levers, difference, faq, steps, finalCta – werden
+   von keiner Komponente mehr gelesen.
+
+   Sie bleiben hier stehen, weil die Texte gut sind und jederzeit
+   zurueckgeholt werden koennen: die zugehoerigen Komponenten liegen in der
+   Git-Historie vor dem Commit "layout: Startseite auf drei Sections".
+   Wer sie wieder einbaut, findet hier den fertigen Inhalt.
+   ========================================================================== */
 
 /* -------------------------------------------------------------------------- */
 /* SECTION 2 · DAS PROBLEM                                                     */

@@ -1,24 +1,27 @@
 import SectionHero from "@/components/sections/SectionHero";
-import SectionProblem from "@/components/sections/SectionProblem";
-import SectionSolution from "@/components/sections/SectionSolution";
-import SectionTrust from "@/components/sections/SectionTrust";
+import SectionProof from "@/components/sections/SectionProof";
+import SectionOptin from "@/components/sections/SectionOptin";
 import StickyCta from "@/components/StickyCta";
 
 /**
- * Die Startseite besteht aus genau vier Sections – auch optisch, jede mit
- * genau einem Hintergrund:
- *   1. Hero       (dunkel) – Claim, Nutzen, 3D-Mockup, Proof
- *   2. Problem    (weiß)   – die 5 Halbwahrheiten, Sofort-Test, Vergleichsrechner
- *   3. Lösung     (dunkel) – Vermögensbrücke und die Hebel
- *   4. Vertrauen  (soft)   – Abgrenzung, Berater, Stimmen, FAQ, finaler CTA
+ * Die Startseite besteht aus genau drei Sections – so wie im Figma-Wireframe
+ * „Landingpage · Freebie-Optin · 1440":
+ *   1. Hero          – Claim, Nutzen, 3D-Mockup, Kennzahlen, „Bekannt aus"
+ *   2. Trust & Proof – Fachpresse, Zum Autor, Stimmen
+ *   3. Opt-in        – Vorname + E-Mail, der Ratgeber geht raus
+ *
+ * Bewusst kurz: die Seite empfängt kalten Meta-Traffic für einen Lead-Magneten.
+ * Die früheren Langform-Sections (5 Halbwahrheiten, Vergleichsrechner,
+ * Vermögensbrücke, Hebel-Tabs, FAQ) sind auf Wunsch entfernt; sie liegen in der
+ * Git-Historie vor Commit „layout: Startseite auf drei Sections" und lassen sich
+ * jederzeit zurückholen.
  */
 export default function Home() {
   return (
     <>
       <SectionHero />
-      <SectionProblem />
-      <SectionSolution />
-      <SectionTrust />
+      <SectionProof />
+      <SectionOptin />
       <StickyCta />
     </>
   );
