@@ -6,26 +6,30 @@ import { hero } from "@/content/site";
 
 /**
  * =============================================================================
- * MOCKUP DES FREEBIES · Hero-Element
+ * HERO-STAPEL · Produktbox + zwei echte Seiten aus dem Ratgeber
  * =============================================================================
- * Freigestellte 3D-Produktbox (public/ratgeber-box-links.png, PNG mit Alpha):
- * Front traegt das echte Cover, der Ruecken den Titel und das Logo.
- * Die Box ist bewusst nach LINKS gedreht: sie steht in der rechten
- * Seitenhaelfte und zeigt damit nach innen zum Text, statt aus der Seite
- * heraus. Ein blosses Spiegeln ginge nicht, das wuerde die Schrift umdrehen.
- * Erzeugt mit Higgsfield auf Basis des echten Covers, Hintergrund entfernt,
- * auf das Motiv zugeschnitten.
+ * Beantwortet die Frage, die der Besucher hier wirklich hat: „Was ist da drin?"
+ * Deshalb liegen hinter der Box zwei ECHTE Seiten aus dem PDF – die
+ * Vermoegensbruecke und der Sicher-Check. Keine Attrappen, keine erfundenen
+ * Bonusprodukte.
  *
- * Weil der Freisteller den Original-Schlagschatten mitgenommen hat, liegt der
- * Schatten hier als CSS-drop-shadow auf dem Bild – dadurch passt er sich der
- * dunklen Flaeche an und laesst sich frei justieren.
+ * Die Box ist nach LINKS gedreht: sie steht in der rechten Seitenhaelfte und
+ * zeigt damit nach innen zum Text, statt aus der Seite heraus.
  *
- * Austauschen? Nur die Datei in public/ ersetzen, sonst nichts.
+ * Endlos ohne Loop-Punkt: drei Schwebe-Zyklen mit teilerfremden Laufzeiten
+ * (7 / 9 / 11 s), dazu Glow (13 s) und Lichtstreifen (9 s). Ein Video haetten
+ * wir schneiden und nahtlos schliessen muessen; hier gibt es schlicht keine
+ * Naht. Kostet ausserdem keine zusaetzliche Ladezeit und braucht kein
+ * Alpha-Video, das in Safari und Chrome unterschiedliche Codecs verlangt.
  *
- * Die Maus-Parallax-Huelle kippt das Mockup leicht mit. Auf Touch-Geraeten und
- * bei prefers-reduced-motion ist sie automatisch aus.
+ * Die Maus verschiebt die drei Ebenen unterschiedlich stark – nah mehr als
+ * fern. Auf Touch-Geraeten und bei prefers-reduced-motion ist alles ruhig.
  * =============================================================================
  */
+
+/** Wie stark eine Ebene der Maus folgt. Naeher = mehr Weg. */
+const DEPTH = { box: 1, mid: 0.55, far: 0.3 } as const;
+
 export default function FreebieMockup() {
   const ref = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -48,32 +52,80 @@ export default function FreebieMockup() {
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
+  /** Parallaxe pro Ebene: Verschiebung plus die feste Neigung der Seite. */
+  const shift = (depth: number, rotate = 0) => ({
+    transform: `translate3d(${tilt.x * 16 * depth}px, ${tilt.y * 10 * depth}px, 0) rotate(${rotate}deg)`,
+  });
+
   return (
-    <div ref={ref} className="relative mx-auto w-full max-w-[400px]" style={{ perspective: "1400px" }}>
-      {/* Petrol-Schein hinter dem Mockup – gibt dem Freisteller Grund. */}
+    <div ref={ref} className="relative mx-auto w-full max-w-[560px]">
+      {/* Petrol-Licht hinter dem Stapel, langsam pulsierend */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_55%_at_50%_45%,rgba(21,120,121,0.45),transparent_70%)] blur-2xl"
+        className="hero-glow pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(58%_52%_at_58%_48%,rgba(21,120,121,0.55),transparent_72%)] blur-2xl"
       />
 
-      <div
-        className="transition-transform duration-300 ease-out will-change-transform"
-        style={{
-          transform: `rotateY(${tilt.x * 5}deg) rotateX(${-tilt.y * 4}deg) translateZ(0)`,
-        }}
-      >
-        <Image
-          src="/ratgeber-box-links.png"
-          alt={`Produktbox: ${hero.mockupLabel}`}
-          width={875}
-          height={1200}
-          sizes="(min-width: 1024px) 400px, 70vw"
-          priority
-          className="h-auto w-full drop-shadow-[0_38px_45px_rgba(0,0,0,0.75)]"
-        />
+      <div className="relative aspect-square">
+        {/* Ebene 3 · Sicher-Check, am weitesten hinten */}
+        <div className="hero-float-far absolute left-0 top-[4%] z-10 w-[31%]">
+          <div className="transition-transform duration-500 ease-out" style={shift(DEPTH.far, -14)}>
+            <Image
+              src="/seiten/check.jpg"
+              alt="Seite aus dem Ratgeber: der Sicher-Check mit neun Prüfpunkten"
+              width={396}
+              height={560}
+              sizes="(min-width: 1024px) 175px, 30vw"
+              className="h-auto w-full rounded-[8px] shadow-[0_24px_50px_-14px_rgba(0,0,0,0.85)] ring-1 ring-white/[0.16]"
+            />
+          </div>
+        </div>
+
+        {/* Ebene 2 · Vermögensbrücke */}
+        <div className="hero-float-mid absolute bottom-[14%] left-[7%] z-20 w-[38%]">
+          <div className="transition-transform duration-500 ease-out" style={shift(DEPTH.mid, -7)}>
+            <Image
+              src="/seiten/bruecke.jpg"
+              alt="Seite aus dem Ratgeber: die Vermögensbrücke von der Firma ins Private"
+              width={396}
+              height={560}
+              sizes="(min-width: 1024px) 215px, 36vw"
+              className="h-auto w-full rounded-[8px] shadow-[0_26px_56px_-14px_rgba(0,0,0,0.85)] ring-1 ring-white/[0.16]"
+            />
+          </div>
+        </div>
+
+        {/* Ebene 1 · die Produktbox, vorn */}
+        <div className="hero-float-near absolute bottom-[2%] right-[1%] z-30 w-[62%]">
+          <div className="relative transition-transform duration-500 ease-out" style={shift(DEPTH.box)}>
+            <Image
+              src="/ratgeber-box-links.png"
+              alt={`Produktbox: ${hero.mockupLabel}`}
+              width={656}
+              height={900}
+              sizes="(min-width: 1024px) 350px, 60vw"
+              priority
+              className="h-auto w-full drop-shadow-[0_34px_42px_rgba(0,0,0,0.8)]"
+            />
+            {/* Lichtstreifen, exakt auf die Silhouette der Box maskiert */}
+            <div
+              aria-hidden="true"
+              className="hero-sheen pointer-events-none absolute inset-0"
+              style={{
+                WebkitMaskImage: "url(/ratgeber-box-links.png)",
+                maskImage: "url(/ratgeber-box-links.png)",
+                WebkitMaskSize: "contain",
+                maskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
+              }}
+            />
+          </div>
+        </div>
       </div>
 
-      <p className="mt-5 text-center text-[0.78rem] text-white/40">{hero.mockupMeta}</p>
+      <p className="mt-2 text-center text-[0.78rem] text-white/40">{hero.mockupMeta}</p>
     </div>
   );
 }
