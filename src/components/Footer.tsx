@@ -1,68 +1,41 @@
 import Link from "next/link";
-import { Logo } from "./Logo";
 import { Container } from "./ui";
 import { brand, legal } from "@/content/site";
 
+/**
+ * Footer – schmal, wie im Figma-Wireframe: eine Trennlinie, links das
+ * Copyright, rechts die Rechtslinks.
+ *
+ * Der Pflichthinweis darüber bleibt bewusst stehen: Marius Michael ist
+ * gebundener Versicherungsvertreter gem. § 34d Abs. 7 GewO, und die
+ * Rechenbeispiele auf der Seite sind vereinfacht. Das gehört zur Seite,
+ * auch wenn das Wireframe nur die Copyright-Zeile zeigt.
+ */
 export default function Footer() {
   return (
     <footer className="border-t border-white/10 bg-ink text-white">
-      <Container className="py-16">
-        <div className="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
-          <div>
-            <Logo variant="dark" />
-            <p className="serif mt-5 text-lg italic text-petrol-200">„{brand.claim}“</p>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/55">
-              Firmenvermögen sicher in Privatvermögen wandeln – für Gesellschafter-Geschäftsführer und Führungskräfte.
-            </p>
-          </div>
+      <Container className="py-12">
+        <p className="max-w-4xl text-[0.74rem] leading-relaxed text-white/35">{legal.disclaimer}</p>
 
-          <div>
-            <h3 className="h-title mb-4 text-sm uppercase tracking-[0.14em] text-white/45">Kontakt</h3>
-            <address className="space-y-1.5 text-sm not-italic text-white/75">
-              <p className="font-semibold text-white">{brand.person}</p>
-              <p>{brand.company}</p>
-              <p>{brand.street}</p>
-              <p>{brand.city}</p>
-              <p className="pt-2">
-                <a className="hover:text-petrol-200" href={brand.phoneHref}>
-                  {brand.phone}
-                </a>
-              </p>
-              <p>
-                <a className="hover:text-petrol-200" href={`mailto:${brand.email}`}>
-                  {brand.email}
-                </a>
-              </p>
-            </address>
-          </div>
-
-          <div>
-            <h3 className="h-title mb-4 text-sm uppercase tracking-[0.14em] text-white/45">Rechtliches</h3>
-            <ul className="space-y-2 text-sm text-white/75">
-              <li>
-                <Link className="hover:text-petrol-200" href="/impressum">
-                  Impressum
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-petrol-200" href="/datenschutz">
-                  Datenschutz
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-petrol-200" href="/check">
-                  Potenzial prüfen
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-12 border-t border-white/10 pt-8">
-          <p className="max-w-4xl text-[0.78rem] leading-relaxed text-white/40">{legal.disclaimer}</p>
-          <p className="mt-6 text-[0.78rem] text-white/35">
+        <div className="mt-8 flex flex-col gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-[0.8rem] text-white/40">
             © {new Date().getFullYear()} {brand.name} · {brand.person}
           </p>
+
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.8rem] text-white/50">
+            <a className="transition-colors hover:text-petrol-300" href={brand.phoneHref}>
+              {brand.phone}
+            </a>
+            <a className="transition-colors hover:text-petrol-300" href={`mailto:${brand.email}`}>
+              {brand.email}
+            </a>
+            <Link className="transition-colors hover:text-petrol-300" href="/impressum">
+              Impressum
+            </Link>
+            <Link className="transition-colors hover:text-petrol-300" href="/datenschutz">
+              Datenschutz
+            </Link>
+          </div>
         </div>
       </Container>
     </footer>

@@ -472,22 +472,28 @@ export const testimonials = [
  */
 export const press = [
   {
-    outlet: "wallstreet:ONLINE",
-    headline: "Interview mit Marius Michael",
-    image: "/presse/wallstreet-online.png",
-    url: "",
-  },
-  {
     outlet: "Frankfurt Live",
     headline:
       "Mitarbeiter finden und binden – eine betriebliche Krankenversicherung hilft",
     image: "/presse/frankfurt-live.png",
+    width: 421,
+    height: 555,
+    url: "",
+  },
+  {
+    outlet: "wallstreet:ONLINE",
+    headline: "Interview mit Marius Michael",
+    image: "/presse/wallstreet-online.png",
+    width: 421,
+    height: 728,
     url: "",
   },
   {
     outlet: "Mittelstand Nachrichten",
     headline: "Betriebliche Krankenversicherung & Altersvorsorge",
     image: "/presse/mittelstand-nachrichten.png",
+    width: 421,
+    height: 493,
     url: "",
   },
   {
@@ -495,6 +501,8 @@ export const press = [
     headline:
       "Allianz-Experte Marius Michael – Employer Branding dank smarter Gehalts-Extras",
     image: "/presse/unternehmen-heute.png",
+    width: 421,
+    height: 271,
     url: "",
   },
 ] as const;

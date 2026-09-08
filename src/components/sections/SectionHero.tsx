@@ -82,8 +82,10 @@ export default function SectionHero() {
 
       {/* Proof-Leiste */}
       <div className="relative z-10 border-t border-white/10">
-        <Container className="grid grid-cols-2 gap-x-6 gap-y-8 py-10 sm:grid-cols-4">
-          {proof.map((p) => (
+        {/* Drei Kennzahlen, wie im Wireframe. Der vierte Wert („< 60 Min.")
+            steht weiterhin in site.ts und laesst sich jederzeit dazunehmen. */}
+        <Container className="grid grid-cols-2 gap-x-6 gap-y-8 py-10 sm:grid-cols-3">
+          {proof.slice(0, 3).map((p) => (
             <div key={p.label}>
               <p className="h-display text-[1.6rem] text-white sm:text-[1.9rem]">
                 {p.value}

@@ -44,7 +44,7 @@ export default function SectionProof() {
             <div className="flex justify-center">
               <Overline variant="dark">Bekannt aus der Fachpresse</Overline>
             </div>
-            <h2 className="h-display text-[clamp(1.8rem,4vw,2.7rem)]">Was die Fachpresse schreibt</h2>
+            <h2 className="h-display text-[clamp(1.8rem,4vw,2.7rem)]">Was die Fachpresse sagt</h2>
           </div>
           <div className="mt-12">
             <PressWall />
