@@ -8,8 +8,11 @@ import { hero } from "@/content/site";
  * =============================================================================
  * MOCKUP DES FREEBIES · Hero-Element
  * =============================================================================
- * Freigestellte 3D-Produktbox (public/ratgeber-box.png, PNG mit Alpha):
- * Front traegt das echte Cover, der linke Ruecken den Titel und das Logo.
+ * Freigestellte 3D-Produktbox (public/ratgeber-box-links.png, PNG mit Alpha):
+ * Front traegt das echte Cover, der Ruecken den Titel und das Logo.
+ * Die Box ist bewusst nach LINKS gedreht: sie steht in der rechten
+ * Seitenhaelfte und zeigt damit nach innen zum Text, statt aus der Seite
+ * heraus. Ein blosses Spiegeln ginge nicht, das wuerde die Schrift umdrehen.
  * Erzeugt mit Higgsfield auf Basis des echten Covers, Hintergrund entfernt,
  * auf das Motiv zugeschnitten.
  *
@@ -60,10 +63,10 @@ export default function FreebieMockup() {
         }}
       >
         <Image
-          src="/ratgeber-box.png"
+          src="/ratgeber-box-links.png"
           alt={`Produktbox: ${hero.mockupLabel}`}
-          width={745}
-          height={1100}
+          width={875}
+          height={1200}
           sizes="(min-width: 1024px) 400px, 70vw"
           priority
           className="h-auto w-full drop-shadow-[0_38px_45px_rgba(0,0,0,0.75)]"
