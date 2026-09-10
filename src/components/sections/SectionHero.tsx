@@ -28,7 +28,9 @@ export default function SectionHero() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(1100px_640px_at_78%_-10%,rgba(21,120,121,0.4),transparent_62%)]"
       />
 
-      <Container className="relative z-10 grid items-center gap-16 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:py-24">
+      {/* Oben bewusst wenig Luft: der fixe Header bringt schon 68 px mit,
+          zusaetzliche Polsterung schiebt die Headline sonst unter die Falz. */}
+      <Container className="relative z-10 grid items-center gap-16 pb-16 pt-6 sm:pb-20 sm:pt-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:pb-24 lg:pt-10">
         <div>
           <Badge variant="dark">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-petrol-300" aria-hidden="true" />

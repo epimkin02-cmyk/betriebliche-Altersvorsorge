@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 import { hero } from "@/content/site";
 
 /**
@@ -22,43 +19,15 @@ import { hero } from "@/content/site";
  * Naht. Kostet ausserdem keine zusaetzliche Ladezeit und braucht kein
  * Alpha-Video, das in Safari und Chrome unterschiedliche Codecs verlangt.
  *
- * Die Maus verschiebt die drei Ebenen unterschiedlich stark – nah mehr als
- * fern. Auf Touch-Geraeten und bei prefers-reduced-motion ist alles ruhig.
+ * KEINE Maus-Reaktion: die Parallaxe, die dem Zeiger folgte, ist bewusst
+ * entfernt. Der Stapel bewegt sich nur noch von selbst. Dadurch braucht die
+ * Komponente weder State noch Event-Listener und laeuft komplett auf dem
+ * Server – es geht kein Javascript dafuer an den Browser.
  * =============================================================================
  */
-
-/** Wie stark eine Ebene der Maus folgt. Naeher = mehr Weg. */
-const DEPTH = { box: 1, mid: 0.55, far: 0.3 } as const;
-
 export default function FreebieMockup() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!fine || still) return;
-
-    const onMove = (e: MouseEvent) => {
-      const el = ref.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
-      const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
-      setTilt({ x: Math.max(-1, Math.min(1, dx)), y: Math.max(-1, Math.min(1, dy)) });
-    };
-
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
-  }, []);
-
-  /** Parallaxe pro Ebene: Verschiebung plus die feste Neigung der Seite. */
-  const shift = (depth: number, rotate = 0) => ({
-    transform: `translate3d(${tilt.x * 16 * depth}px, ${tilt.y * 10 * depth}px, 0) rotate(${rotate}deg)`,
-  });
-
   return (
-    <div ref={ref} className="relative mx-auto w-full max-w-[560px]">
+    <div className="relative mx-auto w-full max-w-[560px]">
       {/* Petrol-Licht hinter dem Stapel, langsam pulsierend */}
       <div
         aria-hidden="true"
@@ -67,36 +36,32 @@ export default function FreebieMockup() {
 
       <div className="relative aspect-square">
         {/* Ebene 3 · Sicher-Check, am weitesten hinten */}
-        <div className="hero-float-far absolute left-0 top-[4%] z-10 w-[31%]">
-          <div className="transition-transform duration-500 ease-out" style={shift(DEPTH.far, -14)}>
-            <Image
-              src="/seiten/check.jpg"
-              alt="Seite aus dem Ratgeber: der Sicher-Check mit neun Prüfpunkten"
-              width={396}
-              height={560}
-              sizes="(min-width: 1024px) 175px, 30vw"
-              className="h-auto w-full rounded-[8px] shadow-[0_24px_50px_-14px_rgba(0,0,0,0.85)] ring-1 ring-white/[0.16]"
-            />
-          </div>
+        <div className="hero-float-far absolute left-0 top-[4%] z-10 w-[31%] rotate-[-14deg]">
+          <Image
+            src="/seiten/check.jpg"
+            alt="Seite aus dem Ratgeber: der Sicher-Check mit neun Prüfpunkten"
+            width={396}
+            height={560}
+            sizes="(min-width: 1024px) 175px, 30vw"
+            className="h-auto w-full rounded-[8px] shadow-[0_24px_50px_-14px_rgba(0,0,0,0.85)] ring-1 ring-white/[0.16]"
+          />
         </div>
 
         {/* Ebene 2 · Vermögensbrücke */}
-        <div className="hero-float-mid absolute bottom-[14%] left-[7%] z-20 w-[38%]">
-          <div className="transition-transform duration-500 ease-out" style={shift(DEPTH.mid, -7)}>
-            <Image
-              src="/seiten/bruecke.jpg"
-              alt="Seite aus dem Ratgeber: die Vermögensbrücke von der Firma ins Private"
-              width={396}
-              height={560}
-              sizes="(min-width: 1024px) 215px, 36vw"
-              className="h-auto w-full rounded-[8px] shadow-[0_26px_56px_-14px_rgba(0,0,0,0.85)] ring-1 ring-white/[0.16]"
-            />
-          </div>
+        <div className="hero-float-mid absolute bottom-[14%] left-[7%] z-20 w-[38%] rotate-[-7deg]">
+          <Image
+            src="/seiten/bruecke.jpg"
+            alt="Seite aus dem Ratgeber: die Vermögensbrücke von der Firma ins Private"
+            width={396}
+            height={560}
+            sizes="(min-width: 1024px) 215px, 36vw"
+            className="h-auto w-full rounded-[8px] shadow-[0_26px_56px_-14px_rgba(0,0,0,0.85)] ring-1 ring-white/[0.16]"
+          />
         </div>
 
         {/* Ebene 1 · die Produktbox, vorn */}
         <div className="hero-float-near absolute bottom-[2%] right-[1%] z-30 w-[62%]">
-          <div className="relative transition-transform duration-500 ease-out" style={shift(DEPTH.box)}>
+          <div className="relative">
             <Image
               src="/ratgeber-box-links.png"
               alt={`Produktbox: ${hero.mockupLabel}`}
