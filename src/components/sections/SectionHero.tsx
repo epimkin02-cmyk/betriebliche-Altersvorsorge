@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import FreebieMockup from "../FreebieMockup";
+import HeroVideo from "../HeroVideo";
 import CountUp from "../CountUp";
 import { Badge, CheckIcon, Container, CtaPill } from "../ui";
 import { cta, hero, outlets, proof } from "@/content/site";
@@ -36,7 +37,8 @@ function Words({ text, start, step = 55 }: { text: string; start: number; step?:
 
 /**
  * SECTION 1 · Hero
- * Vollbild-Foto der Frankfurter Skyline mit dunklem Scrim von links, damit die
+ * Vollbild-Foto der Frankfurter Skyline (auf Desktop als Cinemagraph-Loop)
+ * mit dunklem Scrim von links, damit die
  * Copy auf ruhigem Grund steht und das Bild rechts hinter dem Buch durchkommt.
  * Darüber ein Punktraster, das nach außen ausläuft. Headline, Copy, Button und
  * die Produktbox steigen gestaffelt auf – Reihenfolge über --d.
@@ -54,6 +56,9 @@ export default function SectionHero() {
           sizes="100vw"
           className="object-cover object-[70%_45%] saturate-[1.05]"
         />
+        {/* Cinemagraph (8 s Loop, stumm) ueber dem Foto; ab md und ohne
+            reduced-motion. Das JPG bleibt Poster und Fallback. */}
+        <HeroVideo src="/hero-frankfurt.mp4" poster="/hero-frankfurt.jpg" />
       </div>
 
       {/* Scrim: links dicht, rechts lässt er das Foto durch; oben und unten Vignette,
