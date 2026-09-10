@@ -70,7 +70,6 @@ export const hero = {
     "Betriebsprüfungsfest – gemeinsam mit deiner Steuerberatung",
   ],
   note: "Alle Angaben als „bis zu“ und je nach individueller Situation. Rechengrößen 2026.",
-  mockupLabel: "Gratis dazu · dein Ratgeber",
   mockupMeta: "18 Seiten · PDF · kostenfrei · Ausgabe 2026",
 } as const;
 

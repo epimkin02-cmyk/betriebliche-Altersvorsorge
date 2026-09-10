@@ -3,45 +3,43 @@ import { hero } from "@/content/site";
 
 /**
  * =============================================================================
- * PRODUKTBOX · Hero-Element
+ * RATGEBER-MOCKUP · Hero-Element
  * =============================================================================
- * Freigestellte 3D-Box (public/ratgeber-box-links.png, PNG mit Alpha), Front
- * traegt das echte Cover, der Ruecken den Titel. Nach LINKS gedreht, damit sie
- * aus der rechten Seitenhaelfte zum Text hin zeigt.
+ * Freigestelltes Buch (public/ratgeber-stapel.png, PNG mit Alpha): ein
+ * Exemplar steht aufrecht und lehnt an einem Stapel von drei weiteren, die
+ * Front traegt das echte Cover. Nach LINKS gedreht, damit es aus der rechten
+ * Seitenhaelfte zum Text hin zeigt. Querformat 1200 x 936.
  *
  * Bewegung ohne Loop-Punkt: Schweben (7 s), Glow (13 s), Lichtstreifen (9 s)
  * mit teilerfremden Laufzeiten, reines CSS. Keine Maus-Reaktion.
- *
- * Die beiden schwebenden Seiten (Vermoegensbruecke, Sicher-Check), die zuvor
- * hinter der Box lagen, sind auf Wunsch entfernt.
  * =============================================================================
  */
 export default function FreebieMockup() {
   return (
-    <div className="relative mx-auto w-full max-w-[440px]">
+    <div className="relative mx-auto w-full max-w-[560px]">
       {/* Petrol-Licht hinter der Box, langsam pulsierend */}
       <div
         aria-hidden="true"
-        className="hero-glow pointer-events-none absolute inset-[-12%] -z-10 bg-[radial-gradient(55%_50%_at_50%_52%,rgba(21,120,121,0.55),transparent_72%)] blur-2xl"
+        className="hero-glow pointer-events-none absolute inset-[-10%] -z-10 bg-[radial-gradient(50%_55%_at_45%_55%,rgba(21,120,121,0.55),transparent_72%)] blur-2xl"
       />
 
       <div className="hero-float-near relative">
         <Image
-          src="/ratgeber-box-links.png"
-          alt={`Produktbox: ${hero.mockupLabel}`}
-          width={656}
-          height={900}
-          sizes="(min-width: 1024px) 440px, 70vw"
+          src="/ratgeber-stapel.png"
+          alt="Der Ratgeber „Die 3 GGF-Hebel“ als Buch, ein Exemplar an einen Stapel gelehnt"
+          width={1200}
+          height={936}
+          sizes="(min-width: 1024px) 560px, 90vw"
           priority
-          className="h-auto w-full drop-shadow-[0_34px_42px_rgba(0,0,0,0.8)]"
+          className="h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,0.75)]"
         />
-        {/* Lichtstreifen, exakt auf die Silhouette der Box maskiert */}
+        {/* Lichtstreifen, exakt auf die Silhouette des Buchs maskiert */}
         <div
           aria-hidden="true"
           className="hero-sheen pointer-events-none absolute inset-0"
           style={{
-            WebkitMaskImage: "url(/ratgeber-box-links.png)",
-            maskImage: "url(/ratgeber-box-links.png)",
+            WebkitMaskImage: "url(/ratgeber-stapel.png)",
+            maskImage: "url(/ratgeber-stapel.png)",
             WebkitMaskSize: "contain",
             maskSize: "contain",
             WebkitMaskRepeat: "no-repeat",
@@ -52,7 +50,7 @@ export default function FreebieMockup() {
         />
       </div>
 
-      <p className="mt-6 text-center text-[0.78rem] text-white/40">{hero.mockupMeta}</p>
+      <p className="mt-5 text-center text-[0.78rem] text-white/40">{hero.mockupMeta}</p>
     </div>
   );
 }

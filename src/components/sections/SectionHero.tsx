@@ -119,9 +119,6 @@ export default function SectionHero() {
 
         {/* Produktbox mit zwei echten Seiten – steigt als Ganzes auf */}
         <div className="plate-rv" style={delay(520)}>
-          <p className="mb-8 text-center text-[0.72rem] font-bold uppercase tracking-[0.2em] text-petrol-300 lg:mb-10">
-            {hero.mockupLabel}
-          </p>
           <FreebieMockup />
         </div>
       </Container>
