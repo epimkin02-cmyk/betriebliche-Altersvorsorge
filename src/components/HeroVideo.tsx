@@ -23,10 +23,27 @@ export default function HeroVideo({ src, poster }: { src: string; poster: string
   useEffect(() => {
     const v = ref.current;
     if (!enabled || !v) return;
+    /* React schreibt `muted` nicht als HTML-Attribut (bekanntes Verhalten),
+       Chrome erlaubt Autoplay aber nur stumm: Attribut und Property setzen. */
+    v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute("muted", "");
     const onReady = () => setReady(true);
     v.addEventListener("playing", onReady, { once: true });
-    v.play().catch(() => {});
-    return () => v.removeEventListener("playing", onReady);
+    const tryPlay = () => {
+      if (v.paused && document.visibilityState === "visible") v.play().catch(() => {});
+    };
+    tryPlay();
+    /* Falls der Tab beim Laden im Hintergrund war oder die Policy blockt:
+       beim Sichtbarwerden und bei der ersten Interaktion nachstarten. */
+    document.addEventListener("visibilitychange", tryPlay);
+    const gestures: (keyof WindowEventMap)[] = ["pointerdown", "touchstart", "keydown", "scroll"];
+    gestures.forEach((g) => window.addEventListener(g, tryPlay, { passive: true }));
+    return () => {
+      v.removeEventListener("playing", onReady);
+      document.removeEventListener("visibilitychange", tryPlay);
+      gestures.forEach((g) => window.removeEventListener(g, tryPlay));
+    };
   }, [enabled]);
 
   if (!enabled) return null;
