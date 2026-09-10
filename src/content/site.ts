@@ -520,6 +520,26 @@ export const pressMeta = {
   note: "Die Nennungen kennzeichnen redaktionelle Erwähnungen und sind Eigentum der jeweiligen Verlage.",
 } as const;
 
+/**
+ * „Bekannt aus"-Leiste im Hero. Die Logos sind die echten Wortmarken der
+ * Verlage (von deren Websites, einfarbig weiß umgesetzt, /public/logos).
+ * Zwei Medien liegen nur als Wortmarke in Schrift vor: unternehmen-heute.de
+ * (die Seite liefert kein Logo-Bild, das Original ist eine reine Textmarke)
+ * und PT-MAGAZIN (Website hinter Cloudflare-Check, kein Zugriff).
+ * ⚠️ TODO · MARIUS: Logo-Datei von PT-MAGAZIN nachreichen, dann wird auch
+ * dieses als Bild gezeigt.
+ */
+export const outlets = [
+  { name: "Frankfurt Live", logo: "/logos/frankfurt-live.png", width: 455, height: 120, scale: 0.86 },
+  { name: "wallstreet:ONLINE", logo: "/logos/wallstreet-online.png", width: 910, height: 120, scale: 0.8 },
+  { name: "Mittelstand Nachrichten", logo: "/logos/mittelstand-nachrichten.png", width: 302, height: 98, scale: 1.05 },
+  { name: "unternehmen-heute.de", wordmark: "UNTERNEHMEN-HEUTE" },
+  { name: "Allgemeine Zeitung", logo: "/logos/allgemeine-zeitung.png", width: 585, height: 92, scale: 1 },
+  { name: "Mitteldeutsche Zeitung", logo: "/logos/mitteldeutsche-zeitung.png", width: 1146, height: 119, scale: 0.8 },
+  { name: "Starting Up", logo: "/logos/starting-up.png", width: 549, height: 120, scale: 0.8 },
+  { name: "PT-MAGAZIN", wordmark: "PT-MAGAZIN" },
+] as const;
+
 export const faq = [
   {
     q: "Du bist an die Allianz gebunden – bist du dann überhaupt objektiv?",

@@ -1,13 +1,17 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import FreebieMockup from "../FreebieMockup";
+import CountUp from "../CountUp";
 import { Badge, CheckIcon, Container, CtaPill } from "../ui";
-import { cta, hero, press, pressMentions, pressMeta, proof } from "@/content/site";
+import { cta, hero, outlets, pressMeta, proof } from "@/content/site";
 
-/** Verlagsnamen für die schmale „Bekannt aus"-Leiste, ohne Dopplungen. */
-const outlets = Array.from(
-  new Set<string>([...press.map((p) => p.outlet), ...pressMentions]),
-);
+/* Icons zu den drei Kennzahlen (Reihenfolge wie in site.ts: Jahre,
+   Weiterempfehlung, IHK). Duenne Linien, 1.6 px, Petrol. */
+const proofIcons = [
+  <path key="clock" d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />,
+  <path key="star" d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1.1 5.9L12 16.9l-5.3 2.8 1.1-5.9-4.3-4.1 5.9-.8L12 3.5Z" />,
+  <path key="badge" d="M12 3 5 6v5c0 4.4 3 8.3 7 9.5 4-1.2 7-5.1 7-9.5V6l-7-3Zm-3 9 2 2 4-4" />,
+];
 
 /** Verzögerung als CSS-Variable, gelesen von .wd / .rv / .plate-rv in globals.css. */
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
@@ -123,38 +127,73 @@ export default function SectionHero() {
         </div>
       </Container>
 
-      {/* Proof-Leiste */}
+      {/* Proof-Leiste: drei Kennzahlen als Karten, Zahlen zaehlen beim
+          ersten Sichtkontakt hoch (CountUp), IHK bleibt statisch. Der
+          vierte Wert („< 60 Min.") steht weiterhin in site.ts. */}
       <div className="relative z-10 border-t border-white/10 bg-ink/40 backdrop-blur-[2px]">
-        {/* Drei Kennzahlen, wie im Wireframe. Der vierte Wert („< 60 Min.")
-            steht weiterhin in site.ts und laesst sich jederzeit dazunehmen. */}
-        <Container className="grid grid-cols-2 gap-x-6 gap-y-8 py-10 sm:grid-cols-3">
-          {proof.slice(0, 3).map((p) => (
-            <div key={p.label}>
-              <p className="h-display text-[1.6rem] text-white sm:text-[1.9rem]">
-                {p.value}
-                <span className="text-petrol-300">{p.suffix}</span>
-              </p>
-              <p className="mt-1 text-[0.78rem] leading-snug text-white/45">{p.label}</p>
+        <Container className="grid gap-4 py-8 sm:grid-cols-3 sm:gap-5 sm:py-10">
+          {proof.slice(0, 3).map((p, i) => (
+            <div
+              key={p.label}
+              className="group relative overflow-hidden rounded-[18px] bg-[linear-gradient(160deg,rgba(255,255,255,0.075)_0%,rgba(255,255,255,0.025)_60%,rgba(21,120,121,0.14)_100%)] p-5 ring-1 ring-white/10 transition-colors duration-500 hover:ring-petrol-300/40 sm:p-6"
+            >
+              {/* Lichtkante oben in Petrol, laeuft nach rechts aus */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,rgba(134,185,186,0.7),rgba(134,185,186,0.12)_70%,transparent)]"
+              />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-8 -top-10 h-32 w-32 rounded-full bg-petrol/25 blur-2xl transition-opacity duration-700 group-hover:opacity-100 sm:opacity-60"
+              />
+              <div className="relative flex items-start gap-4">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[12px] bg-petrol/20 text-petrol-300 ring-1 ring-petrol-300/30">
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    {proofIcons[i]}
+                  </svg>
+                </span>
+                <div className="min-w-0">
+                  <p className="h-display text-[1.85rem] leading-none text-white sm:text-[2.1rem]">
+                    <CountUp value={p.value} />
+                    <span className="serif ml-0.5 text-[0.62em] italic text-petrol-300">{p.suffix}</span>
+                  </p>
+                  <p className="mt-2 text-[0.8rem] leading-snug text-white/50">{p.label}</p>
+                </div>
+              </div>
             </div>
           ))}
         </Container>
       </div>
 
-      {/* „Bekannt aus" – belegte redaktionelle Erwähnungen, der Pressespiegel
-          mit den Artikel-Screenshots steht weiter unten in SectionProof. */}
+      {/* „Bekannt aus" – echte Wortmarken der Verlage, einfarbig weiss. Der
+          Pressespiegel mit den Artikel-Screenshots steht in SectionProof. */}
       <div className="relative z-10 border-t border-white/10 bg-black/40">
-        <Container className="flex flex-col items-center gap-4 py-6 lg:flex-row lg:gap-8">
+        <Container className="flex flex-col items-center gap-5 py-7 lg:flex-row lg:gap-10">
           <p className="eyebrow shrink-0 text-white/35">Bekannt aus</p>
-          <div className="flex flex-1 flex-wrap items-center justify-center gap-x-7 gap-y-2 lg:justify-start">
-            {outlets.map((name) => (
-              <span
-                key={name}
-                className="font-[family-name:var(--font-head)] text-[0.85rem] font-bold text-white/30"
+          <ul className="flex flex-1 flex-wrap items-center justify-center gap-x-9 gap-y-5 lg:justify-start">
+            {outlets.map((o) => (
+              <li
+                key={o.name}
+                className="flex items-center opacity-55 transition-opacity duration-300 hover:opacity-100"
+                title={o.name}
               >
-                {name}
-              </span>
+                {"logo" in o ? (
+                  <Image
+                    src={o.logo}
+                    alt={o.name}
+                    width={o.width}
+                    height={o.height}
+                    className="w-auto"
+                    style={{ height: `${Math.round(22 * o.scale)}px` }}
+                  />
+                ) : (
+                  <span className="font-[family-name:var(--font-head)] text-[0.98rem] font-black uppercase tracking-[0.02em] text-white">
+                    {o.wordmark}
+                  </span>
+                )}
+              </li>
             ))}
-          </div>
+          </ul>
           <p className="shrink-0 text-[0.7rem] text-white/25">{pressMeta.summary}</p>
         </Container>
       </div>
