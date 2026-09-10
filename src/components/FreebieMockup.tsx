@@ -10,26 +10,26 @@ import { hero } from "@/content/site";
  * Front traegt das echte Cover. Nach LINKS gedreht, damit es aus der rechten
  * Seitenhaelfte zum Text hin zeigt. Querformat 1200 x 927.
  *
- * Bewegung ohne Loop-Punkt: Schweben (7 s), Glow (13 s), Lichtstreifen (9 s)
- * mit teilerfremden Laufzeiten, reines CSS. Keine Maus-Reaktion.
+ * Das Buch steht still. Nur der Glow dahinter (13 s) und der Lichtstreifen
+ * (9 s) laufen, reines CSS, teilerfremde Laufzeiten, keine Maus-Reaktion.
  * =============================================================================
  */
 export default function FreebieMockup() {
   return (
-    <div className="relative mx-auto w-full max-w-[560px]">
+    <div className="relative mx-auto w-full max-w-[680px] lg:max-w-none lg:w-[calc(100%+8rem)] lg:-mr-32">
       {/* Petrol-Licht hinter der Box, langsam pulsierend */}
       <div
         aria-hidden="true"
         className="hero-glow pointer-events-none absolute inset-[-10%] -z-10 bg-[radial-gradient(50%_55%_at_45%_55%,rgba(21,120,121,0.55),transparent_72%)] blur-2xl"
       />
 
-      <div className="hero-float-near relative">
+      <div className="relative">
         <Image
           src="/ratgeber-stapel-2.png"
           alt="Der Ratgeber „Die 3 GGF-Hebel“ als Buch, ein Exemplar an einen Stapel gelehnt, das oberste zeigt das Cover"
           width={1200}
           height={927}
-          sizes="(min-width: 1024px) 560px, 90vw"
+          sizes="(min-width: 1024px) 700px, 90vw"
           priority
           className="h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,0.75)]"
         />

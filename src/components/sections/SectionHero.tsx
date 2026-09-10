@@ -1,7 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import FreebieMockup from "../FreebieMockup";
-import HeroCollage from "../HeroCollage";
 import { Badge, CheckIcon, Container, CtaPill } from "../ui";
 import { cta, hero, press, pressMentions, pressMeta, proof } from "@/content/site";
 
@@ -33,10 +32,9 @@ function Words({ text, start, step = 55 }: { text: string; start: number; step?:
 
 /**
  * SECTION 1 · Hero
- * Vollbild-Foto der Frankfurter Skyline, darüber die Collage aus echten
- * Ratgeber-Seiten und Presse-Screenshots (HeroCollage), darüber der dunkle
- * Scrim von links, damit die Copy auf ruhigem Grund steht und die Schichten
- * rechts hinter dem Buch durchkommen. Zuoberst ein Punktraster. Headline, Copy, Button und
+ * Vollbild-Foto der Frankfurter Skyline mit dunklem Scrim von links, damit die
+ * Copy auf ruhigem Grund steht und das Bild rechts hinter dem Buch durchkommt.
+ * Darüber ein Punktraster, das nach außen ausläuft. Headline, Copy, Button und
  * die Produktbox steigen gestaffelt auf – Reihenfolge über --d.
  */
 export default function SectionHero() {
@@ -50,12 +48,9 @@ export default function SectionHero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[70%_45%] opacity-80 saturate-[1.05]"
+          className="object-cover object-[70%_45%] saturate-[1.05]"
         />
       </div>
-
-      {/* Geschichtete Fragmente zwischen Foto und Scrim */}
-      <HeroCollage />
 
       {/* Scrim: links dicht, rechts lässt er das Foto durch; oben und unten Vignette,
           unten links ein Petrol-Schein als Gegenstück zum warmen Licht des Vorbilds. */}
@@ -65,7 +60,7 @@ export default function SectionHero() {
       />
       <div aria-hidden="true" className="hero-dots pointer-events-none absolute inset-0 -z-10" />
 
-      <Container className="relative z-10 grid items-center gap-16 pb-16 pt-6 sm:pb-20 sm:pt-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:pb-24 lg:pt-10">
+      <Container className="relative z-10 grid items-center gap-16 pb-16 pt-6 sm:pb-20 sm:pt-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8 lg:pb-24 lg:pt-10">
         <div>
           <div className="rv" style={delay(200)}>
             <Badge variant="dark">
@@ -122,7 +117,7 @@ export default function SectionHero() {
           </p>
         </div>
 
-        {/* Produktbox mit zwei echten Seiten – steigt als Ganzes auf */}
+        {/* Buch-Mockup – steigt als Ganzes auf, danach ruhig */}
         <div className="plate-rv" style={delay(520)}>
           <FreebieMockup />
         </div>
