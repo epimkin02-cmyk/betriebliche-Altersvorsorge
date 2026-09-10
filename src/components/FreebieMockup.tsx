@@ -5,7 +5,7 @@ import { hero } from "@/content/site";
  * =============================================================================
  * RATGEBER-MOCKUP · Hero-Element
  * =============================================================================
- * Freigestelltes Buch (public/ratgeber-stapel-2.png, PNG mit Alpha): ein
+ * Freigestelltes Buch (public/ratgeber-stapel-3.png, PNG mit Alpha): ein
  * Exemplar steht aufrecht und lehnt an einem Stapel von drei weiteren, die
  * Front traegt das echte Cover. Nach LINKS gedreht, damit es aus der rechten
  * Seitenhaelfte zum Text hin zeigt. Querformat 1200 x 927.
@@ -25,7 +25,7 @@ export default function FreebieMockup() {
 
       <div className="relative">
         <Image
-          src="/ratgeber-stapel-2.png"
+          src="/ratgeber-stapel-3.png"
           alt="Der Ratgeber „Die 3 GGF-Hebel“ als Buch, ein Exemplar an einen Stapel gelehnt, das oberste zeigt das Cover"
           width={1200}
           height={927}
@@ -38,8 +38,8 @@ export default function FreebieMockup() {
           aria-hidden="true"
           className="hero-sheen pointer-events-none absolute inset-0"
           style={{
-            WebkitMaskImage: "url(/ratgeber-stapel-2.png)",
-            maskImage: "url(/ratgeber-stapel-2.png)",
+            WebkitMaskImage: "url(/ratgeber-stapel-3.png)",
+            maskImage: "url(/ratgeber-stapel-3.png)",
             WebkitMaskSize: "contain",
             maskSize: "contain",
             WebkitMaskRepeat: "no-repeat",
