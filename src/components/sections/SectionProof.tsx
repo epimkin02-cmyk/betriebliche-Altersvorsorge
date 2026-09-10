@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Reveal from "../Reveal";
 import PressWall from "../blocks/PressWall";
+import TestimonialMarquee from "../blocks/TestimonialMarquee";
 import { Container, Overline } from "../ui";
-import { about, brand, reviews, testimonials } from "@/content/site";
+import { about, brand, reviews } from "@/content/site";
 
 /**
  * SECTION 2 · Trust & Proof
@@ -10,15 +11,6 @@ import { about, brand, reviews, testimonials } from "@/content/site";
  * Fachpresse → Zum Autor → Stimmen. Eine dunkle Flaeche, editorial gesetzt:
  * linksbuendige Ueberschriften, duenne Linien statt Kaesten, eine Akzentfarbe.
  */
-
-/** Initialen für den Avatar-Kreis, z. B. „Helmut Weidmann" → „HW". */
-function initials(name: string) {
-  return name
-    .split(" ")
-    .map((n) => n[0])
-    .slice(0, 2)
-    .join("");
-}
 
 function Stars({ className = "h-4 w-4" }: { className?: string }) {
   return (
@@ -31,9 +23,6 @@ function Stars({ className = "h-4 w-4" }: { className?: string }) {
     </span>
   );
 }
-
-/** Das Wireframe zeigt drei Stimmen nebeneinander. Der Rest liegt in site.ts. */
-const featured = testimonials.slice(0, 3);
 
 export default function SectionProof() {
   return (
@@ -55,7 +44,7 @@ export default function SectionProof() {
         <Reveal>
           <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
-              <Overline variant="dark">Fachpresse</Overline>
+              <Overline variant="dark" index="01">Fachpresse</Overline>
               <h2 className="h-display max-w-[16ch] text-[clamp(1.8rem,4vw,2.7rem)]">
                 Was die Fachpresse über Marius Michael schreibt
               </h2>
@@ -95,7 +84,7 @@ export default function SectionProof() {
           </Reveal>
 
           <Reveal delay={100}>
-            <Overline variant="dark">{about.eyebrow}</Overline>
+            <Overline variant="dark" index="02">{about.eyebrow}</Overline>
             <h2 className="h-display max-w-[18ch] text-[clamp(1.7rem,3.6vw,2.5rem)]">
               {about.headline}
             </h2>
@@ -137,7 +126,7 @@ export default function SectionProof() {
           <Reveal>
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
               <div className="max-w-xl">
-                <Overline variant="dark">Stimmen</Overline>
+                <Overline variant="dark" index="03">Stimmen</Overline>
                 {/* Neutral formuliert: die Rezensenten haben ihre Funktion nicht
                     angegeben, „Geschäftsführer" wäre eine unbelegte Zuschreibung. */}
                 <h2 className="h-display text-[clamp(1.7rem,3.6vw,2.5rem)]">
@@ -167,33 +156,9 @@ export default function SectionProof() {
           </Reveal>
 
           <Reveal delay={80}>
-            <ul className="mt-12 grid gap-6 md:grid-cols-3">
-              {featured.map((t) => (
-                <li key={t.name}>
-                  <figure className="relative flex h-full flex-col rounded-[16px] bg-white/[0.035] p-7 pt-12 ring-1 ring-white/10 transition-colors duration-300 hover:ring-petrol-300/35">
-                    <span
-                      aria-hidden="true"
-                      className="serif absolute left-6 top-4 text-[3.2rem] leading-none text-petrol-300/50"
-                    >
-                      “
-                    </span>
-                    <blockquote className="serif relative flex-1 text-[0.96rem] leading-relaxed text-white/78">
-                      {t.quote}
-                    </blockquote>
-                    <figcaption className="mt-6 flex items-center gap-3 border-t border-white/10 pt-5">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-petrol/25 text-[0.8rem] font-bold text-petrol-300 ring-1 ring-petrol-300/30">
-                        {initials(t.name)}
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block text-[0.9rem] font-semibold text-white">{t.name}</span>
-                        <span className="block text-[0.78rem] text-white/45">{t.date}</span>
-                      </span>
-                      <Stars className="h-3 w-3" />
-                    </figcaption>
-                  </figure>
-                </li>
-              ))}
-            </ul>
+            <div className="mt-12">
+              <TestimonialMarquee />
+            </div>
 
             <p className="mt-6 text-[0.76rem] leading-relaxed text-white/35">
               Echte {reviews.platform}-Bewertungen der {brand.company} {brand.person}, im Wortlaut zitiert.

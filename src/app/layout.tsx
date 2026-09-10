@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SpotlightRoot from "@/components/SpotlightRoot";
 import { brand } from "@/content/site";
 
 /* Schrift-System aus der Brand Guideline, Kapitel 05:
@@ -85,6 +86,9 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        {/* Feines Filmkorn ueber allen Flaechen, nimmt den glatten Verlauf raus */}
+        <div aria-hidden="true" className="grain" />
+        <SpotlightRoot />
       </body>
     </html>
   );

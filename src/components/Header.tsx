@@ -33,12 +33,16 @@ export default function Header() {
      steht der grosse Button ohnehin, zwei davon gleichzeitig konkurrieren nur.
      Auf Seiten ohne Hero (#start) ist er von Anfang an da. */
   const [pastHero, setPastHero] = useState(false);
+  /* Lesefortschritt 0..1 fuer die duenne Petrol-Linie am unteren Header-Rand */
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 12);
       const heroEl = document.getElementById("start");
       setPastHero(heroEl ? window.scrollY >= heroEl.offsetHeight - 68 : true);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -66,6 +70,13 @@ export default function Header() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
+      <span
+        aria-hidden="true"
+        className={`pointer-events-none absolute inset-x-0 bottom-[-1px] h-[2px] origin-left bg-[linear-gradient(90deg,#86B9BA,#157879)] transition-opacity duration-300 ${
+          scrolled ? "opacity-100" : "opacity-0"
+        }`}
+        style={{ transform: `scaleX(${progress})` }}
+      />
       <Container className="flex h-[68px] items-center justify-between gap-4">
         <Link href="/" aria-label="Führungsvorsorge – zur Startseite" className="shrink-0">
           <Logo size="sm" variant={onDark ? "dark" : "light"} />

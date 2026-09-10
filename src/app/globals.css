@@ -423,3 +423,94 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
 @media (prefers-reduced-motion: reduce) {
   .wd, .rv, .plate-rv { opacity: 1; filter: none; transform: none; animation: none !important; }
 }
+
+/* ============================================================
+   FILMKORN · feine Textur ueber der ganzen Seite
+   ------------------------------------------------------------
+   SVG-Rauschen als Data-URI, fixiert, ohne Pointer-Events. Sehr
+   niedrige Deckkraft: soll man spueren, nicht sehen.
+   ============================================================ */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+/* ============================================================
+   SPOTLIGHT · Lichtrand, der dem Cursor folgt (.spot)
+   ------------------------------------------------------------
+   --mx/--my setzt SpotlightRoot.tsx. Der Rand liegt als ::after
+   ueber der Karte, per Maske nur 1 px breit am Rand sichtbar.
+   ============================================================ */
+.spot {
+  --mx: -999px;
+  --my: -999px;
+}
+.spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  padding: 1px;
+  background: radial-gradient(
+    240px circle at var(--mx) var(--my),
+    rgba(134, 185, 186, 0.9),
+    rgba(134, 185, 186, 0.25) 40%,
+    transparent 70%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.spot:hover::after {
+  opacity: 1;
+}
+
+/* ============================================================
+   MARQUEE · zwei gegenlaeufige Reihen mit allen Bewertungen
+   ------------------------------------------------------------
+   Track = Reihe + Kopie, laeuft von 0 auf -50 %: nahtlos. Die
+   Raender laufen ueber eine Maske ins Dunkel aus.
+   ============================================================ */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee__track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  padding-inline: 10px;
+  animation: marquee 75s linear infinite;
+  will-change: transform;
+}
+.marquee__track--reverse {
+  animation-direction: reverse;
+  animation-duration: 85s;
+}
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; flex-wrap: wrap; width: auto; }
+  .marquee { -webkit-mask-image: none; mask-image: none; }
+  .marquee__track > [aria-hidden="true"] { display: none; }
+}

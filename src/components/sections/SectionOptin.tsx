@@ -89,7 +89,7 @@ export default function SectionOptin() {
 
       <Container className="relative z-10 py-20 sm:py-28">
         <Reveal>
-          <div className="mx-auto grid max-w-5xl overflow-hidden rounded-[22px] bg-[linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0.02)_100%)] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.9)] ring-1 ring-white/12 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="spot mx-auto grid max-w-5xl overflow-hidden rounded-[22px] bg-[linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0.02)_100%)] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.9)] ring-1 ring-white/12 lg:grid-cols-[1.1fr_0.9fr]">
             {/* Links: Cover + Kapitel */}
             <div className="relative overflow-hidden bg-[linear-gradient(160deg,rgba(21,120,121,0.28)_0%,rgba(21,120,121,0.06)_50%,transparent_100%)] p-8 sm:p-10 lg:p-12">
               <div
@@ -101,7 +101,7 @@ export default function SectionOptin() {
                   <Image src="/ratgeber-cover.png" alt="Cover des Ratgebers" width={848} height={1200} sizes="132px" className="h-auto w-full" />
                 </div>
                 <div className="min-w-0">
-                  <p className="eyebrow text-petrol-300">{optin.eyebrow}</p>
+                  <p className="eyebrow flex items-center gap-3 text-petrol-300"><span className="tabular-nums opacity-70">04</span><span className="inline-block h-px w-8 bg-current opacity-40" aria-hidden="true" />{optin.eyebrow}</p>
                   <h2 className="h-display mt-4 text-[clamp(1.6rem,3.2vw,2.2rem)] text-white">
                     {optin.headline[0]}
                     <span className="serif block italic text-petrol-300">{optin.headline[1]}</span>

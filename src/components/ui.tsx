@@ -18,22 +18,29 @@ export function Container({
 export function Overline({
   children,
   variant = "light",
+  index,
 }: {
   children: ReactNode;
   variant?: "light" | "dark";
+  /** Laufnummer wie in einem Magazin: „01 —— Fachpresse" */
+  index?: string;
 }) {
+  const color = variant === "dark" ? "text-petrol-300" : "text-petrol";
   return (
-    <p
-      className={`eyebrow mb-4 flex items-center gap-2.5 ${
-        variant === "dark" ? "text-petrol-300" : "text-petrol"
-      }`}
-    >
-      <span
-        className={`inline-block h-[7px] w-[7px] rounded-full ${
-          variant === "dark" ? "bg-petrol-300" : "bg-petrol"
-        }`}
-        aria-hidden="true"
-      />
+    <p className={`eyebrow mb-4 flex items-center gap-3 ${color}`}>
+      {index ? (
+        <>
+          <span className="tabular-nums opacity-70">{index}</span>
+          <span className="inline-block h-px w-8 bg-current opacity-40" aria-hidden="true" />
+        </>
+      ) : (
+        <span
+          className={`inline-block h-[7px] w-[7px] rounded-full ${
+            variant === "dark" ? "bg-petrol-300" : "bg-petrol"
+          }`}
+          aria-hidden="true"
+        />
+      )}
       {children}
     </p>
   );

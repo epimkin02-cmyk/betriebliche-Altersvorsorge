@@ -135,7 +135,7 @@ export default function SectionHero() {
           {proof.slice(0, 3).map((p, i) => (
             <div
               key={p.label}
-              className="group relative overflow-hidden rounded-[18px] bg-[linear-gradient(160deg,rgba(255,255,255,0.075)_0%,rgba(255,255,255,0.025)_60%,rgba(21,120,121,0.14)_100%)] p-5 ring-1 ring-white/10 transition-colors duration-500 hover:ring-petrol-300/40 sm:p-6"
+              className="spot group relative overflow-hidden rounded-[18px] bg-[linear-gradient(160deg,rgba(255,255,255,0.075)_0%,rgba(255,255,255,0.025)_60%,rgba(21,120,121,0.14)_100%)] p-5 ring-1 ring-white/10 transition-colors duration-500 hover:ring-petrol-300/40 sm:p-6"
             >
               {/* Lichtkante oben in Petrol, laeuft nach rechts aus */}
               <span

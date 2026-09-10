@@ -46,7 +46,7 @@ function Clipping({ item }: { item: PressItem }) {
         <OutletMark name={item.outlet} />
         <span className="eyebrow text-[0.6rem] text-white/30">Beitrag</span>
       </div>
-      <div className="relative overflow-hidden rounded-[10px] bg-white p-[3px] shadow-[0_28px_60px_-22px_rgba(0,0,0,0.9)] ring-1 ring-white/15 transition-[transform,box-shadow] duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_36px_70px_-22px_rgba(0,0,0,0.95)]">
+      <div className="spot relative overflow-hidden rounded-[10px] bg-white p-[3px] shadow-[0_28px_60px_-22px_rgba(0,0,0,0.9)] ring-1 ring-white/15 transition-[transform,box-shadow] duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_36px_70px_-22px_rgba(0,0,0,0.95)]">
         <Image
           src={item.image}
           alt={`Beitrag in ${item.outlet}: ${item.headline}`}
