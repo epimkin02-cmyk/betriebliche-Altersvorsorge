@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import FreebieMockup from "../FreebieMockup";
+import HeroCollage from "../HeroCollage";
 import { Badge, CheckIcon, Container, CtaPill } from "../ui";
 import { cta, hero, press, pressMentions, pressMeta, proof } from "@/content/site";
 
@@ -32,9 +33,10 @@ function Words({ text, start, step = 55 }: { text: string; start: number; step?:
 
 /**
  * SECTION 1 · Hero
- * Vollbild-Foto der Frankfurter Skyline mit dunklem Scrim von links, damit die
- * Copy auf ruhigem Grund steht und das Bild rechts hinter der Box durchkommt.
- * Darüber ein Punktraster, das nach außen ausläuft. Headline, Copy, Button und
+ * Vollbild-Foto der Frankfurter Skyline, darüber die Collage aus echten
+ * Ratgeber-Seiten und Presse-Screenshots (HeroCollage), darüber der dunkle
+ * Scrim von links, damit die Copy auf ruhigem Grund steht und die Schichten
+ * rechts hinter dem Buch durchkommen. Zuoberst ein Punktraster. Headline, Copy, Button und
  * die Produktbox steigen gestaffelt auf – Reihenfolge über --d.
  */
 export default function SectionHero() {
@@ -48,9 +50,12 @@ export default function SectionHero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[70%_45%] saturate-[1.05]"
+          className="object-cover object-[70%_45%] opacity-80 saturate-[1.05]"
         />
       </div>
+
+      {/* Geschichtete Fragmente zwischen Foto und Scrim */}
+      <HeroCollage />
 
       {/* Scrim: links dicht, rechts lässt er das Foto durch; oben und unten Vignette,
           unten links ein Petrol-Schein als Gegenstück zum warmen Licht des Vorbilds. */}

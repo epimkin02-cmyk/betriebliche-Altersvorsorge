@@ -256,6 +256,52 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
 }
 
 /* ============================================================
+   HERO-COLLAGE · halbtransparente Fragmente hinter dem Scrim
+   ------------------------------------------------------------
+   Jede Kachel laeuft ueber eine radiale Maske weich aus, damit
+   sich die Schichten ineinander schieben statt hart zu stossen.
+   Drei Drift-Zyklen (19 / 23 / 29 s) – wie beim Mockup ohne
+   gemeinsamen Loop-Punkt.
+   ============================================================ */
+
+.collage-tile {
+  transform: rotate(var(--rot, 0deg));
+  transform-origin: center;
+  will-change: transform;
+  -webkit-mask-image: radial-gradient(ellipse 80% 76% at 50% 50%, #000 42%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 76% at 50% 50%, #000 42%, transparent 100%);
+  /* Die Seiten sind selbst dunkel: „screen" hebt nur ihre hellen Anteile
+     (Petrol-Licht, Key-Visuals, Weiss) ueber die Skyline, der dunkle Grund
+     der Seite verschwindet. So entsteht die Transparenz des Vorbilds. */
+  mix-blend-mode: screen;
+  filter: brightness(1.25) saturate(1.05);
+}
+/* Helle Screenshots: entsaettigen, abdunkeln, in Petrol drehen */
+.collage-tint {
+  filter: grayscale(1) brightness(0.55) sepia(1) hue-rotate(125deg) saturate(1.6) contrast(1.05);
+}
+
+@keyframes collage-drift-a {
+  0%, 100% { transform: rotate(var(--rot)) translate3d(0, 0, 0); }
+  50%      { transform: rotate(calc(var(--rot) + 0.6deg)) translate3d(6px, -12px, 0); }
+}
+@keyframes collage-drift-b {
+  0%, 100% { transform: rotate(var(--rot)) translate3d(0, 0, 0); }
+  50%      { transform: rotate(calc(var(--rot) - 0.5deg)) translate3d(-8px, 10px, 0); }
+}
+@keyframes collage-drift-c {
+  0%, 100% { transform: rotate(var(--rot)) translate3d(0, 0, 0); }
+  50%      { transform: rotate(calc(var(--rot) + 0.4deg)) translate3d(5px, 9px, 0); }
+}
+.collage-drift-a { animation: collage-drift-a 19s ease-in-out infinite; }
+.collage-drift-b { animation: collage-drift-b 23s ease-in-out infinite; }
+.collage-drift-c { animation: collage-drift-c 29s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .collage-drift-a, .collage-drift-b, .collage-drift-c { animation: none !important; }
+}
+
+/* ============================================================
    CTA-PILL · Nachbau des Buttons von nextviewmedia-dortmund
    ------------------------------------------------------------
    Aufbau: aeusserer Rahmen (2 px) mit rotierendem Lichtring,
