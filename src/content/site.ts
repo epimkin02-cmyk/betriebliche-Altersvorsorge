@@ -78,7 +78,15 @@ export const hero = {
 /* -------------------------------------------------------------------------- */
 
 export const optin = {
-  eyebrow: "Dein Ratgeber · 18 Seiten · PDF · kostenfrei",
+  eyebrow: "Dein Ratgeber · 18 Seiten · PDF",
+  headline: ["Die 3 GGF-Hebel.", "Direkt in dein Postfach."],
+  lead: "Kompakt auf 18 Seiten: was dich Jahr für Jahr Geld kostet, welche drei Wege sicher sind und wie du sie mit deiner Steuerberatung umsetzt.",
+  /* Kapitel wie auf dem Cover des Ratgebers */
+  chapters: [
+    { n: "01", title: "Das Problem", body: "Die 5 Halbwahrheiten, die GGF jedes Jahr fünf- bis sechsstellig kosten." },
+    { n: "02", title: "Die Methode", body: "Die Vermögensbrücke und die 3 Hebel, mit echten Zahlen und den Spielregeln." },
+    { n: "03", title: "Dein Fahrplan", body: "Zwei Wege, echte Fälle, dein Fahrplan und der Sicher-Check zum Mitnehmen." },
+  ],
   title: "Wohin dürfen wir den Ratgeber schicken?",
   fields: {
     firstName: "Vorname",

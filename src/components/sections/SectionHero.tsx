@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import FreebieMockup from "../FreebieMockup";
 import CountUp from "../CountUp";
 import { Badge, CheckIcon, Container, CtaPill } from "../ui";
-import { cta, hero, outlets, pressMeta, proof } from "@/content/site";
+import { cta, hero, outlets, proof } from "@/content/site";
 
 /* Icons zu den drei Kennzahlen (Reihenfolge wie in site.ts: Jahre,
    Weiterempfehlung, IHK). Duenne Linien, 1.6 px, Petrol. */
@@ -165,16 +165,17 @@ export default function SectionHero() {
         </Container>
       </div>
 
-      {/* „Bekannt aus" – echte Wortmarken der Verlage, einfarbig weiss. Der
-          Pressespiegel mit den Artikel-Screenshots steht in SectionProof. */}
+      {/* „Bekannt aus" – echte Wortmarken der Verlage, einfarbig weiss, eine
+          Reihe. Der Pressespiegel mit den Artikel-Screenshots steht in
+          SectionProof. */}
       <div className="relative z-10 border-t border-white/10 bg-black/40">
         <Container className="flex flex-col items-center gap-5 py-7 lg:flex-row lg:gap-10">
           <p className="eyebrow shrink-0 text-white/35">Bekannt aus</p>
-          <ul className="flex flex-1 flex-wrap items-center justify-center gap-x-9 gap-y-5 lg:justify-start">
+          <ul className="flex flex-1 flex-wrap items-center justify-center gap-x-7 gap-y-5 lg:flex-nowrap lg:justify-between lg:gap-x-6">
             {outlets.map((o) => (
               <li
                 key={o.name}
-                className="flex items-center opacity-55 transition-opacity duration-300 hover:opacity-100"
+                className="flex shrink-0 items-center opacity-55 transition-opacity duration-300 hover:opacity-100"
                 title={o.name}
               >
                 {"logo" in o ? (
@@ -184,17 +185,16 @@ export default function SectionHero() {
                     width={o.width}
                     height={o.height}
                     className="w-auto"
-                    style={{ height: `${Math.round(22 * o.scale)}px` }}
+                    style={{ height: `${Math.round(20 * o.scale)}px` }}
                   />
                 ) : (
-                  <span className="font-[family-name:var(--font-head)] text-[0.98rem] font-black uppercase tracking-[0.02em] text-white">
+                  <span className="font-[family-name:var(--font-head)] text-[0.9rem] font-black uppercase tracking-[0.02em] text-white">
                     {o.wordmark}
                   </span>
                 )}
               </li>
             ))}
           </ul>
-          <p className="shrink-0 text-[0.7rem] text-white/25">{pressMeta.summary}</p>
         </Container>
       </div>
     </section>

@@ -1,0 +1,14 @@
+Sections editorial gesetzt: Logo-Reihe, Presse, Autor, Stimmen, Opt-in
+
+- Bekannt-aus: acht Wortmarken in einer Reihe, Textfeld rechts entfernt
+- Presse: linksbuendiger Kopf mit Lead, Wortmarke des Verlags ueber jedem
+  Ausschnitt (PressWall nutzt outlets), Headline mit Petrol-Linie,
+  Zeile "Weitere Erwaehnungen" entfernt (steht jetzt als Logos im Hero)
+- Autor: Name und Rolle im Portraet statt Extra-Kasten, Zitat mit grossem
+  Anfuehrungszeichen statt Box, Werte als nummerierte Liste mit Linien
+- Stimmen: Bewertungsblock 5,0 mit Sternen und Google-Link im Kopf, Karten
+  mit Zitatzeichen, Sterne klein in der Fusszeile
+- Opt-in: geteilte Karte, links echtes Cover mit Headline, Lead und den
+  drei Kapiteln (site.ts optin.headline/lead/chapters), rechts Formular
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
