@@ -7,9 +7,15 @@ import { Logo } from "./Logo";
 import { Container, CtaPill } from "./ui";
 import { cta } from "@/content/site";
 
-/* Drei Sections – die Startseite hat nur noch einen Anker, der sich zu
-   verlinken lohnt. Der Rest läuft über den CTA. */
-const nav = [{ href: "/#vertrauen", label: "Berater & Presse" }];
+/* Reihenfolge wie im Figma-Wireframe. „Das Problem" und „Die Lösung" sind
+   seit dem Umbau auf drei Sections keine eigenen Bloecke mehr; die Anker
+   zeigen auf die Stellen, wo das Thema jetzt steht: die Problem-Aussage im
+   Hero und der Ratgeber als Loesung. */
+const nav = [
+  { href: "/#problem", label: "Das Problem" },
+  { href: "/#loesung", label: "Die Lösung" },
+  { href: "/#vertrauen", label: "Berater & Presse" },
+];
 
 /** Seiten mit dunklem Hero – dort steht der Header zunächst auf Dunkel. */
 const darkHeroRoutes = ["/", "/danke"];

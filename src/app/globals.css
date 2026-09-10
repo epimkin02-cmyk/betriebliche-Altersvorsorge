@@ -298,13 +298,13 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 16px;
-  padding: 17px 8px 17px 30px;
+  gap: 12px;
+  padding: 13px 6px 13px 22px;
   border-radius: 999px;
   overflow: hidden;
   color: #fff;
   font-family: var(--font-head);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.005em;
   background:
@@ -329,15 +329,15 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
   position: relative;
   display: inline-grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: #fff;
   color: #157879;
   box-shadow: 0 4px 10px -2px rgba(0,0,0,0.25);
   transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.cta__icon svg { width: 16px; height: 16px; }
+.cta__icon svg { width: 15px; height: 15px; }
 
 .cta:hover { transform: translateY(-3px); filter: drop-shadow(0 26px 40px rgba(21, 120, 121, 0.46)); }
 .cta:hover .cta__body::after { left: 130%; }
@@ -347,9 +347,9 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
 .cta:disabled, .cta[aria-disabled="true"] { cursor: not-allowed; opacity: 0.6; transform: none; }
 
 /* kompakte Groesse fuer Header und Sticky-Leiste */
-.cta--sm .cta__body { padding: 11px 6px 11px 22px; font-size: 14px; gap: 12px; }
-.cta--sm .cta__icon { width: 32px; height: 32px; }
-.cta--sm .cta__icon svg { width: 14px; height: 14px; }
+.cta--sm .cta__body { padding: 9px 5px 9px 18px; font-size: 14.5px; gap: 10px; }
+.cta--sm .cta__icon { width: 30px; height: 30px; }
+.cta--sm .cta__icon svg { width: 13px; height: 13px; }
 
 /* volle Breite im Formular */
 .cta--block { width: 100%; }
@@ -357,7 +357,7 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
 
 @media (max-width: 560px) {
   .cta:not(.cta--sm) { width: 100%; }
-  .cta:not(.cta--sm) .cta__body { width: 100%; justify-content: space-between; padding-left: 22px; font-size: 14px; }
+  .cta:not(.cta--sm) .cta__body { width: 100%; justify-content: space-between; padding-left: 18px; font-size: 15px; }
 }
 @supports not (background: conic-gradient(#000, #fff)) {
   .cta__ring { background: #157879; animation: none; }

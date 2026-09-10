@@ -74,6 +74,8 @@ export default function SectionOptin() {
       id="ratgeber"
       className="grid-veil relative scroll-mt-20 overflow-hidden bg-ink text-white"
     >
+      {/* Nav-Anker „Die Lösung": der Ratgeber ist sie. Der CTA nutzt weiter #ratgeber. */}
+      <span id="loesung" className="absolute top-0" aria-hidden="true" />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,#0c1a1a_0%,#101217_55%,#0a0d11_100%)]"

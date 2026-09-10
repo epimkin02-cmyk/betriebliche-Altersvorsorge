@@ -81,8 +81,10 @@ export default function SectionHero() {
             </span>
           </h1>
 
+          {/* Nav-Anker „Das Problem": der Kicker benennt es. */}
           <p
-            className="h-display mt-5 max-w-[22ch] text-[clamp(1.4rem,2.9vw,2rem)] text-white/90 lg:max-w-[24ch]"
+            id="problem"
+            className="h-display mt-5 max-w-[22ch] scroll-mt-28 text-[clamp(1.4rem,2.9vw,2rem)] text-white/90 lg:max-w-[24ch]"
             aria-label={hero.headlineKicker}
           >
             <Words text={hero.headlineKicker} start={720} step={28} />
