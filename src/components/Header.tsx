@@ -29,12 +29,25 @@ export default function Header() {
   const darkRoute = darkHeroRoutes.includes(pathname);
   const onDark = darkRoute && !open;
 
+  /* Der Header-CTA erscheint erst, wenn der Hero durchgescrollt ist – im Hero
+     steht der grosse Button ohnehin, zwei davon gleichzeitig konkurrieren nur.
+     Auf Seiten ohne Hero (#start) ist er von Anfang an da. */
+  const [pastHero, setPastHero] = useState(false);
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 12);
+      const heroEl = document.getElementById("start");
+      setPastHero(heroEl ? window.scrollY >= heroEl.offsetHeight - 68 : true);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -75,7 +88,12 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <span className="hidden sm:inline-block">
+          <span
+            className={`hidden transition-all duration-500 ease-out sm:inline-block ${
+              pastHero ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-1 opacity-0"
+            }`}
+            aria-hidden={!pastHero}
+          >
             <CtaPill href={cta.href} size="sm">
               {cta.primaryShort}
             </CtaPill>
