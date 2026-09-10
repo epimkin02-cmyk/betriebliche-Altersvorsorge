@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
-import { ArrowIcon, Container } from "./ui";
+import { Container, CtaPill } from "./ui";
 import { cta } from "@/content/site";
 
 /* Drei Sections – die Startseite hat nur noch einen Anker, der sich zu
@@ -69,13 +69,11 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            href={cta.href}
-            className="hidden items-center gap-2 rounded-[10px] bg-petrol px-5 py-2.5 text-[0.9rem] font-semibold text-white shadow-[0_6px_18px_rgba(21,120,121,0.25)] transition-all hover:-translate-y-0.5 hover:bg-petrol-600 sm:inline-flex"
-          >
-            {cta.primaryShort}
-            <ArrowIcon />
-          </Link>
+          <span className="hidden sm:inline-block">
+            <CtaPill href={cta.href} size="sm">
+              {cta.primaryShort}
+            </CtaPill>
+          </span>
 
           <button
             type="button"
@@ -111,14 +109,11 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href={cta.href}
-              onClick={() => setOpen(false)}
-              className="mt-2 inline-flex items-center justify-center gap-2 rounded-[10px] bg-petrol px-5 py-3.5 font-semibold text-white"
-            >
-              {cta.primary}
-              <ArrowIcon />
-            </Link>
+            <div className="mt-2">
+              <CtaPill href={cta.href} onClick={() => setOpen(false)} block>
+                {cta.primary}
+              </CtaPill>
+            </div>
           </Container>
         </div>
       )}

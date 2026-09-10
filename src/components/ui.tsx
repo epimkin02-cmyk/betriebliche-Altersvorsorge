@@ -72,6 +72,73 @@ export function Button({ href, children, variant = "primary", size = "md", class
   );
 }
 
+/* ---------------------------------------------------------------- CtaPill   */
+
+type CtaPillProps = {
+  children: ReactNode;
+  /** Mit href wird ein Link gerendert, ohne href ein <button>. */
+  href?: string;
+  type?: "button" | "submit";
+  onClick?: () => void;
+  disabled?: boolean;
+  size?: "md" | "sm";
+  /** Volle Breite, z. B. im Opt-in-Formular. */
+  block?: boolean;
+  className?: string;
+};
+
+/**
+ * Der Haupt-Button der Seite: Pille mit rotierendem Lichtring, Petrol-
+ * Verlauf, weissem Pfeil-Puck und Sheen beim Hover. Styles liegen als
+ * .cta* in globals.css, damit Ring und Sheen mit Pseudo-Elementen und
+ * Keyframes arbeiten koennen, was Tailwind-Utilities nicht hergeben.
+ */
+export function CtaPill({
+  children,
+  href,
+  type = "button",
+  onClick,
+  disabled,
+  size = "md",
+  block,
+  className = "",
+}: CtaPillProps) {
+  const cls = ["cta", size === "sm" ? "cta--sm" : "", block ? "cta--block" : "", className]
+    .filter(Boolean)
+    .join(" ");
+  const inner = (
+    <>
+      <span className="cta__ring" aria-hidden="true" />
+      <span className="cta__body">
+        <span className="cta__label">{children}</span>
+        <span className="cta__icon" aria-hidden="true">
+          <svg viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path
+              d="M1 7h11M7.5 1.5 13 7l-5.5 5.5"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
+      </span>
+    </>
+  );
+  if (href) {
+    return (
+      <Link href={href} className={cls} onClick={onClick}>
+        {inner}
+      </Link>
+    );
+  }
+  return (
+    <button type={type} className={cls} onClick={onClick} disabled={disabled}>
+      {inner}
+    </button>
+  );
+}
+
 /* ---------------------------------------------------------------- Badge     */
 
 export function Badge({

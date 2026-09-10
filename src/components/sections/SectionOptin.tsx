@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useId, useState } from "react";
 import Reveal from "../Reveal";
-import { ArrowIcon, Container } from "../ui";
+import { Container, CtaPill } from "../ui";
 import { optin } from "@/content/site";
 
 /**
@@ -126,14 +126,9 @@ export default function SectionOptin() {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={sending}
-                  className="inline-flex w-full items-center justify-between gap-2 rounded-[10px] bg-[linear-gradient(90deg,#157879_0%,#1fa096_100%)] px-5 py-4 text-[0.98rem] font-semibold text-white shadow-[0_14px_36px_-10px_rgba(21,120,121,0.75)] transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
-                >
+                <CtaPill type="submit" disabled={sending} block>
                   {sending ? optin.submitting : optin.submit}
-                  {!sending && <ArrowIcon className="h-4 w-4 shrink-0" />}
-                </button>
+                </CtaPill>
 
                 <p aria-live="polite" className="min-h-[1.25rem]">
                   {error && <span className="text-[0.82rem] text-[#e08a66]">{error}</span>}

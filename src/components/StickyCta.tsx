@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowIcon } from "./ui";
+import { CtaPill } from "./ui";
 import { cta } from "@/content/site";
 
 /** Mobile Sticky-CTA – erscheint, sobald der Hero verlassen wurde. */
@@ -22,13 +21,9 @@ export default function StickyCta() {
         show ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <Link
-        href={cta.href}
-        className="flex w-full items-center justify-center gap-2 rounded-[10px] bg-[linear-gradient(90deg,#157879_0%,#1fa096_100%)] px-5 py-3.5 font-semibold text-white"
-      >
+      <CtaPill href={cta.href} size="sm" block>
         {cta.primary}
-        <ArrowIcon />
-      </Link>
+      </CtaPill>
       <p className="mt-1.5 text-center text-[0.72rem] text-white/45">{cta.reassuranceShort} · 2 Min.</p>
     </div>
   );
