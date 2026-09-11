@@ -135,7 +135,6 @@ export default function QuizFunnel({ onDone }: { onDone?: () => void }) {
           <span>
             Frage {step + 1} von {TOTAL}
           </span>
-          <span className="normal-case tracking-normal text-white/35">ca. {Math.max(1, TOTAL - step - 1) * 15} Sek. übrig</span>
         </div>
         <div className="h-1 overflow-hidden rounded-full bg-white/10">
           <div
