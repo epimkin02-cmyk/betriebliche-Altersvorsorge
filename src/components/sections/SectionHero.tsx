@@ -6,13 +6,6 @@ import CountUp from "../CountUp";
 import { CheckIcon, Container, CtaPill } from "../ui";
 import { cta, hero, outlets, proof } from "@/content/site";
 
-/* Icons zu den drei Kennzahlen (Reihenfolge wie in site.ts: Jahre,
-   Weiterempfehlung, IHK). Duenne Linien, 1.6 px, Petrol. */
-const proofIcons = [
-  <path key="clock" d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />,
-  <path key="star" d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1.1 5.9L12 16.9l-5.3 2.8 1.1-5.9-4.3-4.1 5.9-.8L12 3.5Z" />,
-  <path key="badge" d="M12 3 5 6v5c0 4.4 3 8.3 7 9.5 4-1.2 7-5.1 7-9.5V6l-7-3Zm-3 9 2 2 4-4" />,
-];
 
 /** Verzögerung als CSS-Variable, gelesen von .wd / .rv / .plate-rv in globals.css. */
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
@@ -134,41 +127,43 @@ export default function SectionHero() {
         </div>
       </Container>
 
-      {/* Proof-Leiste: drei Kennzahlen als Karten, Zahlen zaehlen beim
-          ersten Sichtkontakt hoch (CountUp), IHK bleibt statisch. Der
-          vierte Wert („< 60 Min.") steht weiterhin in site.ts. */}
-      <div className="relative z-10 border-t border-white/10 bg-ink/40 backdrop-blur-[2px]">
-        <Container className="grid gap-4 py-8 sm:grid-cols-3 sm:gap-5 sm:py-10">
-          {proof.slice(0, 3).map((p, i) => (
-            <div
-              key={p.label}
-              className="spot group relative overflow-hidden rounded-[18px] bg-[linear-gradient(160deg,rgba(255,255,255,0.075)_0%,rgba(255,255,255,0.025)_60%,rgba(21,120,121,0.14)_100%)] p-5 ring-1 ring-white/10 transition-colors duration-500 hover:ring-petrol-300/40 sm:p-6"
-            >
-              {/* Lichtkante oben in Petrol, laeuft nach rechts aus */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,rgba(134,185,186,0.7),rgba(134,185,186,0.12)_70%,transparent)]"
-              />
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-8 -top-10 h-32 w-32 rounded-full bg-petrol/25 blur-2xl transition-opacity duration-700 group-hover:opacity-100 sm:opacity-60"
-              />
-              <div className="relative flex items-start gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[12px] bg-petrol/20 text-petrol-300 ring-1 ring-petrol-300/30">
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    {proofIcons[i]}
-                  </svg>
-                </span>
-                <div className="min-w-0">
-                  <p className="h-display text-[1.85rem] leading-none text-white sm:text-[2.1rem]">
+      {/* Proof-Band: vier Kennzahlen in einer Leiste, grosse Ziffern, Suffix
+          in der Akzentschrift, Hairlines statt Kaesten. 21 und 77,8 zaehlen
+          beim ersten Sichtkontakt hoch (CountUp), IHK und < 60 stehen. */}
+      <div className="relative z-10 border-t border-white/10 bg-ink/50 backdrop-blur-[2px]">
+        <Container className="py-8 sm:py-10">
+          <dl className="spot relative grid overflow-hidden rounded-[22px] bg-[linear-gradient(180deg,rgba(255,255,255,0.055)_0%,rgba(255,255,255,0.015)_100%)] ring-1 ring-white/10 sm:grid-cols-2 lg:grid-cols-4">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(134,185,186,0.8)_30%,rgba(134,185,186,0.8)_70%,transparent)]"
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-24 left-[12%] h-56 w-[40%] rounded-full bg-petrol/25 blur-3xl"
+            />
+            {proof.map((p, i) => (
+              <div
+                key={p.label}
+                className={`relative flex flex-col px-7 py-7 sm:px-8 sm:py-9 lg:px-9 lg:py-10 ${
+                  i > 0 ? "border-t border-white/10 lg:border-l lg:border-t-0" : ""
+                } ${i % 2 === 1 ? "sm:border-l" : ""} ${i < 2 ? "sm:border-t-0" : ""}`}
+              >
+                <dd className="flex items-baseline gap-2">
+                  <span className="h-display text-[2.7rem] leading-none tracking-[-0.03em] text-white sm:text-[3.1rem]">
                     <CountUp value={p.value} />
-                    <span className="serif ml-0.5 text-[0.62em] italic text-petrol-300">{p.suffix}</span>
-                  </p>
-                  <p className="mt-2 text-[0.8rem] leading-snug text-white/50">{p.label}</p>
-                </div>
+                  </span>
+                  {p.suffix && (
+                    <span className="serif text-[1.35rem] italic text-petrol-300 sm:text-[1.55rem]">{p.suffix.trim()}</span>
+                  )}
+                </dd>
+                <dt className="mt-3 max-w-[20ch] text-[0.84rem] leading-snug text-white/55">{p.label}</dt>
+                <span
+                  aria-hidden="true"
+                  className="absolute left-0 top-9 h-9 w-[3px] rounded-r bg-[linear-gradient(180deg,#86B9BA,#157879)] lg:top-11"
+                />
               </div>
-            </div>
-          ))}
+            ))}
+          </dl>
         </Container>
       </div>
 

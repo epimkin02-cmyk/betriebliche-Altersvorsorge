@@ -580,6 +580,12 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+  /* Der Verlauf wird nur innerhalb der Elementbox gemalt. Bei line-height
+     1.06 ragen Unterlaengen (g, p) und die kursiven Ueberhaenge darueber
+     hinaus und wuerden abgeschnitten: Box per Padding vergroessern und den
+     Platz per negativem Margin zurueckgeben. */
+  padding: 0.08em 0.18em 0.26em 0.08em;
+  margin: -0.08em -0.18em -0.26em -0.08em;
   animation: shine-sweep 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   animation-delay: 2.4s;
 }
