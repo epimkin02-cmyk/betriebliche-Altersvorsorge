@@ -70,14 +70,14 @@ export default function QuizModal() {
       <div aria-hidden="true" onClick={close} className="absolute inset-0 bg-ink/85 backdrop-blur-sm" />
       <div
         ref={panel}
-        className={`relative max-h-[92vh] w-full max-w-[640px] overflow-y-auto rounded-t-[22px] bg-[#0f1216] p-6 shadow-[0_50px_120px_-30px_rgba(0,0,0,0.95)] ring-1 ring-white/12 transition-transform duration-300 ease-out sm:rounded-[22px] sm:p-9 ${
+        className={`relative max-h-[92vh] w-full max-w-[640px] overflow-x-hidden overflow-y-auto overscroll-contain rounded-t-[22px] bg-[#0f1216] p-6 shadow-[0_50px_120px_-30px_rgba(0,0,0,0.95)] ring-1 ring-white/12 transition-transform duration-300 ease-out sm:rounded-[22px] sm:p-9 ${
           shown ? "translate-y-0" : "translate-y-6"
         }`}
       >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-petrol/30 blur-3xl"
-        />
+        {/* Glow in einem geclippten Rahmen, sonst erzeugt er horizontalen Scroll-Ueberlauf */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+          <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-petrol/30 blur-3xl" />
+        </div>
         <button
           type="button"
           onClick={close}
