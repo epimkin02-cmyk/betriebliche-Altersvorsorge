@@ -13,8 +13,8 @@ import { cta } from "@/content/site";
    Hero und der Ratgeber als Loesung. */
 const nav = [
   { href: "/#problem", label: "Das Problem" },
-  { href: "/#loesung", label: "Die Lösung" },
   { href: "/#vertrauen", label: "Berater & Presse" },
+  { href: "/#loesung", label: "Die Lösung" },
 ];
 
 /** Seiten mit dunklem Hero – dort steht der Header zunächst auf Dunkel. */

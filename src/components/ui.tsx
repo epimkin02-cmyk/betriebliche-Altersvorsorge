@@ -22,26 +22,22 @@ export function Overline({
 }: {
   children: ReactNode;
   variant?: "light" | "dark";
-  /** Laufnummer wie in einem Magazin: „01 —— Fachpresse" */
+  /** Laufnummer in der Pille: „01 · Fachpresse" */
   index?: string;
 }) {
-  const color = variant === "dark" ? "text-petrol-300" : "text-petrol";
   return (
-    <p className={`eyebrow mb-4 flex items-center gap-3 ${color}`}>
-      {index ? (
-        <>
-          <span className="tabular-nums opacity-70">{index}</span>
-          <span className="inline-block h-px w-8 bg-current opacity-40" aria-hidden="true" />
-        </>
-      ) : (
-        <span
-          className={`inline-block h-[7px] w-[7px] rounded-full ${
-            variant === "dark" ? "bg-petrol-300" : "bg-petrol"
-          }`}
-          aria-hidden="true"
-        />
-      )}
-      {children}
+    <p className="mb-5">
+      <span className={`pill ${variant === "dark" ? "pill--dark" : "pill--light"}`}>
+        {index ? (
+          <>
+            <span className="pill__index">{index}</span>
+            <span className="pill__sep" aria-hidden="true" />
+          </>
+        ) : (
+          <span className="pill__sep" aria-hidden="true" />
+        )}
+        {children}
+      </span>
     </p>
   );
 }

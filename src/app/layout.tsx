@@ -6,7 +6,8 @@ import SpotlightRoot from "@/components/SpotlightRoot";
 import { brand } from "@/content/site";
 
 /* Schrift-System aus der Brand Guideline, Kapitel 05:
-   Roboto = Headlines & UI · Inter = Fließtext · Merriweather = Claim & Zitate
+   Roboto = Headlines & UI · Inter = Fließtext · Fraunces = Akzent, Claim & Zitate
+   (Fraunces als Variable Font mit optischer Größe, wie bei Umsatzpilot)
    Die Schriften werden über @fontsource selbst ausgeliefert – es entsteht
    KEINE Verbindung zu Google-Servern (DSGVO-relevant). */
 import "@fontsource/roboto/latin-400.css";
@@ -17,9 +18,8 @@ import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-500.css";
 import "@fontsource/inter/latin-600.css";
 import "@fontsource/inter/latin-700.css";
-import "@fontsource/merriweather/latin-400.css";
-import "@fontsource/merriweather/latin-400-italic.css";
-import "@fontsource/merriweather/latin-700.css";
+import "@fontsource-variable/fraunces/opsz.css";
+import "@fontsource-variable/fraunces/opsz-italic.css";
 
 const title = "Führungsvorsorge – GmbH-Vermögen sicher ins Privatvermögen";
 const description =

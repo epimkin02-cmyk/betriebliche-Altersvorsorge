@@ -35,7 +35,7 @@
   /* Typografie */
   --font-head: "Roboto", "Helvetica Neue", Arial, sans-serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-serif: "Merriweather", Georgia, serif;
+  --font-serif: "Fraunces Variable", "Fraunces", Georgia, serif;
 
   /* Radius & Schatten */
   --radius-brand: 12px;
@@ -101,6 +101,46 @@ body {
 
 .serif {
   font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 500;
+}
+
+/* ============================================================
+   PILLE · Section-Eyebrow („01 · Fachpresse") und Hero-Badge
+   ============================================================ */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem 0.45rem 0.8rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.pill--dark {
+  color: #86b9ba;
+  background: rgba(21, 120, 121, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(134, 185, 186, 0.28);
+}
+.pill--light {
+  color: #157879;
+  background: rgba(21, 120, 121, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(21, 120, 121, 0.22);
+}
+.pill__index {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+}
+.pill__sep {
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.6;
 }
 
 /* Scroll-Reveal (IntersectionObserver, siehe components/Reveal.tsx) */

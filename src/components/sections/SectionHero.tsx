@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import FreebieMockup from "../FreebieMockup";
 import HeroVideo from "../HeroVideo";
 import CountUp from "../CountUp";
-import { Badge, CheckIcon, Container, CtaPill } from "../ui";
+import { CheckIcon, Container, CtaPill } from "../ui";
 import { cta, hero, outlets, proof } from "@/content/site";
 
 /* Icons zu den drei Kennzahlen (Reihenfolge wie in site.ts: Jahre,
@@ -72,10 +72,10 @@ export default function SectionHero() {
       <Container className="relative z-10 grid items-center gap-16 pb-16 pt-6 sm:pb-20 sm:pt-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8 lg:pb-24 lg:pt-10">
         <div>
           <div className="rv" style={delay(200)}>
-            <Badge variant="dark">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-petrol-300" aria-hidden="true" />
+            <span className="pill pill--dark">
+              <span className="pill__sep" aria-hidden="true" />
               {hero.eyebrow}
-            </Badge>
+            </span>
           </div>
 
           <h1

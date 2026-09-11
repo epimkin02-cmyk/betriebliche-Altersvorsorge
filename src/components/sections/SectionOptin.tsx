@@ -101,7 +101,7 @@ export default function SectionOptin() {
                   <Image src="/ratgeber-cover.png" alt="Cover des Ratgebers" width={848} height={1200} sizes="132px" className="h-auto w-full" />
                 </div>
                 <div className="min-w-0">
-                  <p className="eyebrow flex items-center gap-3 text-petrol-300"><span className="tabular-nums opacity-70">04</span><span className="inline-block h-px w-8 bg-current opacity-40" aria-hidden="true" />{optin.eyebrow}</p>
+                  <p><span className="pill pill--dark"><span className="pill__index">04</span><span className="pill__sep" aria-hidden="true" />{optin.eyebrow}</span></p>
                   <h2 className="h-display mt-4 text-[clamp(1.6rem,3.2vw,2.2rem)] text-white">
                     {optin.headline[0]}
                     <span className="serif block italic text-petrol-300">{optin.headline[1]}</span>
