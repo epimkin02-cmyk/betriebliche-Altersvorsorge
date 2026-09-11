@@ -11,36 +11,37 @@ import { QUIZ_OPEN_EVENT } from "@/lib/quiz-bus";
  */
 export default function QuizModal() {
   const [open, setOpen] = useState(false);
+  /* shown steuert nur die Ein-/Ausblend-Klassen; open haelt das Element im DOM */
   const [shown, setShown] = useState(false);
   const panel = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<number>(0);
 
-  const close = useCallback(() => setShown(false), []);
-
-  useEffect(() => {
-    const onOpen = () => setOpen(true);
-    window.addEventListener(QUIZ_OPEN_EVENT, onOpen);
-    const params = new URLSearchParams(window.location.search);
-    const deepLink = window.location.hash === "#quiz" || params.get("quiz") === "1";
-    const t = deepLink ? window.setTimeout(onOpen, 400) : 0;
-    return () => {
-      window.removeEventListener(QUIZ_OPEN_EVENT, onOpen);
-      if (t) window.clearTimeout(t);
-    };
+  const close = useCallback(() => {
+    setShown(false);
+    window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setOpen(false), 260);
   }, []);
 
-  /* Ein Frame nach dem Mount einblenden, beim Schliessen erst ausblenden, dann unmounten */
-  useEffect(() => {
-    if (!open) return;
-    const t = requestAnimationFrame(() => setShown(true));
-    return () => cancelAnimationFrame(t);
-  }, [open]);
+  const show = useCallback(() => {
+    window.clearTimeout(closeTimer.current);
+    setOpen(true);
+    /* Ein Tick spaeter einblenden, damit die Transition greift. setTimeout statt
+       requestAnimationFrame: rAF pausiert in Hintergrund-Tabs, das Popup wuerde
+       dort nie sichtbar. */
+    window.setTimeout(() => setShown(true), 20);
+  }, []);
 
   useEffect(() => {
-    if (open && !shown) {
-      const t = window.setTimeout(() => setOpen(false), 260);
-      return () => window.clearTimeout(t);
-    }
-  }, [open, shown]);
+    window.addEventListener(QUIZ_OPEN_EVENT, show);
+    const params = new URLSearchParams(window.location.search);
+    const deepLink = window.location.hash === "#quiz" || params.get("quiz") === "1";
+    const t = deepLink ? window.setTimeout(show, 400) : 0;
+    return () => {
+      window.removeEventListener(QUIZ_OPEN_EVENT, show);
+      if (t) window.clearTimeout(t);
+      window.clearTimeout(closeTimer.current);
+    };
+  }, [show]);
 
   useEffect(() => {
     if (!open) return;
