@@ -87,7 +87,7 @@ export const optin = {
     { n: "02", title: "Die Methode", body: "Die Vermögensbrücke und die 3 Hebel, mit echten Zahlen und den Spielregeln." },
     { n: "03", title: "Dein Fahrplan", body: "Zwei Wege, echte Fälle, dein Fahrplan und der Sicher-Check zum Mitnehmen." },
   ],
-  title: "Wohin dürfen wir den Ratgeber schicken?",
+  title: "So kommst du an deinen Report",
   fields: {
     firstName: "Vorname",
     email: "E-Mail-Adresse",

@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
-import { Container, CtaPill } from "./ui";
+import QuizTrigger from "./QuizTrigger";
+import { Container } from "./ui";
 import { cta } from "@/content/site";
 
 /* Reihenfolge wie im Figma-Wireframe. „Das Problem" und „Die Lösung" sind
@@ -105,9 +106,7 @@ export default function Header() {
             }`}
             aria-hidden={!pastHero}
           >
-            <CtaPill href={cta.href} size="sm">
-              {cta.primaryShort}
-            </CtaPill>
+            <QuizTrigger size="sm">{cta.primaryShort}</QuizTrigger>
           </span>
 
           <button
@@ -145,9 +144,9 @@ export default function Header() {
               </Link>
             ))}
             <div className="mt-2">
-              <CtaPill href={cta.href} onClick={() => setOpen(false)} block>
+              <QuizTrigger onClick={() => setOpen(false)} block>
                 {cta.primary}
-              </CtaPill>
+              </QuizTrigger>
             </div>
           </Container>
         </div>

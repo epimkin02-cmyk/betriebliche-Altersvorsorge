@@ -17,7 +17,8 @@ export default function HeroVideo({ src, poster }: { src: string; poster: string
     const ok =
       window.matchMedia("(min-width: 768px)").matches &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setEnabled(ok);
+    const t = window.setTimeout(() => setEnabled(ok), 0);
+    return () => window.clearTimeout(t);
   }, []);
 
   useEffect(() => {

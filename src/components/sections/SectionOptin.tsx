@@ -1,76 +1,24 @@
-"use client";
-
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useId, useState } from "react";
+import QuizTrigger from "../QuizTrigger";
 import Reveal from "../Reveal";
-import { Container, CtaPill } from "../ui";
-import { optin } from "@/content/site";
+import { Container } from "../ui";
+import { cta, optin } from "@/content/site";
 
 /**
  * SECTION 3 · Opt-in
- * Zwei Felder, wie im Figma-Wireframe. Links das echte Cover und die drei
- * Kapitel des Ratgebers, rechts das Formular. Der Lead geht an /api/lead;
- * sobald dort LEAD_WEBHOOK_URL gesetzt ist, landet er im CRM.
- *
- * ⚠️ OFFEN: Der weitere Funnel ist bewusst noch nicht verdrahtet. Der
- * Quiz unter /check existiert unverändert weiter und kann später als zweiter
- * Schritt hinter die Danke-Seite gehängt werden.
+ * Links das echte Cover und die drei Kapitel des Ratgebers, rechts der
+ * Einstieg in den Quiz-Funnel (Popup, sechs Fragen, danach Report per Mail).
+ * Das fruehere Zwei-Felder-Formular ist durch das Quiz ersetzt; der Lead
+ * geht ueber /api/lead an Speicher und CRM-Webhooks.
  */
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-type Status = "idle" | "sending" | "error";
+const flow = [
+  { n: "1", title: "Sechs kurze Fragen", body: "Wo du stehst, was du schon nutzt und was dich bremst. Etwa zwei Minuten." },
+  { n: "2", title: "Report per E-Mail", body: "„Die 3 GGF-Hebel“ auf 18 Seiten, sofort nach dem Absenden." },
+  { n: "3", title: "Persönliche Einschätzung", body: "Marius Michael sieht deine Antworten und meldet sich mit einer ersten Einordnung." },
+];
 
 export default function SectionOptin() {
-  const router = useRouter();
-  const nameId = useId();
-  const mailId = useId();
-
-  const [firstName, setFirstName] = useState("");
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<Status>("idle");
-  const [error, setError] = useState<string | null>(null);
-
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (status === "sending") return;
-
-    if (firstName.trim().length < 2) {
-      setError(optin.errors.firstName);
-      return;
-    }
-    if (!EMAIL_RE.test(email.trim())) {
-      setError(optin.errors.email);
-      return;
-    }
-
-    setError(null);
-    setStatus("sending");
-
-    try {
-      const res = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: firstName.trim(),
-          email: email.trim(),
-          source: "freebie-optin",
-          consent: true,
-        }),
-      });
-      if (!res.ok) throw new Error(String(res.status));
-      router.push("/danke");
-    } catch {
-      setStatus("error");
-      setError(optin.errors.generic);
-    }
-  }
-
-  const sending = status === "sending";
-  const field =
-    "w-full rounded-[10px] bg-black/35 px-4 py-3.5 text-[0.98rem] text-white ring-1 ring-white/12 transition-colors placeholder:text-white/35 focus:outline-none focus:ring-2 focus:ring-petrol-300";
-
   return (
     <section
       id="ratgeber"
@@ -123,65 +71,28 @@ export default function SectionOptin() {
               </ol>
             </div>
 
-            {/* Rechts: Formular */}
+            {/* Rechts: Einstieg ins Quiz */}
             <div className="border-t border-white/10 bg-black/25 p-8 sm:p-10 lg:border-l lg:border-t-0 lg:p-12">
               <h3 className="h-title text-[1.15rem] text-white">{optin.title}</h3>
 
-              <form onSubmit={onSubmit} noValidate className="mt-6 space-y-3">
-                <div>
-                  <label htmlFor={nameId} className="sr-only">
-                    {optin.fields.firstName}
-                  </label>
-                  <input
-                    id={nameId}
-                    name="firstName"
-                    type="text"
-                    autoComplete="given-name"
-                    placeholder={optin.fields.firstName}
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    disabled={sending}
-                    className={field}
-                  />
-                </div>
+              <ol className="mt-6 space-y-4">
+                {flow.map((f) => (
+                  <li key={f.n} className="flex gap-4">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-petrol/20 text-[0.8rem] font-bold text-petrol-300 ring-1 ring-petrol-300/30">
+                      {f.n}
+                    </span>
+                    <span>
+                      <span className="block text-[0.95rem] font-semibold text-white">{f.title}</span>
+                      <span className="mt-0.5 block text-[0.84rem] leading-relaxed text-white/50">{f.body}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
 
-                <div>
-                  <label htmlFor={mailId} className="sr-only">
-                    {optin.fields.email}
-                  </label>
-                  <input
-                    id={mailId}
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    placeholder={optin.fields.email}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={sending}
-                    className={field}
-                  />
-                </div>
-
-                <div className="pt-1">
-                  <CtaPill type="submit" disabled={sending} block>
-                    {sending ? optin.submitting : optin.submit}
-                  </CtaPill>
-                </div>
-
-                <p aria-live="polite" className="min-h-[1.25rem]">
-                  {error && <span className="text-[0.82rem] text-[#e08a66]">{error}</span>}
-                </p>
-
-                <ul className="space-y-1.5 text-[0.8rem] text-white/50">
-                  {["18 Seiten als PDF, sofort per E-Mail", "Kostenfrei, kein Abo", "Kein Anruf ohne deine Zustimmung"].map((t) => (
-                    <li key={t} className="flex items-center gap-2">
-                      <span className="inline-block h-1 w-1 rounded-full bg-petrol-300" aria-hidden="true" />
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-              </form>
-
+              <div className="mt-8">
+                <QuizTrigger block>{cta.primary}</QuizTrigger>
+              </div>
+              <p className="mt-3 text-center text-[0.78rem] text-white/45">{optin.microcopy}</p>
               <p className="mt-6 text-[0.72rem] leading-relaxed text-white/35">{optin.consent}</p>
             </div>
           </div>

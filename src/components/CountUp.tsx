@@ -17,8 +17,8 @@ export default function CountUp({ value, duration = 1400 }: { value: string; dur
   useEffect(() => {
     if (!numeric || !ref.current) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setShown(target);
-      return;
+      const t = window.setTimeout(() => setShown(target), 0);
+      return () => window.clearTimeout(t);
     }
     const el = ref.current;
     const io = new IntersectionObserver(

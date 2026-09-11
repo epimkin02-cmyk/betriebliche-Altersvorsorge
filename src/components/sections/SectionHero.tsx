@@ -3,7 +3,8 @@ import type { CSSProperties } from "react";
 import FreebieMockup from "../FreebieMockup";
 import HeroVideo from "../HeroVideo";
 import CountUp from "../CountUp";
-import { CheckIcon, Container, CtaPill } from "../ui";
+import QuizTrigger from "../QuizTrigger";
+import { CheckIcon, Container } from "../ui";
 import { cta, hero, outlets, proof } from "@/content/site";
 
 
@@ -111,9 +112,9 @@ export default function SectionHero() {
             ))}
           </ul>
 
-          {/* Ein einziger CTA, wie im Wireframe – er scrollt zum Opt-in-Formular. */}
+          {/* Ein einziger CTA, wie im Wireframe – er oeffnet das Quiz-Popup. */}
           <div className="rv mt-9" style={delay(1400)}>
-            <CtaPill href={cta.href}>{cta.primary}</CtaPill>
+            <QuizTrigger>{cta.primary}</QuizTrigger>
           </div>
 
           <p className="rv mt-4 text-[0.85rem] text-white/45" style={delay(1500)}>

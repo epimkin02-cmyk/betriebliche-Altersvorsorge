@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CtaPill } from "./ui";
+import QuizTrigger from "./QuizTrigger";
 import { cta } from "@/content/site";
 
 /** Mobile Sticky-CTA – erscheint, sobald der Hero verlassen wurde. */
@@ -21,9 +21,9 @@ export default function StickyCta() {
         show ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <CtaPill href={cta.href} size="sm" block>
+      <QuizTrigger size="sm" block>
         {cta.primary}
-      </CtaPill>
+      </QuizTrigger>
       <p className="mt-1.5 text-center text-[0.72rem] text-white/45">{cta.reassuranceShort} · 2 Min.</p>
     </div>
   );
