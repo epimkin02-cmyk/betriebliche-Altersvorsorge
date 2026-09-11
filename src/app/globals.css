@@ -426,7 +426,7 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
 @keyframes hero-word {
   0%   { opacity: 0; filter: blur(8px); transform: translateY(0.35em); }
   28%  { opacity: 1; }
-  100% { opacity: 1; filter: blur(0); transform: translateY(0); }
+  100% { opacity: 1; filter: none; transform: none; }
 }
 .rv {
   opacity: 0;
@@ -553,4 +553,49 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
   .marquee__track { animation: none; flex-wrap: wrap; width: auto; }
   .marquee { -webkit-mask-image: none; mask-image: none; }
   .marquee__track > [aria-hidden="true"] { display: none; }
+}
+
+/* ============================================================
+   GLANZ · Lichtstreifen in der Akzentschrift (.shine)
+   ------------------------------------------------------------
+   Nur fuer echte Akzente (Hero-Zeile, Opt-in-Headline), nicht fuer
+   Zitate. Achtung: der Verlauf wird auf den Text geclippt, deshalb
+   duerfen darin keine Kinder mit eigenem Stacking-Context liegen
+   (kein .wd-Wortreveal), die Hero-Zeile steigt als Ganzes auf (.rv). Grundfarbe bleibt Petrol-300, alle 9 s zieht ein schmaler,
+   fast weisser Streifen einmal durch, den Rest der Zeit steht die
+   Zeile still. Reduced-motion: statisch.
+   ============================================================ */
+.shine {
+  background-image: linear-gradient(
+    105deg,
+    #86b9ba 0%,
+    #86b9ba 42%,
+    #f2fbfb 50%,
+    #86b9ba 58%,
+    #86b9ba 100%
+  );
+  background-size: 260% 100%;
+  background-position: 130% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 2.4s;
+}
+@keyframes shine-sweep {
+  0%   { background-position: 130% 0; }
+  30%  { background-position: -130% 0; }
+  100% { background-position: -130% 0; }
+}
+/* Kombination mit dem Aufstieg der Hero-Zeile: beide Animationen in einer
+   Regel, sonst ueberschreibt .shine die .rv-Animation. */
+.shine.rv {
+  animation:
+    hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both,
+    shine-sweep 9s cubic-bezier(0.4, 0, 0.2, 1) 2.4s infinite;
+  animation-delay: var(--d, 0s), 2.6s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .shine, .shine.rv { animation: none; background-position: 130% 0; opacity: 1; transform: none; }
 }

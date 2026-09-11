@@ -104,7 +104,7 @@ export default function SectionOptin() {
                   <p><span className="pill pill--dark"><span className="pill__index">04</span><span className="pill__sep" aria-hidden="true" />{optin.eyebrow}</span></p>
                   <h2 className="h-display mt-4 text-[clamp(1.6rem,3.2vw,2.2rem)] text-white">
                     {optin.headline[0]}
-                    <span className="serif block italic text-petrol-300">{optin.headline[1]}</span>
+                    <span className="serif shine block italic text-petrol-300">{optin.headline[1]}</span>
                   </h2>
                   <p className="mt-4 max-w-[44ch] text-[0.96rem] leading-relaxed text-white/60">{optin.lead}</p>
                 </div>

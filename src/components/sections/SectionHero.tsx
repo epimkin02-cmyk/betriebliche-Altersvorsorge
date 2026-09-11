@@ -85,8 +85,10 @@ export default function SectionHero() {
             <span className="block text-white">
               <Words text={hero.headline[0]} start={300} />
             </span>
-            <span className="serif block italic text-petrol-300">
-              <Words text={hero.headline[1]} start={580} />
+            {/* Akzentzeile mit Glanz: als Ganzes aufsteigend, nicht Wort fuer Wort,
+                weil der Verlauf auf den Text geclippt wird (siehe .shine). */}
+            <span className="serif shine rv block italic text-petrol-300" style={delay(640)}>
+              {hero.headline[1]}
             </span>
           </h1>
 
