@@ -1,8 +1,8 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import CountUp from "../CountUp";
+import BeamsBackground from "../BeamsBackground";
 import HeroVideo from "../HeroVideo";
-import Parallax from "../Parallax";
 import QuizTrigger from "../QuizTrigger";
 import { CheckIcon, Container, Label } from "../ui";
 import { cta, hero, outlets, proof } from "@/content/site";
@@ -11,41 +11,21 @@ const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
 /**
  * SECTION 1 · Hero
- * Zentrierte Copy, links und rechts davon schweben drei Chrom-Muenzen in
- * den freien Raendern und reagieren leicht auf den Zeiger. Darunter das
- * Buch in einem grossen Medienfeld, die Frankfurter Skyline sehr dunkel
- * dahinter. Dann Kennzahlen und
+ * Zentrierte Copy ueber weichen Lichtstreifen (BeamsBackground, Muster von
+ * 21st.dev), darunter das Buch in einem grossen Medienfeld, die Frankfurter
+ * Skyline sehr dunkel dahinter. Dann Kennzahlen und
  * Logos. Abstaende im 8er-Raster.
  */
 export default function SectionHero() {
   return (
     <section id="start" className="relative bg-ink pt-[68px] text-white">
-      <Parallax className="relative">
-      {/* Muenzen links und rechts der Copy, nur auf breiten Viewports */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden lg:block">
-        <div className="coin left-[2%] top-[44%] w-[11vw] xl:left-[4%] xl:top-[38%] xl:w-[clamp(120px,14vw,260px)]" style={{ "--depth": 10, "--dur": "11s" } as CSSProperties}>
-          <Image src="/3d/coin-b.webp" alt="" width={1400} height={1389} priority sizes="260px" className="h-auto w-full" />
-        </div>
-        <div className="coin right-[2%] top-[42%] w-[13vw] xl:right-[4%] xl:top-[26%] xl:w-[clamp(150px,17vw,300px)]" style={{ "--depth": 16, "--dur": "9s", "--off": "-3s" } as CSSProperties}>
-          <Image src="/3d/coin-a.webp" alt="" width={1398} height={1400} priority sizes="300px" className="h-auto w-full" />
-        </div>
-        <div className="coin left-[10%] top-[76%] w-[8vw] xl:left-[13%] xl:w-[clamp(80px,9vw,150px)]" style={{ "--depth": 22, "--dur": "8s", "--off": "-5s" } as CSSProperties}>
-          <Image src="/3d/coin-c.webp" alt="" width={1130} height={1400} sizes="150px" className="h-auto w-full" />
-        </div>
+      {/* Lichtstreifen hinter der Copy, nach unten ins Schwarz auslaufend */}
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[82vh] max-h-[900px] overflow-hidden">
+        <BeamsBackground className="blur-[12px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.35)_0%,rgba(5,5,5,0)_30%,rgba(5,5,5,0)_55%,#050505_100%)]" />
       </div>
-      {/* Handy und Tablet: zwei Muenzen ueber der Copy, eine kleine darunter, an den Raendern angeschnitten */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden lg:hidden">
-        <div className="coin left-[-6%] top-[24px] w-[26%] sm:left-[4%] sm:w-[16%]" style={{ "--depth": 6, "--dur": "11s" } as CSSProperties}>
-          <Image src="/3d/coin-b.webp" alt="" width={1400} height={1389} priority sizes="120px" className="h-auto w-full" />
-        </div>
-        <div className="coin right-[-8%] top-[8px] w-[34%] sm:right-[4%] sm:w-[20%]" style={{ "--depth": 8, "--dur": "9s", "--off": "-3s" } as CSSProperties}>
-          <Image src="/3d/coin-a.webp" alt="" width={1398} height={1400} priority sizes="160px" className="h-auto w-full" />
-        </div>
-        <div className="coin bottom-[-2%] right-[2%] w-[20%] sm:right-[6%] sm:w-[12%]" style={{ "--depth": 10, "--dur": "8s", "--off": "-5s" } as CSSProperties}>
-          <Image src="/3d/coin-c.webp" alt="" width={1130} height={1400} sizes="100px" className="h-auto w-full" />
-        </div>
-      </div>
-      <Container className="relative pt-32 sm:pt-36 lg:pt-24">
+      <div className="relative">
+      <Container className="relative pt-16 sm:pt-24">
         <div className="mx-auto flex max-w-[860px] flex-col items-center text-center">
           <p className="rv" style={delay(0)}>
             <Label>{hero.eyebrow}</Label>
@@ -74,8 +54,7 @@ export default function SectionHero() {
           </ul>
         </div>
       </Container>
-      <div className="h-16 lg:hidden" aria-hidden="true" />
-      </Parallax>
+      </div>
 
       <Container>
         {/* Medienfeld: Buch vor der Skyline */}
