@@ -20,7 +20,7 @@ function OutletMark({ name }: { name: string }) {
 function Clipping({ item }: { item: PressItem }) {
   const landscape = item.width > item.height;
   const card = (
-    <figure className="card flex h-full flex-col overflow-hidden transition-colors duration-300 group-hover:border-hair-2">
+    <figure className="card card--hover flex h-full flex-col overflow-hidden">
       <div className="relative aspect-[4/5] overflow-hidden bg-ink-3 p-4 sm:p-5">
         <div className={`relative h-full w-full overflow-hidden rounded-[8px] ${landscape ? "" : "bg-white"}`}>
           <Image
@@ -28,11 +28,11 @@ function Clipping({ item }: { item: PressItem }) {
             alt={`Beitrag in ${item.outlet}: ${item.headline}`}
             fill
             sizes="(min-width: 1024px) 280px, (min-width: 640px) 45vw, 90vw"
-            className={landscape ? "object-contain object-center" : "object-cover object-top"}
+            className={`card__img ${landscape ? "object-contain object-center" : "object-cover object-top"}`}
           />
         </div>
       </div>
-      <figcaption className="flex flex-1 flex-col gap-3 p-5">
+      <figcaption className="flex flex-1 flex-col gap-4 p-6">
         <OutletMark name={item.outlet} />
         <span className="text-[0.92rem] font-medium leading-snug text-white/85">{item.headline}</span>
       </figcaption>
@@ -50,12 +50,12 @@ function Clipping({ item }: { item: PressItem }) {
 export default function PressWall() {
   return (
     <div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {press.map((item) => (
           <Clipping key={item.outlet} item={item} />
         ))}
       </div>
-      <p className="mt-6 text-[0.78rem] leading-relaxed text-faint">
+      <p className="mt-8 text-[0.78rem] leading-relaxed text-faint">
         {pressMeta.summary}. {pressMeta.note}
       </p>
     </div>

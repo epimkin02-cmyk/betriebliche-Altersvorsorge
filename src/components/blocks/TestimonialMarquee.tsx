@@ -22,7 +22,7 @@ type T = (typeof testimonials)[number];
 
 function Card({ t }: { t: T }) {
   return (
-    <figure className="card flex h-[270px] w-[340px] shrink-0 flex-col p-6 sm:w-[400px]">
+    <figure className="card card--hover flex h-[272px] w-[336px] shrink-0 flex-col p-6 sm:w-[400px]">
       <Stars />
       <blockquote className="mt-4 line-clamp-5 text-[0.95rem] leading-relaxed text-white/80">{t.quote}</blockquote>
       <figcaption className="mt-auto flex items-center gap-3 pt-4">

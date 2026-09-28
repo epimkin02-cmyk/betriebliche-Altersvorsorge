@@ -24,14 +24,14 @@ export default function SectionOptin() {
         <Reveal>
           <div className="mx-auto max-w-[720px] text-center">
             <Label>{optin.eyebrow}</Label>
-            <h2 className="h-display mt-5 text-[clamp(1.9rem,4vw,3rem)]">
+            <h2 className="h-display mt-6 text-[clamp(1.9rem,4vw,3rem)]">
               {optin.headline[0]}
               <span className="block text-mint">{optin.headline[1]}</span>
             </h2>
             <p className="mt-4 text-[1rem] leading-relaxed text-muted">{optin.lead}</p>
           </div>
 
-          <div className="card mt-14 grid overflow-hidden rounded-[20px] lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="card card--hover mt-16 grid overflow-hidden rounded-[20px] lg:grid-cols-[1.05fr_0.95fr]">
             {/* Cover + Kapitel */}
             <div className="flex flex-col gap-8 p-6 sm:p-10 lg:border-r lg:border-hair">
               <div className="flex items-start gap-6">
@@ -46,7 +46,7 @@ export default function SectionOptin() {
                         <span className="mono w-6 shrink-0 text-[0.82rem] text-mint">{c.n}</span>
                         <span>
                           <span className="block text-[0.95rem] font-semibold text-white">{c.title}</span>
-                          <span className="mt-0.5 block text-[0.86rem] leading-relaxed text-muted">{c.body}</span>
+                          <span className="mt-1 block text-[0.86rem] leading-relaxed text-muted">{c.body}</span>
                         </span>
                       </li>
                     ))}
@@ -64,7 +64,7 @@ export default function SectionOptin() {
                     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-hair-2 text-[0.78rem] font-semibold text-white">{f.n}</span>
                     <span>
                       <span className="block text-[0.95rem] font-semibold text-white">{f.title}</span>
-                      <span className="mt-0.5 block text-[0.86rem] leading-relaxed text-muted">{f.body}</span>
+                      <span className="mt-1 block text-[0.86rem] leading-relaxed text-muted">{f.body}</span>
                     </span>
                   </li>
                 ))}
@@ -72,8 +72,8 @@ export default function SectionOptin() {
               <div className="mt-8">
                 <QuizTrigger block>{cta.primary}</QuizTrigger>
               </div>
-              <p className="mt-3 text-center text-[0.8rem] text-faint">{optin.microcopy}</p>
-              <p className="mt-6 text-[0.74rem] leading-relaxed text-faint">{optin.consent}</p>
+              <p className="mt-4 text-center text-[0.8rem] text-faint">{optin.microcopy}</p>
+              <p className="mt-8 text-[0.74rem] leading-relaxed text-faint">{optin.consent}</p>
             </div>
           </div>
         </Reveal>

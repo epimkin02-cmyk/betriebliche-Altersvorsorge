@@ -58,7 +58,7 @@ export default function Header() {
               key={item.href}
               href={item.href}
               className={`rounded-full px-3.5 py-2 text-[0.88rem] font-medium transition-colors ${
-                dark ? "text-white/65 hover:text-white" : "text-ink/70 hover:text-ink"
+                dark ? "text-white/65 hover:bg-white/[0.06] hover:text-white" : "text-ink/70 hover:bg-soft hover:text-ink"
               }`}
             >
               {item.label}
