@@ -33,10 +33,10 @@ export const brand = {
   url: "https://fuehrungsvorsorge.de",
 } as const;
 
-/** Proof-Punkte – nur öffentlich belegbare Werte. Bewertungen: Allianz-Vertretungsseite, Stand 28.09.2026. */
+/** Proof-Punkte. Weiterempfehlungsquote 87 % laut Marius Michael (28.09.2026), Bewertungen von der Allianz-Vertretungsseite. */
 export const proof = [
   { value: "21", suffix: " Jahre", label: "Erfahrung im Finanz- & Versicherungsmarkt" },
-  { value: "5,0", suffix: " Sterne", label: "234 Bewertungen auf Google und eKomi" },
+  { value: "87", suffix: " %", label: "Weiterempfehlungsquote" },
   { value: "IHK", suffix: "", label: "zertifizierte Beratung" },
   { value: "< 60", suffix: " Min.", label: "von der Analyse bis zur Umsetzung" },
 ] as const;
@@ -337,7 +337,7 @@ export const difference = {
 
 export const about = {
   eyebrow: "Wer hier berät",
-  headline: "Kein Verkäufer. Ein Berater auf Augenhöhe.",
+  headline: "Ein Berater auf Augenhöhe.",
   paragraphs: [
     "Ich bin Marius Michael, Gründer von Führungsvorsorge und seit 21 Jahren im Finanz- und Versicherungsmarkt. Ich führe eine Allianz Hauptvertretung in Frankfurt am Main – und sage das so offen, weil ich von versteckten Abhängigkeiten nichts halte.",
     "Bei Gesellschafter-Geschäftsführern ist der Effekt am extremsten: sechsstelliges Kapital in der GmbH, aber kein Plan, wie es sicher privat wird. Genau da setze ich an – gemeinsam mit deiner Steuerberatung, nicht an ihr vorbei.",
