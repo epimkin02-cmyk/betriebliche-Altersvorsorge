@@ -22,7 +22,7 @@ export default function SectionHero() {
       {/* Lichtstreifen hinter der Copy, nach unten ins Schwarz auslaufend */}
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[82vh] max-h-[900px] overflow-hidden">
         <BeamsBackground className="blur-[12px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.35)_0%,rgba(5,5,5,0)_30%,rgba(5,5,5,0)_55%,#050505_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.25)_0%,rgba(5,5,5,0)_28%,rgba(5,5,5,0)_58%,#050505_100%)]" />
       </div>
       <div className="relative">
       <Container className="relative pt-16 sm:pt-24">

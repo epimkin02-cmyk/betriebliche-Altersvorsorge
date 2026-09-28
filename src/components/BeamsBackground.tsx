@@ -33,11 +33,11 @@ function makeBeam(w: number, h: number, i: number): Beam {
   return {
     x: column * spacing + spacing / 2 + (Math.random() - 0.5) * spacing * 0.6,
     y: Math.random() * h * 1.6 - h * 0.3,
-    width: 80 + Math.random() * 110,
+    width: 100 + Math.random() * 120,
     length: h * 2.2,
     angle: -34 + Math.random() * 8,
     speed: 0.25 + Math.random() * 0.3,
-    opacity: 0.1 + Math.random() * 0.1,
+    opacity: 0.18 + Math.random() * 0.14,
     hue: HUE_MIN + Math.random() * (HUE_MAX - HUE_MIN),
     pulse: Math.random() * Math.PI * 2,
     pulseSpeed: 0.008 + Math.random() * 0.012,
@@ -79,7 +79,7 @@ export default function BeamsBackground({ className = "" }: { className?: string
       ctx.rotate((b.angle * Math.PI) / 180);
       const o = b.opacity * (0.8 + Math.sin(b.pulse) * 0.2);
       const g = ctx.createLinearGradient(0, 0, 0, b.length);
-      const c = (a: number) => `hsla(${b.hue}, 55%, 58%, ${a})`;
+      const c = (a: number) => `hsla(${b.hue}, 62%, 60%, ${a})`;
       g.addColorStop(0, c(0));
       g.addColorStop(0.15, c(o * 0.5));
       g.addColorStop(0.45, c(o));
