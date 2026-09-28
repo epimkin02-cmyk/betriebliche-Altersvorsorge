@@ -3,85 +3,38 @@ import type { ReactNode } from "react";
 
 /* ---------------------------------------------------------------- Container */
 
-/**
- * Seitenbreite. Mit `frame` wird der Inhalt zu einem gerahmten Panel
- * (runde Ecken, Hairline), wie die Bühne im Hero.
- */
 export function Container({
   children,
   className = "",
-  frame = false,
+  size = "lg",
 }: {
   children: ReactNode;
   className?: string;
+  /** lg = 1200, md = 1040, sm = 760 */
+  size?: "lg" | "md" | "sm";
   frame?: boolean;
 }) {
-  if (frame) {
-    return (
-      <div className={`mx-auto w-full max-w-[1280px] px-4 sm:px-8 ${className}`}>
-        <div className="relative overflow-hidden rounded-[12px] border border-white/12 bg-[rgba(255,255,255,0.015)]">{children}</div>
-      </div>
-    );
-  }
-  return <div className={`mx-auto w-full max-w-[1280px] px-5 sm:px-8 ${className}`}>{children}</div>;
+  const w = { lg: "max-w-[1200px]", md: "max-w-[1040px]", sm: "max-w-[760px]" }[size];
+  return <div className={`mx-auto w-full ${w} px-5 sm:px-8 ${className}`}>{children}</div>;
 }
 
-/* ---------------------------------------------------------------- Tag       */
+/* ---------------------------------------------------------------- Label     */
 
-/** Klammer-Label „[ 01 · Fachpresse ]“ */
-export function Tag({
-  children,
-  n,
-  mint = false,
-  className = "",
-}: {
-  children: ReactNode;
-  n?: string;
-  mint?: boolean;
-  className?: string;
-}) {
-  return (
-    <span className={`tag ${mint ? "tag--mint" : ""} ${className}`}>
-      {n && (
-        <>
-          <span className="tag__n">{n}</span>
-          <span aria-hidden="true">·</span>
-        </>
-      )}
-      {children}
-    </span>
-  );
+/** Kleines Label mit Punkt: „Fachpresse“ */
+export function Label({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <span className={`label ${className}`}>{children}</span>;
 }
 
-/** Kompatibel zum frueheren Overline-Aufruf: Tag mit Abstand nach unten */
-export function Overline({
-  children,
-  index,
-}: {
-  children: ReactNode;
-  variant?: "light" | "dark";
-  index?: string;
-}) {
+export function Tag({ children, className = "" }: { children: ReactNode; n?: string; mint?: boolean; className?: string }) {
+  return <span className={`label ${className}`}>{children}</span>;
+}
+
+export function Overline({ children }: { children: ReactNode; variant?: "light" | "dark"; index?: string }) {
   return (
-    <p className="mb-5">
-      <Tag n={index} mint>
-        {children}
-      </Tag>
+    <p className="mb-4">
+      <Label>{children}</Label>
     </p>
   );
-}
-
-/* ---------------------------------------------------------------- Cross     */
-
-/** Kreuzmarke an einer Zellen-Ecke: <Cross at="tl" /> */
-export function Cross({ at }: { at: "tl" | "tr" | "bl" | "br" }) {
-  const pos = {
-    tl: "-left-[6px] -top-[6px]",
-    tr: "-right-[6px] -top-[6px]",
-    bl: "-left-[6px] -bottom-[6px]",
-    br: "-right-[6px] -bottom-[6px]",
-  }[at];
-  return <span aria-hidden="true" className={`cross ${pos}`} />;
 }
 
 /* ---------------------------------------------------------------- Buttons   */
@@ -94,24 +47,20 @@ type ButtonProps = {
   size?: "md" | "lg";
 };
 
-const base =
-  "inline-flex items-center justify-center gap-2 rounded-[4px] font-semibold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint";
-
-const sizes = {
-  md: "px-5 py-3 text-[0.95rem]",
-  lg: "px-7 py-4 text-base sm:text-[1.05rem]",
-};
-
-const variants = {
-  primary: "bg-mint text-ink hover:brightness-110",
-  secondary: "border border-hair-2 bg-ink-2 text-white hover:border-mint/60",
-  ghost: "text-white/70 hover:text-white",
-  onDark: "bg-white text-ink hover:bg-mint-2",
-};
-
-export function Button({ href, children, variant = "primary", size = "md", className = "" }: ButtonProps) {
+export function Button({ href, children, variant = "primary", className = "" }: ButtonProps) {
+  const cls =
+    variant === "primary" || variant === "onDark"
+      ? "cta"
+      : "btn-ghost";
+  if (cls === "cta") {
+    return (
+      <Link href={href} className={`cta ${className}`}>
+        <span className="cta__body">{children}</span>
+      </Link>
+    );
+  }
   return (
-    <Link href={href} className={`${base} ${sizes[size]} ${variants[variant]} ${className}`}>
+    <Link href={href} className={`${cls} ${className}`}>
       {children}
     </Link>
   );
@@ -121,7 +70,6 @@ export function Button({ href, children, variant = "primary", size = "md", class
 
 type CtaPillProps = {
   children: ReactNode;
-  /** Mit href wird ein Link gerendert, ohne href ein <button>. */
   href?: string;
   type?: "button" | "submit";
   onClick?: () => void;
@@ -129,14 +77,10 @@ type CtaPillProps = {
   size?: "md" | "sm";
   block?: boolean;
   className?: string;
-  /** solid = Mint-Feld (.cta), outline = Nexo-Pille mit weissem Pfeilkreis (.pillcta) */
   variant?: "solid" | "outline";
 };
 
-/**
- * Der Haupt-Button der Seite: eckiges Mint-Feld mit Pfeilkasten rechts.
- * Styles als .cta* in globals.css (Sheen und Hover ueber Pseudo-Elemente).
- */
+/** Haupt-CTA: weisse Pille mit Pfeil. Styles als .cta* in globals.css. */
 export function CtaPill({
   children,
   href,
@@ -149,38 +93,23 @@ export function CtaPill({
   variant = "solid",
 }: CtaPillProps) {
   if (variant === "outline") {
-    const pc = `pillcta ${block ? "w-full justify-between" : ""} ${className}`;
-    const pin = (
-      <>
-        <span>{children}</span>
-        <span className="pillcta__arrow" aria-hidden="true">
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M2 8h12M8.5 2.5 14 8l-5.5 5.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
-      </>
-    );
+    const pc = `btn-ghost ${block ? "w-full justify-center" : ""} ${className}`;
     return href ? (
-      <Link href={href} className={pc} onClick={onClick}>{pin}</Link>
+      <Link href={href} className={pc} onClick={onClick}>{children}</Link>
     ) : (
-      <button type={type} className={pc} onClick={onClick} disabled={disabled}>{pin}</button>
+      <button type={type} className={pc} onClick={onClick} disabled={disabled}>{children}</button>
     );
   }
-  const cls = ["cta", size === "sm" ? "cta--sm" : "", block ? "cta--block" : "", className]
-    .filter(Boolean)
-    .join(" ");
+  const cls = ["cta", size === "sm" ? "cta--sm" : "", block ? "cta--block" : "", className].filter(Boolean).join(" ");
   const inner = (
-    <>
-      <span className="cta__ring" aria-hidden="true" />
-      <span className="cta__body">
-        <span className="cta__label">{children}</span>
-        <span className="cta__icon" aria-hidden="true">
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M2 8h12M8.5 2.5 14 8l-5.5 5.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
+    <span className="cta__body">
+      <span className="cta__label">{children}</span>
+      <span className="cta__icon" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </span>
-    </>
+    </span>
   );
   if (href) {
     return (
@@ -199,7 +128,7 @@ export function CtaPill({
 /* ---------------------------------------------------------------- Badge     */
 
 export function Badge({ children }: { children: ReactNode; variant?: "light" | "dark" }) {
-  return <span className="tag">{children}</span>;
+  return <span className="pill">{children}</span>;
 }
 
 /* ---------------------------------------------------------------- Section   */
@@ -218,7 +147,7 @@ export function Section({
   as?: "section" | "div";
   pad?: "lg" | "md" | "none";
 }) {
-  const pads = { lg: "py-20 sm:py-28", md: "py-14 sm:py-20", none: "" };
+  const pads = { lg: "py-24 sm:py-32", md: "py-16 sm:py-24", none: "" };
   return (
     <Tag id={id} className={`scroll-mt-20 ${pads[pad]} ${className}`}>
       {children}
@@ -231,7 +160,8 @@ export function Section({
 export function CheckIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg viewBox="0 0 20 20" fill="none" className={className} aria-hidden="true">
-      <path d="M4 10.4l3.6 3.6L16 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="1.2" opacity="0.5" />
+      <path d="M6.2 10.3l2.5 2.5L14 7.8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

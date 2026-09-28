@@ -8,9 +8,6 @@ import QuizTrigger from "./QuizTrigger";
 import { Container } from "./ui";
 import { cta } from "@/content/site";
 
-/* Reihenfolge wie im Figma-Wireframe. Die Anker zeigen auf die Stellen, wo
-   das Thema steht: Problem-Aussage im Hero, Berater & Presse, der Ratgeber
-   als Loesung. */
 const nav = [
   { href: "/#problem", label: "Das Problem" },
   { href: "/#vertrauen", label: "Berater & Presse" },
@@ -26,25 +23,11 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const dark = darkRoutes.includes(pathname);
 
-  /* Der Header-CTA erscheint erst, wenn der Hero durchgescrollt ist. */
-  const [pastHero, setPastHero] = useState(false);
-  const [progress, setProgress] = useState(0);
-
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 12);
-      const heroEl = document.getElementById("start");
-      setPastHero(heroEl ? window.scrollY >= heroEl.offsetHeight - 68 : true);
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, [pathname]);
 
   useEffect(() => {
@@ -60,40 +43,22 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
         dark
-          ? solid
-            ? "border-b border-hair bg-ink/85 backdrop-blur-md"
-            : "border-b border-transparent bg-transparent"
-          : solid
-            ? "border-b border-line bg-white/90 backdrop-blur-md"
-            : "border-b border-transparent bg-transparent"
+          ? solid ? "border-b border-hair bg-ink/80 backdrop-blur-md" : "border-b border-transparent"
+          : solid ? "border-b border-line bg-white/90 backdrop-blur-md" : "border-b border-transparent"
       }`}
     >
-      {/* Lesefortschritt als Mint-Linie am unteren Rand */}
-      <span
-        aria-hidden="true"
-        className={`pointer-events-none absolute inset-x-0 bottom-[-1px] h-px origin-left bg-mint transition-opacity duration-300 ${
-          scrolled ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ transform: `scaleX(${progress})` }}
-      />
       <Container className="flex h-[68px] items-center justify-between gap-4">
         <Link href="/" aria-label="Führungsvorsorge – zur Startseite" className="shrink-0">
           <Logo size="sm" variant={dark ? "dark" : "light"} />
         </Link>
 
-        {/* Navigation als eigene Zelle in der Mitte */}
-        <nav
-          className={`hidden items-center rounded-[4px] border p-1 lg:flex ${
-            dark ? "border-hair-2 bg-ink-2/80" : "border-line bg-white"
-          }`}
-          aria-label="Hauptnavigation"
-        >
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Hauptnavigation">
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`rounded-[3px] px-4 py-2 text-[0.86rem] font-medium transition-colors ${
-                dark ? "text-white/70 hover:bg-white/[0.06] hover:text-white" : "text-ink/70 hover:bg-soft hover:text-ink"
+              className={`rounded-full px-3.5 py-2 text-[0.88rem] font-medium transition-colors ${
+                dark ? "text-white/65 hover:text-white" : "text-ink/70 hover:text-ink"
               }`}
             >
               {item.label}
@@ -102,22 +67,16 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <span
-            className={`hidden transition-all duration-500 ease-out sm:inline-block ${
-              pastHero ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-1 opacity-0"
-            }`}
-            aria-hidden={!pastHero}
-          >
+          <span className="hidden sm:inline-block">
             <QuizTrigger size="sm">{cta.primaryShort}</QuizTrigger>
           </span>
-
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Menü schließen" : "Menü öffnen"}
-            className={`inline-flex h-10 w-10 items-center justify-center rounded-[4px] border lg:hidden ${
+            className={`inline-flex h-10 w-10 items-center justify-center rounded-full border lg:hidden ${
               dark ? "border-hair-2 text-white" : "border-line text-ink"
             }`}
           >
@@ -133,21 +92,15 @@ export default function Header() {
       </Container>
 
       {open && (
-        <div
-          id="mobile-nav"
-          className={`border-t lg:hidden ${dark ? "border-hair bg-ink" : "border-line bg-white"}`}
-        >
+        <div id="mobile-nav" className={`border-t lg:hidden ${dark ? "border-hair bg-ink" : "border-line bg-white"}`}>
           <Container className="flex flex-col gap-1 py-4">
-            {nav.map((item, i) => (
+            {nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className={`flex items-center gap-4 rounded-[4px] px-3 py-3 text-base font-medium ${
-                  dark ? "text-white/85 hover:bg-white/[0.06]" : "text-ink/80 hover:bg-soft"
-                }`}
+                className={`rounded-lg px-3 py-3 text-base font-medium ${dark ? "text-white/85" : "text-ink/80"}`}
               >
-                <span className="mono text-[0.7rem] text-mint">0{i + 1}</span>
                 {item.label}
               </Link>
             ))}

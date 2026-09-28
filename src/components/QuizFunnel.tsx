@@ -125,13 +125,13 @@ export default function QuizFunnel({ onDone }: { onDone?: () => void }) {
 
   const copy = quizCopy.steps[step];
   const field =
-    "w-full rounded-[4px] border border-hair-2 bg-ink px-4 py-3.5 text-[0.98rem] text-white transition-colors placeholder:text-white/35 focus:border-mint focus:outline-none";
+    "w-full rounded-[10px] border border-hair-2 bg-ink px-4 py-3.5 text-[0.98rem] text-white transition-colors placeholder:text-white/35 focus:border-white/60 focus:outline-none";
 
   return (
     <div>
       {/* Fortschritt */}
       <div className="mb-7">
-        <div className="mb-2.5 flex items-center justify-between pr-9 mono text-[0.68rem] font-medium uppercase tracking-[0.12em] text-white/40 sm:pr-0">
+        <div className="mb-2.5 flex items-center justify-between pr-9 text-[0.78rem] font-medium text-white/40 sm:pr-0">
           <span>
             Frage {step + 1} von {TOTAL}
           </span>
@@ -207,12 +207,12 @@ export default function QuizFunnel({ onDone }: { onDone?: () => void }) {
             <label className="sr-only" htmlFor="quiz-email">{quizCopy.fields.email}</label>
             <input id="quiz-email" type="email" autoComplete="email" placeholder={quizCopy.fields.email} value={a.email} onChange={(e) => setA({ ...a, email: e.target.value })} className={field} />
 
-            <label className="mt-1 flex cursor-pointer items-start gap-3 rounded-[4px] border border-hair-2 bg-ink p-4">
+            <label className="mt-1 flex cursor-pointer items-start gap-3 rounded-[12px] border border-hair-2 bg-ink p-4">
               <input
                 type="checkbox"
                 checked={a.consent}
                 onChange={(e) => setA({ ...a, consent: e.target.checked })}
-                className="mt-0.5 h-5 w-5 shrink-0 accent-[#3ee6c9]"
+                className="mt-0.5 h-5 w-5 shrink-0 accent-[#ffffff]"
               />
               <span className="text-[0.8rem] leading-relaxed text-white/60">
                 {quizCopy.consent}{" "}
@@ -223,7 +223,7 @@ export default function QuizFunnel({ onDone }: { onDone?: () => void }) {
             </label>
 
             {error && (
-              <p role="alert" className="rounded-[4px] border border-[#e08a66]/40 bg-[#e08a66]/10 px-4 py-3 text-[0.86rem] text-[#e9a58a]">
+              <p role="alert" className="rounded-[12px] border border-[#e08a66]/40 bg-[#e08a66]/10 px-4 py-3 text-[0.86rem] text-[#e9a58a]">
                 {error}
               </p>
             )}
@@ -237,7 +237,7 @@ export default function QuizFunnel({ onDone }: { onDone?: () => void }) {
           type="button"
           onClick={back}
           disabled={step === 0}
-          className="inline-flex items-center gap-2 rounded-[4px] px-3 py-2.5 text-[0.88rem] font-medium text-white/50 transition-colors hover:bg-white/5 hover:text-white disabled:invisible"
+          className="inline-flex items-center gap-2 rounded-full px-3 py-2.5 text-[0.88rem] font-medium text-white/50 transition-colors hover:bg-white/5 hover:text-white disabled:invisible"
         >
           <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" aria-hidden="true">
             <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -260,9 +260,9 @@ export default function QuizFunnel({ onDone }: { onDone?: () => void }) {
 }
 
 function optionCls(active: boolean) {
-  return `flex items-center gap-3.5 rounded-[4px] border p-4 text-left transition-all ${
+  return `flex items-center gap-3.5 rounded-[12px] border p-4 text-left transition-all ${
     active
-      ? "border-mint bg-mint/10"
+      ? "border-white bg-white/[0.06]"
       : "border-hair-2 bg-ink hover:border-white/40"
   }`;
 }

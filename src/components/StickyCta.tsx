@@ -17,14 +17,14 @@ export default function StickyCta() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-hair bg-ink/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md transition-transform duration-300 sm:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-hair bg-ink/90 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md transition-transform duration-300 sm:hidden ${
         show ? "translate-y-0" : "translate-y-full"
       }`}
     >
       <QuizTrigger size="sm" block>
         {cta.primary}
       </QuizTrigger>
-      <p className="mono mt-1.5 text-center text-[0.66rem] uppercase tracking-[0.1em] text-white/45">{cta.reassuranceShort} · 2 Min.</p>
+      <p className="mt-1.5 text-center text-[0.74rem] text-faint">{cta.reassuranceShort} · 2 Min.</p>
     </div>
   );
 }

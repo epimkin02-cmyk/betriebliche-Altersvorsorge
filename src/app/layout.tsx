@@ -2,23 +2,16 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import SpotlightRoot from "@/components/SpotlightRoot";
 import QuizModal from "@/components/QuizModal";
 import { brand } from "@/content/site";
 
-/* Schrift-System (Raster-Design seit 28.09.2026):
-   Inter = Headlines, UI und Fliesstext · Fraunces = kursives Akzentwort und
-   Zitate · JetBrains Mono = Klammer-Labels und Laufnummern.
-   Die Schriften werden über @fontsource selbst ausgeliefert – es entsteht
+/* Schrift-System (seit 28.09.2026): nur Inter, in vier Schnitten.
+   Die Schrift wird über @fontsource selbst ausgeliefert – es entsteht
    KEINE Verbindung zu Google-Servern (DSGVO-relevant). */
 import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-500.css";
 import "@fontsource/inter/latin-600.css";
 import "@fontsource/inter/latin-700.css";
-import "@fontsource-variable/fraunces/opsz.css";
-import "@fontsource-variable/fraunces/opsz-italic.css";
-import "@fontsource/jetbrains-mono/latin-400.css";
-import "@fontsource/jetbrains-mono/latin-500.css";
 
 const title = "Führungsvorsorge – GmbH-Vermögen sicher ins Privatvermögen";
 const description =
@@ -61,7 +54,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0b",
+  themeColor: "#050505",
   width: "device-width",
   initialScale: 1,
 };
@@ -85,9 +78,6 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        {/* Feines Filmkorn ueber allen Flaechen, nimmt den glatten Verlauf raus */}
-        <div aria-hidden="true" className="grain" />
-        <SpotlightRoot />
         <QuizModal />
       </body>
     </html>
