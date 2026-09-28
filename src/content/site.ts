@@ -33,10 +33,10 @@ export const brand = {
   url: "https://fuehrungsvorsorge.de",
 } as const;
 
-/** Proof-Punkte – ausschließlich belegte Werte aus der Brand Guideline. */
+/** Proof-Punkte – nur öffentlich belegbare Werte. Bewertungen: Allianz-Vertretungsseite, Stand 28.09.2026. */
 export const proof = [
   { value: "21", suffix: " Jahre", label: "Erfahrung im Finanz- & Versicherungsmarkt" },
-  { value: "77,8", suffix: " %", label: "Weiterempfehlungsquote" },
+  { value: "5,0", suffix: " Sterne", label: "234 Bewertungen auf Google und eKomi" },
   { value: "IHK", suffix: "", label: "zertifizierte Beratung" },
   { value: "< 60", suffix: " Min.", label: "von der Analyse bis zur Umsetzung" },
 ] as const;
@@ -404,9 +404,9 @@ export const freebie = {
 export const reviews = {
   platform: "Google",
   rating: "5,0",
-  count: 57,
-  countAll: 231,
-  note: "5,0 von 5 bei 57 Google-Bewertungen (231 inkl. eKomi). Stand: September 2026.",
+  count: 60,
+  countAll: 234,
+  note: "5,0 von 5 bei 60 Google-Bewertungen (234 inkl. eKomi). Stand: September 2026.",
   profileUrl: "https://vertretung.allianz.de/marius.michael/#kundenbewertungen",
 } as const;
 
