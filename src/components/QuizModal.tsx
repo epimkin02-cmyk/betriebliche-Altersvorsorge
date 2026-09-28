@@ -67,22 +67,18 @@ export default function QuizModal() {
       aria-modal="true"
       aria-label="Report anfordern"
     >
-      <div aria-hidden="true" onClick={close} className="absolute inset-0 bg-ink/85 backdrop-blur-sm" />
+      <div aria-hidden="true" onClick={close} className="absolute inset-0 bg-ink/88 backdrop-blur-sm" />
       <div
         ref={panel}
-        className={`relative max-h-[92vh] w-full max-w-[640px] overflow-x-hidden overflow-y-auto overscroll-contain rounded-t-[22px] bg-[#0f1216] p-6 shadow-[0_50px_120px_-30px_rgba(0,0,0,0.95)] ring-1 ring-white/12 transition-transform duration-300 ease-out sm:rounded-[22px] sm:p-9 ${
+        className={`relative max-h-[92vh] w-full max-w-[640px] overflow-x-hidden overflow-y-auto overscroll-contain rounded-t-[6px] border border-hair-2 bg-ink-2 p-6 shadow-[0_50px_120px_-30px_rgba(0,0,0,0.95)] transition-transform duration-300 ease-out sm:rounded-[6px] sm:p-9 ${
           shown ? "translate-y-0" : "translate-y-6"
         }`}
       >
-        {/* Glow in einem geclippten Rahmen, sonst erzeugt er horizontalen Scroll-Ueberlauf */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
-          <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-petrol/30 blur-3xl" />
-        </div>
         <button
           type="button"
           onClick={close}
           aria-label="Schließen"
-          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full text-white/55 transition-colors hover:bg-white/10 hover:text-white"
+          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-[4px] border border-hair-2 text-white/55 transition-colors hover:border-mint hover:text-white"
         >
           <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
             <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />

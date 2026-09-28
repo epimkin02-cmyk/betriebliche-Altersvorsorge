@@ -125,20 +125,20 @@ export default function QuizFunnel({ onDone }: { onDone?: () => void }) {
 
   const copy = quizCopy.steps[step];
   const field =
-    "w-full rounded-[10px] bg-black/35 px-4 py-3.5 text-[0.98rem] text-white ring-1 ring-white/12 transition-colors placeholder:text-white/35 focus:outline-none focus:ring-2 focus:ring-petrol-300";
+    "w-full rounded-[4px] border border-hair-2 bg-ink px-4 py-3.5 text-[0.98rem] text-white transition-colors placeholder:text-white/35 focus:border-mint focus:outline-none";
 
   return (
     <div>
       {/* Fortschritt */}
       <div className="mb-7">
-        <div className="mb-2.5 flex items-center justify-between pr-9 text-[0.74rem] font-semibold uppercase tracking-[0.14em] text-white/40 sm:pr-0">
+        <div className="mb-2.5 flex items-center justify-between pr-9 mono text-[0.68rem] font-medium uppercase tracking-[0.12em] text-white/40 sm:pr-0">
           <span>
             Frage {step + 1} von {TOTAL}
           </span>
         </div>
-        <div className="h-1 overflow-hidden rounded-full bg-white/10">
+        <div className="h-px overflow-hidden bg-hair-2">
           <div
-            className="h-full rounded-full bg-[linear-gradient(90deg,#86B9BA,#157879)] transition-[width] duration-500 ease-out"
+            className="h-full bg-mint transition-[width] duration-500 ease-out"
             style={{ width: `${((step + 1) / TOTAL) * 100}%` }}
           />
         </div>
@@ -163,7 +163,7 @@ export default function QuizFunnel({ onDone }: { onDone?: () => void }) {
                   <span
                     aria-hidden="true"
                     className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-[6px] border transition-colors ${
-                      active ? "border-petrol-300 bg-petrol-300 text-ink" : "border-white/25"
+                      active ? "border-mint bg-mint text-ink" : "border-hair-2"
                     }`}
                   >
                     {active && (
@@ -207,23 +207,23 @@ export default function QuizFunnel({ onDone }: { onDone?: () => void }) {
             <label className="sr-only" htmlFor="quiz-email">{quizCopy.fields.email}</label>
             <input id="quiz-email" type="email" autoComplete="email" placeholder={quizCopy.fields.email} value={a.email} onChange={(e) => setA({ ...a, email: e.target.value })} className={field} />
 
-            <label className="mt-1 flex cursor-pointer items-start gap-3 rounded-[10px] bg-white/[0.04] p-4 ring-1 ring-white/10">
+            <label className="mt-1 flex cursor-pointer items-start gap-3 rounded-[4px] border border-hair-2 bg-ink p-4">
               <input
                 type="checkbox"
                 checked={a.consent}
                 onChange={(e) => setA({ ...a, consent: e.target.checked })}
-                className="mt-0.5 h-5 w-5 shrink-0 accent-[#157879]"
+                className="mt-0.5 h-5 w-5 shrink-0 accent-[#3ee6c9]"
               />
               <span className="text-[0.8rem] leading-relaxed text-white/60">
                 {quizCopy.consent}{" "}
-                <a href="/datenschutz" target="_blank" className="font-semibold text-petrol-300 underline-offset-4 hover:underline">
+                <a href="/datenschutz" target="_blank" className="font-semibold text-mint underline-offset-4 hover:underline">
                   Datenschutz
                 </a>
               </span>
             </label>
 
             {error && (
-              <p role="alert" className="rounded-[10px] bg-[#e08a66]/15 px-4 py-3 text-[0.86rem] text-[#e9a58a]">
+              <p role="alert" className="rounded-[4px] border border-[#e08a66]/40 bg-[#e08a66]/10 px-4 py-3 text-[0.86rem] text-[#e9a58a]">
                 {error}
               </p>
             )}
@@ -232,12 +232,12 @@ export default function QuizFunnel({ onDone }: { onDone?: () => void }) {
       </div>
 
       {/* Navigation */}
-      <div className="mt-8 flex items-center justify-between gap-4 border-t border-white/10 pt-5">
+      <div className="mt-8 flex items-center justify-between gap-4 border-t border-hair pt-5">
         <button
           type="button"
           onClick={back}
           disabled={step === 0}
-          className="inline-flex items-center gap-2 rounded-[10px] px-3 py-2.5 text-[0.88rem] font-medium text-white/50 transition-colors hover:bg-white/5 hover:text-white disabled:invisible"
+          className="inline-flex items-center gap-2 rounded-[4px] px-3 py-2.5 text-[0.88rem] font-medium text-white/50 transition-colors hover:bg-white/5 hover:text-white disabled:invisible"
         >
           <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" aria-hidden="true">
             <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -260,10 +260,10 @@ export default function QuizFunnel({ onDone }: { onDone?: () => void }) {
 }
 
 function optionCls(active: boolean) {
-  return `flex items-center gap-3.5 rounded-[12px] border p-4 text-left transition-all ${
+  return `flex items-center gap-3.5 rounded-[4px] border p-4 text-left transition-all ${
     active
-      ? "border-petrol-300/70 bg-petrol/20 shadow-[0_0_0_1px_rgba(134,185,186,0.25)]"
-      : "border-white/10 bg-white/[0.035] hover:border-petrol-300/40 hover:bg-white/[0.06]"
+      ? "border-mint bg-mint/10"
+      : "border-hair-2 bg-ink hover:border-white/40"
   }`;
 }
 
@@ -277,10 +277,10 @@ function OptionList({ options, selected, onSelect }: { options: Choice[]; select
             <span
               aria-hidden="true"
               className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors ${
-                active ? "border-petrol-300" : "border-white/25"
+                active ? "border-mint" : "border-hair-2"
               }`}
             >
-              {active && <span className="h-2.5 w-2.5 rounded-full bg-petrol-300" />}
+              {active && <span className="h-2.5 w-2.5 rounded-full bg-mint" />}
             </span>
             <span className="text-[0.95rem] text-white/90">{o.label}</span>
           </button>

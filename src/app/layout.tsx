@@ -6,21 +6,19 @@ import SpotlightRoot from "@/components/SpotlightRoot";
 import QuizModal from "@/components/QuizModal";
 import { brand } from "@/content/site";
 
-/* Schrift-System aus der Brand Guideline, Kapitel 05:
-   Roboto = Headlines & UI · Inter = Fließtext · Fraunces = Akzent, Claim & Zitate
-   (Fraunces als Variable Font mit optischer Größe, wie bei Umsatzpilot)
+/* Schrift-System (Raster-Design seit 28.09.2026):
+   Inter = Headlines, UI und Fliesstext · Fraunces = kursives Akzentwort und
+   Zitate · JetBrains Mono = Klammer-Labels und Laufnummern.
    Die Schriften werden über @fontsource selbst ausgeliefert – es entsteht
    KEINE Verbindung zu Google-Servern (DSGVO-relevant). */
-import "@fontsource/roboto/latin-400.css";
-import "@fontsource/roboto/latin-500.css";
-import "@fontsource/roboto/latin-700.css";
-import "@fontsource/roboto/latin-900.css";
 import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-500.css";
 import "@fontsource/inter/latin-600.css";
 import "@fontsource/inter/latin-700.css";
 import "@fontsource-variable/fraunces/opsz.css";
 import "@fontsource-variable/fraunces/opsz-italic.css";
+import "@fontsource/jetbrains-mono/latin-400.css";
+import "@fontsource/jetbrains-mono/latin-500.css";
 
 const title = "Führungsvorsorge – GmbH-Vermögen sicher ins Privatvermögen";
 const description =
@@ -63,7 +61,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#101217",
+  themeColor: "#0a0a0b",
   width: "device-width",
   initialScale: 1,
 };
@@ -75,10 +73,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de" className="h-full antialiased">
-      <body className="flex min-h-full flex-col bg-white">
+      <body className="flex min-h-full flex-col bg-ink">
         <a
           href="#inhalt"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-petrol focus:px-4 focus:py-2 focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-[4px] focus:bg-mint focus:px-4 focus:py-2 focus:text-ink"
         >
           Zum Inhalt springen
         </a>

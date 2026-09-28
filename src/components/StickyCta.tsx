@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import QuizTrigger from "./QuizTrigger";
 import { cta } from "@/content/site";
 
-/** Mobile Sticky-CTA – erscheint, sobald der Hero verlassen wurde. */
+/** Mobile Sticky-CTA, erscheint sobald der Hero verlassen wurde. */
 export default function StickyCta() {
   const [show, setShow] = useState(false);
 
@@ -17,14 +17,14 @@ export default function StickyCta() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-ink/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md transition-transform duration-300 sm:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-40 border-t border-hair bg-ink/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md transition-transform duration-300 sm:hidden ${
         show ? "translate-y-0" : "translate-y-full"
       }`}
     >
       <QuizTrigger size="sm" block>
         {cta.primary}
       </QuizTrigger>
-      <p className="mt-1.5 text-center text-[0.72rem] text-white/45">{cta.reassuranceShort} · 2 Min.</p>
+      <p className="mono mt-1.5 text-center text-[0.66rem] uppercase tracking-[0.1em] text-white/45">{cta.reassuranceShort} · 2 Min.</p>
     </div>
   );
 }

@@ -1,39 +1,27 @@
 import Image from "next/image";
-import { hero } from "@/content/site";
 
 /**
  * =============================================================================
- * RATGEBER-MOCKUP · Hero-Element
+ * RATGEBER-MOCKUP · Hero-Objekt
  * =============================================================================
- * Freigestelltes Buch (public/ratgeber-stapel-3.png, PNG mit Alpha): ein
- * Exemplar steht aufrecht und lehnt an einem Stapel von drei weiteren, die
- * Front traegt das echte Cover. Nach LINKS gedreht, damit es aus der rechten
- * Seitenhaelfte zum Text hin zeigt. Querformat 1200 x 927.
- *
- * Das Buch steht still. Nur der Glow dahinter (13 s) und der Lichtstreifen
- * (9 s) laufen, reines CSS, teilerfremde Laufzeiten, keine Maus-Reaktion.
+ * Freigestelltes Buch (public/ratgeber-stapel-3.png, PNG mit Alpha) auf einem
+ * Spotlight: weisses Licht von oben, Mint-Schein am Boden (.spotlight in
+ * globals.css). Das Buch steht still, nur der Lichtstreifen (11 s) laeuft.
  * =============================================================================
  */
-export default function FreebieMockup() {
+export default function FreebieMockup({ className = "" }: { className?: string }) {
   return (
-    <div className="relative mx-auto w-full max-w-[680px] lg:max-w-none lg:w-[calc(100%+8rem)] lg:-mr-32">
-      {/* Petrol-Licht hinter der Box, langsam pulsierend */}
-      <div
-        aria-hidden="true"
-        className="hero-glow pointer-events-none absolute inset-[-10%] -z-10 bg-[radial-gradient(50%_55%_at_45%_55%,rgba(21,120,121,0.55),transparent_72%)] blur-2xl"
-      />
-
+    <div className={`spotlight relative ${className}`}>
       <div className="relative">
         <Image
           src="/ratgeber-stapel-3.png"
           alt="Der Ratgeber „Die 3 GGF-Hebel“ als Buch, ein Exemplar an einen Stapel gelehnt, das oberste zeigt das Cover"
           width={1200}
           height={927}
-          sizes="(min-width: 1024px) 700px, 90vw"
+          sizes="(min-width: 1024px) 640px, 92vw"
           priority
-          className="h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,0.75)]"
+          className="h-auto w-full drop-shadow-[0_40px_50px_rgba(0,0,0,0.8)]"
         />
-        {/* Lichtstreifen, exakt auf die Silhouette des Buchs maskiert */}
         <div
           aria-hidden="true"
           className="hero-sheen pointer-events-none absolute inset-0"
@@ -49,8 +37,6 @@ export default function FreebieMockup() {
           }}
         />
       </div>
-
-      <p className="mt-5 text-center text-[0.78rem] text-white/40">{hero.mockupMeta}</p>
     </div>
   );
 }

@@ -8,33 +8,26 @@ import QuizTrigger from "./QuizTrigger";
 import { Container } from "./ui";
 import { cta } from "@/content/site";
 
-/* Reihenfolge wie im Figma-Wireframe. „Das Problem" und „Die Lösung" sind
-   seit dem Umbau auf drei Sections keine eigenen Bloecke mehr; die Anker
-   zeigen auf die Stellen, wo das Thema jetzt steht: die Problem-Aussage im
-   Hero und der Ratgeber als Loesung. */
+/* Reihenfolge wie im Figma-Wireframe. Die Anker zeigen auf die Stellen, wo
+   das Thema steht: Problem-Aussage im Hero, Berater & Presse, der Ratgeber
+   als Loesung. */
 const nav = [
   { href: "/#problem", label: "Das Problem" },
   { href: "/#vertrauen", label: "Berater & Presse" },
   { href: "/#loesung", label: "Die Lösung" },
 ];
 
-/** Seiten mit dunklem Hero – dort steht der Header zunächst auf Dunkel. */
-const darkHeroRoutes = ["/", "/danke"];
+/** Seiten, die durchgehend dunkel sind. Impressum und Datenschutz bleiben hell. */
+const darkRoutes = ["/", "/danke", "/check"];
 
 export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  /* Startseite und Danke-Seite sind durchgehend dunkel – der Header bleibt es
-     deshalb auch nach dem Scrollen. Nur das mobile Menue kippt auf Hell. */
-  const darkRoute = darkHeroRoutes.includes(pathname);
-  const onDark = darkRoute && !open;
+  const dark = darkRoutes.includes(pathname);
 
-  /* Der Header-CTA erscheint erst, wenn der Hero durchgescrollt ist – im Hero
-     steht der grosse Button ohnehin, zwei davon gleichzeitig konkurrieren nur.
-     Auf Seiten ohne Hero (#start) ist er von Anfang an da. */
+  /* Der Header-CTA erscheint erst, wenn der Hero durchgescrollt ist. */
   const [pastHero, setPastHero] = useState(false);
-  /* Lesefortschritt 0..1 fuer die duenne Petrol-Linie am unteren Header-Rand */
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -61,37 +54,46 @@ export default function Header() {
     };
   }, [open]);
 
+  const solid = scrolled || open;
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled || open
-          ? darkRoute && !open
-            ? "border-b border-white/10 bg-ink/80 backdrop-blur-md"
-            : "border-b border-line bg-white/90 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        dark
+          ? solid
+            ? "border-b border-hair bg-ink/85 backdrop-blur-md"
+            : "border-b border-transparent bg-transparent"
+          : solid
+            ? "border-b border-line bg-white/90 backdrop-blur-md"
+            : "border-b border-transparent bg-transparent"
       }`}
     >
+      {/* Lesefortschritt als Mint-Linie am unteren Rand */}
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-x-0 bottom-[-1px] h-[2px] origin-left bg-[linear-gradient(90deg,#86B9BA,#157879)] transition-opacity duration-300 ${
+        className={`pointer-events-none absolute inset-x-0 bottom-[-1px] h-px origin-left bg-mint transition-opacity duration-300 ${
           scrolled ? "opacity-100" : "opacity-0"
         }`}
         style={{ transform: `scaleX(${progress})` }}
       />
       <Container className="flex h-[68px] items-center justify-between gap-4">
         <Link href="/" aria-label="Führungsvorsorge – zur Startseite" className="shrink-0">
-          <Logo size="sm" variant={onDark ? "dark" : "light"} />
+          <Logo size="sm" variant={dark ? "dark" : "light"} />
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Hauptnavigation">
+        {/* Navigation als eigene Zelle in der Mitte */}
+        <nav
+          className={`hidden items-center rounded-[4px] border p-1 lg:flex ${
+            dark ? "border-hair-2 bg-ink-2/80" : "border-line bg-white"
+          }`}
+          aria-label="Hauptnavigation"
+        >
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`rounded-lg px-3 py-2 text-[0.9rem] font-medium transition-colors ${
-                onDark
-                  ? "text-white/70 hover:bg-white/10 hover:text-white"
-                  : "text-ink/70 hover:bg-petrol-50 hover:text-ink"
+              className={`rounded-[3px] px-4 py-2 text-[0.86rem] font-medium transition-colors ${
+                dark ? "text-white/70 hover:bg-white/[0.06] hover:text-white" : "text-ink/70 hover:bg-soft hover:text-ink"
               }`}
             >
               {item.label}
@@ -115,15 +117,15 @@ export default function Header() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Menü schließen" : "Menü öffnen"}
-            className={`inline-flex h-10 w-10 items-center justify-center rounded-[10px] border lg:hidden ${
-              onDark ? "border-white/25 text-white" : "border-line text-ink"
+            className={`inline-flex h-10 w-10 items-center justify-center rounded-[4px] border lg:hidden ${
+              dark ? "border-hair-2 text-white" : "border-line text-ink"
             }`}
           >
             <svg viewBox="0 0 20 20" className="h-5 w-5" fill="none" aria-hidden="true">
               {open ? (
-                <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
               ) : (
-                <path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                <path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
               )}
             </svg>
           </button>
@@ -131,19 +133,25 @@ export default function Header() {
       </Container>
 
       {open && (
-        <div id="mobile-nav" className="border-t border-line bg-white lg:hidden">
+        <div
+          id="mobile-nav"
+          className={`border-t lg:hidden ${dark ? "border-hair bg-ink" : "border-line bg-white"}`}
+        >
           <Container className="flex flex-col gap-1 py-4">
-            {nav.map((item) => (
+            {nav.map((item, i) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-3 text-base font-medium text-ink/80 hover:bg-petrol-50"
+                className={`flex items-center gap-4 rounded-[4px] px-3 py-3 text-base font-medium ${
+                  dark ? "text-white/85 hover:bg-white/[0.06]" : "text-ink/80 hover:bg-soft"
+                }`}
               >
+                <span className="mono text-[0.7rem] text-mint">0{i + 1}</span>
                 {item.label}
               </Link>
             ))}
-            <div className="mt-2">
+            <div className="mt-3">
               <QuizTrigger onClick={() => setOpen(false)} block>
                 {cta.primary}
               </QuizTrigger>

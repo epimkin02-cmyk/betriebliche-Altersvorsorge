@@ -1,23 +1,17 @@
 import Image from "next/image";
+import { Tag } from "../ui";
 import { outlets, press, pressMeta } from "@/content/site";
 
 /**
- * Pressespiegel – die vier belegten Beiträge als Artikel-Ausschnitte.
- *
- * Drei Spalten, jeder Screenshot in seinem NATÜRLICHEN Seitenverhältnis (ein
- * erzwungener Zuschnitt würde Schlagzeilen abschneiden); die dritte Spalte
- * trägt zwei Beiträge. Über jedem Ausschnitt steht die echte Wortmarke des
- * Verlags (public/logos), nicht der Name in Schrift.
- *
- * Sobald in `press[].url` eine Artikel-URL steht, wird die Kachel verlinkt.
+ * Pressespiegel: die vier belegten Beitraege als Zellen in einer Reihe.
+ * Kopfzeile mit der echten Wortmarke des Verlags, darunter der Ausschnitt
+ * (Hochformate oben angeschnitten, das Querformat komplett), unten die
+ * Schlagzeile. Sobald in `press[].url` eine Artikel-URL steht, wird die
+ * Zelle verlinkt.
  */
 
 type PressItem = (typeof press)[number];
 
-/** Spaltenaufteilung: 1 · 1 · 2 */
-const columns: PressItem[][] = [[press[0]], [press[1]], [press[2], press[3]]];
-
-/** Wortmarke des Verlags aus der Bekannt-aus-Liste, gematcht über den Namen. */
 function OutletMark({ name }: { name: string }) {
   const o = outlets.find((x) => x.name.toLowerCase() === name.toLowerCase());
   if (o && "logo" in o) {
@@ -27,68 +21,64 @@ function OutletMark({ name }: { name: string }) {
         alt={o.name}
         width={o.width}
         height={o.height}
-        className="w-auto opacity-80"
-        style={{ height: `${Math.round(16 * o.scale)}px` }}
+        className="w-auto opacity-85"
+        style={{ height: `${Math.round(15 * o.scale)}px` }}
       />
     );
   }
   return (
-    <span className="font-[family-name:var(--font-head)] text-[0.78rem] font-black uppercase tracking-[0.02em] text-white/80">
+    <span className="font-[family-name:var(--font-head)] text-[0.74rem] font-bold uppercase tracking-[0.02em] text-white/85">
       {o && "wordmark" in o ? o.wordmark : name}
     </span>
   );
 }
 
-function Clipping({ item }: { item: PressItem }) {
+function Clipping({ item, i }: { item: PressItem; i: number }) {
+  const landscape = item.width > item.height;
   const card = (
-    <figure className="flex flex-col">
-      <div className="mb-3 flex h-6 items-center justify-between">
+    <figure className="spot relative flex h-full flex-col">
+      <div className="flex h-12 items-center justify-between border-b border-hair px-5">
         <OutletMark name={item.outlet} />
-        <span className="eyebrow text-[0.6rem] text-white/30">Beitrag</span>
+        <Tag>Beitrag 0{i + 1}</Tag>
       </div>
-      <div className="spot relative overflow-hidden rounded-[10px] bg-white p-[3px] shadow-[0_28px_60px_-22px_rgba(0,0,0,0.9)] ring-1 ring-white/15 transition-[transform,box-shadow] duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_36px_70px_-22px_rgba(0,0,0,0.95)]">
-        <Image
-          src={item.image}
-          alt={`Beitrag in ${item.outlet}: ${item.headline}`}
-          width={item.width}
-          height={item.height}
-          sizes="(min-width: 1024px) 350px, (min-width: 640px) 45vw, 90vw"
-          className="h-auto w-full rounded-[8px]"
-        />
+      <div className="relative aspect-[4/5] overflow-hidden bg-ink-3 p-4">
+        <div className={`relative h-full w-full overflow-hidden rounded-[3px] ${landscape ? "" : "bg-white"}`}>
+          <Image
+            src={item.image}
+            alt={`Beitrag in ${item.outlet}: ${item.headline}`}
+            fill
+            sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 90vw"
+            className={`transition-transform duration-700 ease-out group-hover:scale-[1.02] ${
+              landscape ? "object-contain object-center" : "object-cover object-top"
+            }`}
+          />
+        </div>
       </div>
-      <figcaption className="mt-4 border-l border-petrol-300/50 pl-3">
-        <span className="h-title block text-[0.9rem] leading-snug text-white/80">{item.headline}</span>
+      <figcaption className="mt-auto border-t border-hair px-5 py-4">
+        <span className="h-title block text-[0.9rem] leading-snug text-white/85">{item.headline}</span>
       </figcaption>
     </figure>
   );
 
+  const cls = "group block h-full border-b border-hair sm:border-r sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(4n)]:border-r-0";
   return item.url ? (
-    <a
-      href={item.url}
-      target="_blank"
-      rel="noreferrer noopener"
-      className="group block rounded-[10px] outline-none focus-visible:ring-2 focus-visible:ring-petrol-300 focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
-    >
+    <a href={item.url} target="_blank" rel="noreferrer noopener" className={`${cls} outline-none focus-visible:ring-2 focus-visible:ring-mint`}>
       {card}
     </a>
   ) : (
-    <div className="group">{card}</div>
+    <div className={cls}>{card}</div>
   );
 }
 
 export default function PressWall() {
   return (
     <div>
-      <div className="grid items-start gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {columns.map((col, i) => (
-          <div key={i} className="flex flex-col gap-10">
-            {col.map((item) => (
-              <Clipping key={item.outlet} item={item} />
-            ))}
-          </div>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4">
+        {press.map((item, i) => (
+          <Clipping key={item.outlet} item={item} i={i} />
         ))}
       </div>
-      <p className="mt-10 max-w-[70ch] text-[0.74rem] leading-relaxed text-white/30">
+      <p className="px-5 py-5 text-[0.74rem] leading-relaxed text-white/35 sm:px-8">
         {pressMeta.summary}. {pressMeta.note}
       </p>
     </div>

@@ -3,43 +3,87 @@ import type { ReactNode } from "react";
 
 /* ---------------------------------------------------------------- Container */
 
+/**
+ * Seitenbreite. Mit `frame` bekommt der Container links und rechts eine
+ * durchlaufende Hairline (die „Schienen“ des Rasters), auf denen alle
+ * Sections aufeinander sitzen.
+ */
 export function Container({
   children,
   className = "",
+  frame = false,
 }: {
   children: ReactNode;
   className?: string;
+  frame?: boolean;
 }) {
-  return <div className={`mx-auto w-full max-w-6xl px-5 sm:px-8 ${className}`}>{children}</div>;
+  return (
+    <div
+      className={`mx-auto w-full max-w-[1280px] ${
+        frame ? "relative border-x border-hair" : "px-5 sm:px-8"
+      } ${className}`}
+    >
+      {children}
+    </div>
+  );
 }
 
-/* ---------------------------------------------------------------- Overline  */
+/* ---------------------------------------------------------------- Tag       */
 
+/** Klammer-Label „[ 01 · Fachpresse ]“ */
+export function Tag({
+  children,
+  n,
+  mint = false,
+  className = "",
+}: {
+  children: ReactNode;
+  n?: string;
+  mint?: boolean;
+  className?: string;
+}) {
+  return (
+    <span className={`tag ${mint ? "tag--mint" : ""} ${className}`}>
+      {n && (
+        <>
+          <span className="tag__n">{n}</span>
+          <span aria-hidden="true">·</span>
+        </>
+      )}
+      {children}
+    </span>
+  );
+}
+
+/** Kompatibel zum frueheren Overline-Aufruf: Tag mit Abstand nach unten */
 export function Overline({
   children,
-  variant = "light",
   index,
 }: {
   children: ReactNode;
   variant?: "light" | "dark";
-  /** Laufnummer in der Pille: „01 · Fachpresse" */
   index?: string;
 }) {
   return (
     <p className="mb-5">
-      <span className={`pill ${variant === "dark" ? "pill--dark" : "pill--light"}`}>
-        {index ? (
-          <>
-            <span className="pill__index">{index}</span>
-            <span className="pill__sep" aria-hidden="true" />
-          </>
-        ) : (
-          <span className="pill__sep" aria-hidden="true" />
-        )}
+      <Tag n={index} mint>
         {children}
-      </span>
+      </Tag>
     </p>
   );
+}
+
+/* ---------------------------------------------------------------- Cross     */
+
+/** Kreuzmarke an einer Zellen-Ecke: <Cross at="tl" /> */
+export function Cross({ at }: { at: "tl" | "tr" | "bl" | "br" }) {
+  const pos = {
+    tl: "-left-[6px] -top-[6px]",
+    tr: "-right-[6px] -top-[6px]",
+    bl: "-left-[6px] -bottom-[6px]",
+    br: "-right-[6px] -bottom-[6px]",
+  }[at];
+  return <span aria-hidden="true" className={`cross ${pos}`} />;
 }
 
 /* ---------------------------------------------------------------- Buttons   */
@@ -53,7 +97,7 @@ type ButtonProps = {
 };
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-[10px] font-semibold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-petrol";
+  "inline-flex items-center justify-center gap-2 rounded-[4px] font-semibold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint";
 
 const sizes = {
   md: "px-5 py-3 text-[0.95rem]",
@@ -61,10 +105,10 @@ const sizes = {
 };
 
 const variants = {
-  primary: "bg-petrol text-white shadow-[0_8px_24px_rgba(21,120,121,0.28)] hover:bg-petrol-600 hover:shadow-[0_10px_30px_rgba(21,120,121,0.36)] hover:-translate-y-0.5",
-  secondary: "border border-petrol/35 bg-white text-petrol-700 hover:border-petrol hover:bg-petrol-50",
-  ghost: "text-petrol-700 hover:bg-petrol-50",
-  onDark: "bg-white text-ink hover:bg-petrol-50 hover:-translate-y-0.5",
+  primary: "bg-mint text-ink hover:brightness-110",
+  secondary: "border border-hair-2 bg-ink-2 text-white hover:border-mint/60",
+  ghost: "text-white/70 hover:text-white",
+  onDark: "bg-white text-ink hover:bg-mint-2",
 };
 
 export function Button({ href, children, variant = "primary", size = "md", className = "" }: ButtonProps) {
@@ -85,16 +129,13 @@ type CtaPillProps = {
   onClick?: () => void;
   disabled?: boolean;
   size?: "md" | "sm";
-  /** Volle Breite, z. B. im Opt-in-Formular. */
   block?: boolean;
   className?: string;
 };
 
 /**
- * Der Haupt-Button der Seite: Pille mit rotierendem Lichtring, Petrol-
- * Verlauf, weissem Pfeil-Puck und Sheen beim Hover. Styles liegen als
- * .cta* in globals.css, damit Ring und Sheen mit Pseudo-Elementen und
- * Keyframes arbeiten koennen, was Tailwind-Utilities nicht hergeben.
+ * Der Haupt-Button der Seite: eckiges Mint-Feld mit Pfeilkasten rechts.
+ * Styles als .cta* in globals.css (Sheen und Hover ueber Pseudo-Elemente).
  */
 export function CtaPill({
   children,
@@ -115,14 +156,8 @@ export function CtaPill({
       <span className="cta__body">
         <span className="cta__label">{children}</span>
         <span className="cta__icon" aria-hidden="true">
-          <svg viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path
-              d="M1 7h11M7.5 1.5 13 7l-5.5 5.5"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2 8h12M8.5 2.5 14 8l-5.5 5.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
       </span>
@@ -144,24 +179,8 @@ export function CtaPill({
 
 /* ---------------------------------------------------------------- Badge     */
 
-export function Badge({
-  children,
-  variant = "light",
-}: {
-  children: ReactNode;
-  variant?: "light" | "dark";
-}) {
-  return (
-    <span
-      className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[0.78rem] font-semibold ${
-        variant === "dark"
-          ? "bg-white/10 text-petrol-200 ring-1 ring-white/15"
-          : "bg-petrol-100 text-petrol-700"
-      }`}
-    >
-      {children}
-    </span>
-  );
+export function Badge({ children }: { children: ReactNode; variant?: "light" | "dark" }) {
+  return <span className="tag">{children}</span>;
 }
 
 /* ---------------------------------------------------------------- Section   */
@@ -170,7 +189,6 @@ export function Section({
   id,
   children,
   className = "",
-  tone = "white",
   as: Tag = "section",
   pad = "lg",
 }: {
@@ -178,22 +196,12 @@ export function Section({
   children: ReactNode;
   className?: string;
   tone?: "white" | "soft" | "dark";
-  /** Die Seite hat bewusst nur vier <section>-Elemente – innere Blöcke laufen als "div". */
   as?: "section" | "div";
   pad?: "lg" | "md" | "none";
 }) {
-  const tones = {
-    white: "bg-white",
-    soft: "bg-soft",
-    dark: "bg-ink text-white",
-  };
-  const pads = {
-    lg: "py-20 sm:py-28",
-    md: "py-14 sm:py-20",
-    none: "",
-  };
+  const pads = { lg: "py-20 sm:py-28", md: "py-14 sm:py-20", none: "" };
   return (
-    <Tag id={id} className={`scroll-mt-20 ${pads[pad]} ${tones[tone]} ${className}`}>
+    <Tag id={id} className={`scroll-mt-20 ${pads[pad]} ${className}`}>
       {children}
     </Tag>
   );
@@ -204,14 +212,7 @@ export function Section({
 export function CheckIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg viewBox="0 0 20 20" fill="none" className={className} aria-hidden="true">
-      <circle cx="10" cy="10" r="10" fill="currentColor" opacity="0.12" />
-      <path
-        d="M6 10.4l2.6 2.6L14 7.6"
-        stroke="currentColor"
-        strokeWidth="1.9"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M4 10.4l3.6 3.6L16 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -219,13 +220,7 @@ export function CheckIcon({ className = "h-5 w-5" }: { className?: string }) {
 export function ArrowIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
     <svg viewBox="0 0 16 16" fill="none" className={className} aria-hidden="true">
-      <path
-        d="M2.5 8h11m0 0L9.5 4m4 4l-4 4"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M2.5 8h11m0 0L9.5 4m4 4l-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
