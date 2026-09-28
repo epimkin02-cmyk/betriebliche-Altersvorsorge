@@ -4,9 +4,8 @@ import type { ReactNode } from "react";
 /* ---------------------------------------------------------------- Container */
 
 /**
- * Seitenbreite. Mit `frame` bekommt der Container links und rechts eine
- * durchlaufende Hairline (die „Schienen“ des Rasters), auf denen alle
- * Sections aufeinander sitzen.
+ * Seitenbreite. Mit `frame` wird der Inhalt zu einem gerahmten Panel
+ * (runde Ecken, Hairline), wie die Bühne im Hero.
  */
 export function Container({
   children,
@@ -17,15 +16,14 @@ export function Container({
   className?: string;
   frame?: boolean;
 }) {
-  return (
-    <div
-      className={`mx-auto w-full max-w-[1280px] ${
-        frame ? "relative border-x border-hair" : "px-5 sm:px-8"
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
+  if (frame) {
+    return (
+      <div className={`mx-auto w-full max-w-[1280px] px-4 sm:px-8 ${className}`}>
+        <div className="relative overflow-hidden rounded-[12px] border border-white/12 bg-[rgba(255,255,255,0.015)]">{children}</div>
+      </div>
+    );
+  }
+  return <div className={`mx-auto w-full max-w-[1280px] px-5 sm:px-8 ${className}`}>{children}</div>;
 }
 
 /* ---------------------------------------------------------------- Tag       */
@@ -131,6 +129,8 @@ type CtaPillProps = {
   size?: "md" | "sm";
   block?: boolean;
   className?: string;
+  /** solid = Mint-Feld (.cta), outline = Nexo-Pille mit weissem Pfeilkreis (.pillcta) */
+  variant?: "solid" | "outline";
 };
 
 /**
@@ -146,7 +146,26 @@ export function CtaPill({
   size = "md",
   block,
   className = "",
+  variant = "solid",
 }: CtaPillProps) {
+  if (variant === "outline") {
+    const pc = `pillcta ${block ? "w-full justify-between" : ""} ${className}`;
+    const pin = (
+      <>
+        <span>{children}</span>
+        <span className="pillcta__arrow" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2 8h12M8.5 2.5 14 8l-5.5 5.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </>
+    );
+    return href ? (
+      <Link href={href} className={pc} onClick={onClick}>{pin}</Link>
+    ) : (
+      <button type={type} className={pc} onClick={onClick} disabled={disabled}>{pin}</button>
+    );
+  }
   const cls = ["cta", size === "sm" ? "cta--sm" : "", block ? "cta--block" : "", className]
     .filter(Boolean)
     .join(" ");

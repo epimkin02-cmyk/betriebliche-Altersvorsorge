@@ -27,7 +27,7 @@ type T = (typeof testimonials)[number];
 
 function Card({ t, i }: { t: T; i: number }) {
   return (
-    <figure className="cell spot flex h-[280px] w-[340px] shrink-0 flex-col p-6 sm:w-[400px]">
+    <figure className="glass glass--deep spot flex h-[280px] w-[340px] shrink-0 flex-col rounded-[10px] p-6 sm:w-[400px]">
       <div className="flex items-center justify-between">
         <span className="tag">{reviews.platform} · {t.date}</span>
         <span className="mono text-[0.66rem] text-white/30">{String(i + 1).padStart(2, "0")}</span>

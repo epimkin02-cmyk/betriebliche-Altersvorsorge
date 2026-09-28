@@ -27,10 +27,10 @@ function Stars({ className = "h-3.5 w-3.5" }: { className?: string }) {
 
 export default function SectionProof() {
   return (
-    <section id="vertrauen" className="relative scroll-mt-16 border-t border-hair bg-ink text-white">
-      <Container frame>
+    <section id="vertrauen" className="atmo atmo--soft relative scroll-mt-16 py-4 text-white">
+      <Container frame className="space-y-4">
         {/* ---------------------------------------------------------- Presse */}
-        <Reveal>
+        <Reveal className="overflow-hidden rounded-[12px] border border-white/12">
           <SectionHead
             n="01"
             tag="Fachpresse"
@@ -41,10 +41,8 @@ export default function SectionProof() {
         </Reveal>
 
         {/* ----------------------------------------------------------- Autor */}
-        <Reveal>
-          <div className="border-t border-hair">
-            <SectionHead n="02" tag={about.eyebrow} headline={about.headline} />
-          </div>
+        <Reveal className="overflow-hidden rounded-[12px] border border-white/12">
+          <SectionHead n="02" tag={about.eyebrow} headline={about.headline} />
 
           <figure className="relative aspect-[4/5] w-full overflow-hidden border-b border-hair sm:aspect-[16/9] lg:aspect-[1920/760]">
             <Image
@@ -58,7 +56,7 @@ export default function SectionProof() {
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,11,0.55)_0%,rgba(10,10,11,0.05)_45%,transparent_70%),linear-gradient(180deg,transparent_60%,rgba(10,10,11,0.9)_100%)]"
             />
-            <figcaption className="absolute bottom-0 left-0 flex flex-col gap-1 border-r border-t border-hair bg-ink/85 px-5 py-5 backdrop-blur-sm sm:px-8 sm:py-6">
+            <figcaption className="glass absolute bottom-5 left-5 flex flex-col gap-1 rounded-[10px] px-5 py-5 sm:bottom-8 sm:left-8 sm:px-7 sm:py-6">
               <Tag mint>{brand.company}, Frankfurt am Main</Tag>
               <span className="h-display mt-2 block text-[1.6rem] text-white sm:text-[2rem]">{brand.person}</span>
               <span className="block text-[0.86rem] text-white/60 sm:text-[0.92rem]">{brand.role}</span>
@@ -86,7 +84,7 @@ export default function SectionProof() {
             {/* Werte als drei Zellen untereinander, grosse Laufnummer links */}
             <ol className="flex flex-col divide-y divide-hair border-t border-hair lg:border-t-0">
               {about.values.map((v, i) => (
-                <li key={v.title} className="spot relative grid flex-1 grid-cols-[4.5rem_1fr] items-center gap-x-4 px-5 py-7 sm:px-8">
+                <li key={v.title} className="glass glass--deep spot relative grid flex-1 grid-cols-[4.5rem_1fr] items-center gap-x-4 border-0 px-5 py-7 sm:px-8">
                   <span className="mono text-[2rem] leading-none tracking-[-0.04em] text-mint/80">0{i + 1}</span>
                   <span>
                     <span className="h-title block text-[1.1rem] text-white">{v.title}</span>
@@ -99,7 +97,7 @@ export default function SectionProof() {
         </Reveal>
 
         {/* --------------------------------------------------------- Stimmen */}
-        <Reveal>
+        <Reveal className="overflow-hidden rounded-[12px] border border-white/12">
           {/* Neutral formuliert: die Rezensenten haben ihre Funktion nicht
               angegeben, „Geschäftsführer" wäre eine unbelegte Zuschreibung. */}
           <SectionHead

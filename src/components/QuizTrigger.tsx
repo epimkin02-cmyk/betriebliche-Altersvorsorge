@@ -11,18 +11,21 @@ export default function QuizTrigger({
   block,
   className,
   onClick,
+  variant,
 }: {
   children: ReactNode;
   size?: "md" | "sm";
   block?: boolean;
   className?: string;
   onClick?: () => void;
+  variant?: "solid" | "outline";
 }) {
   return (
     <CtaPill
       size={size}
       block={block}
       className={className}
+      variant={variant}
       onClick={() => {
         onClick?.();
         openQuiz();

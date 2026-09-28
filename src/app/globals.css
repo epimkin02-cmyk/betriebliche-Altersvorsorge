@@ -448,3 +448,135 @@ body {
   .marquee { -webkit-mask-image: none; mask-image: none; }
   .marquee__track > [aria-hidden="true"] { display: none; }
 }
+
+/* ============================================================
+   NEXO-BÜHNE · Atmosphäre, Kachelraster, Milchglas, Münzen
+   ============================================================ */
+
+/* Tiefe: Petrol-Licht unten links, warmes Licht oben rechts, Vignette */
+.atmo {
+  position: relative;
+  isolation: isolate;
+}
+.atmo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 60% at 8% 100%, rgba(21, 120, 121, 0.55) 0%, rgba(21, 120, 121, 0) 60%),
+    radial-gradient(45% 45% at 96% 0%, rgba(214, 150, 74, 0.22) 0%, rgba(214, 150, 74, 0) 60%),
+    radial-gradient(60% 50% at 60% 55%, rgba(62, 230, 201, 0.07) 0%, rgba(62, 230, 201, 0) 70%),
+    linear-gradient(180deg, #0b1112 0%, #070a0a 100%);
+}
+.atmo--soft::before {
+  background:
+    radial-gradient(60% 50% at 0% 0%, rgba(21, 120, 121, 0.35) 0%, rgba(21, 120, 121, 0) 60%),
+    radial-gradient(40% 40% at 100% 100%, rgba(214, 150, 74, 0.14) 0%, rgba(214, 150, 74, 0) 60%),
+    linear-gradient(180deg, #070a0a 0%, #0a0f10 100%);
+}
+
+/* Kachelraster: Linien ueber Border der Kacheln, Kreuze an den Knoten */
+.tile {
+  position: relative;
+  border-right: 1px solid rgba(255, 255, 255, 0.11);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+}
+.tile--last-col { border-right: 0; }
+.tile--last-row { border-bottom: 0; }
+.tile__cross {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 11px;
+  height: 11px;
+  z-index: 2;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.55);
+}
+.tile__cross::before,
+.tile__cross::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+.tile__cross::before { left: 5px; top: 0; width: 1px; height: 11px; }
+.tile__cross::after  { top: 5px; left: 0; height: 1px; width: 11px; }
+
+/* Milchglas-Kachel: Objekte dahinter werden weich, Kante oben leuchtet */
+.glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.05) 100%);
+  -webkit-backdrop-filter: blur(22px) saturate(1.25);
+  backdrop-filter: blur(22px) saturate(1.25);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 30px 60px -30px rgba(0, 0, 0, 0.8);
+}
+.glass--deep {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%);
+}
+
+/* Muenzen: schweben langsam, reagieren leicht auf den Zeiger (--px/--py von Parallax) */
+.coin {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform;
+  filter: drop-shadow(0 50px 60px rgba(0, 0, 0, 0.7));
+  transform: translate3d(calc(var(--px, 0) * var(--depth, 10) * 1px), calc(var(--py, 0) * var(--depth, 10) * 1px), 0);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.coin > img, .coin > span {
+  display: block;
+  animation: coin-float var(--dur, 9s) ease-in-out infinite;
+  animation-delay: var(--off, 0s);
+}
+@keyframes coin-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-14px) rotate(-1.5deg); }
+}
+/* Einblenden ohne Transform, damit backdrop-filter der Glaskacheln sauber bleibt */
+.fd {
+  opacity: 0;
+  animation: fade-in 1s ease-out both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fade-in { to { opacity: 1; } }
+
+/* Nexo-Pille: Umriss, Pfeil rechts, leuchtet beim Hover */
+.pillcta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px 12px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  font-family: var(--font-head);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+.pillcta__arrow {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: #fff;
+  color: #070a0a;
+  transition: transform 0.3s ease;
+}
+.pillcta__arrow svg { width: 15px; height: 15px; }
+.pillcta:hover { border-color: rgba(62, 230, 201, 0.9); box-shadow: 0 0 0 1px rgba(62, 230, 201, 0.3), 0 20px 50px -20px rgba(62, 230, 201, 0.5); background: rgba(255,255,255,0.1); transform: translateY(-1px); }
+.pillcta:hover .pillcta__arrow { transform: translateX(3px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .coin > img, .coin > span { animation: none; }
+  .coin { transition: none; transform: none; }
+  .fd { opacity: 1; animation: none; }
+}

@@ -9,7 +9,7 @@ import { brand, legal } from "@/content/site";
  */
 export default function Footer() {
   return (
-    <footer className="border-t border-hair bg-ink text-white">
+    <footer className="pb-6 pt-2 text-white">
       <Container frame>
         <div className="px-5 py-10 sm:px-8 sm:py-12">
           <Tag>Rechtlicher Hinweis</Tag>
