@@ -33,7 +33,19 @@ export default function SectionHero() {
           <Image src="/3d/coin-c.webp" alt="" width={1130} height={1400} sizes="150px" className="h-auto w-full" />
         </div>
       </div>
-      <Container className="relative pt-16 sm:pt-24">
+      {/* Handy und Tablet: zwei Muenzen ueber der Copy, eine kleine darunter, an den Raendern angeschnitten */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden lg:hidden">
+        <div className="coin left-[-6%] top-[24px] w-[26%] sm:left-[4%] sm:w-[16%]" style={{ "--depth": 6, "--dur": "11s" } as CSSProperties}>
+          <Image src="/3d/coin-b.webp" alt="" width={1400} height={1389} priority sizes="120px" className="h-auto w-full" />
+        </div>
+        <div className="coin right-[-8%] top-[8px] w-[34%] sm:right-[4%] sm:w-[20%]" style={{ "--depth": 8, "--dur": "9s", "--off": "-3s" } as CSSProperties}>
+          <Image src="/3d/coin-a.webp" alt="" width={1398} height={1400} priority sizes="160px" className="h-auto w-full" />
+        </div>
+        <div className="coin bottom-[-2%] right-[2%] w-[20%] sm:right-[6%] sm:w-[12%]" style={{ "--depth": 10, "--dur": "8s", "--off": "-5s" } as CSSProperties}>
+          <Image src="/3d/coin-c.webp" alt="" width={1130} height={1400} sizes="100px" className="h-auto w-full" />
+        </div>
+      </div>
+      <Container className="relative pt-32 sm:pt-36 lg:pt-24">
         <div className="mx-auto flex max-w-[860px] flex-col items-center text-center">
           <p className="rv" style={delay(0)}>
             <Label>{hero.eyebrow}</Label>
@@ -62,6 +74,7 @@ export default function SectionHero() {
           </ul>
         </div>
       </Container>
+      <div className="h-16 lg:hidden" aria-hidden="true" />
       </Parallax>
 
       <Container>
