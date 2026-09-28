@@ -11,15 +11,29 @@ const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
 /**
  * SECTION 1 · Hero
- * Zentrierte Copy, darunter ein grosses Medienfeld: das Buch in der Mitte,
- * drei Chrom-Muenzen schweben daneben und reagieren leicht auf den Zeiger.
- * Die Frankfurter Skyline liegt sehr dunkel dahinter. Dann Kennzahlen und
+ * Zentrierte Copy, links und rechts davon schweben drei Chrom-Muenzen in
+ * den freien Raendern und reagieren leicht auf den Zeiger. Darunter das
+ * Buch in einem grossen Medienfeld, die Frankfurter Skyline sehr dunkel
+ * dahinter. Dann Kennzahlen und
  * Logos. Abstaende im 8er-Raster.
  */
 export default function SectionHero() {
   return (
     <section id="start" className="relative bg-ink pt-[68px] text-white">
-      <Container className="pt-16 sm:pt-24">
+      <Parallax className="relative">
+      {/* Muenzen links und rechts der Copy, nur auf breiten Viewports */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden lg:block">
+        <div className="coin left-[2%] top-[44%] w-[11vw] xl:left-[4%] xl:top-[38%] xl:w-[clamp(120px,14vw,260px)]" style={{ "--depth": 10, "--dur": "11s" } as CSSProperties}>
+          <Image src="/3d/coin-b.webp" alt="" width={1400} height={1389} priority sizes="260px" className="h-auto w-full" />
+        </div>
+        <div className="coin right-[2%] top-[42%] w-[13vw] xl:right-[4%] xl:top-[26%] xl:w-[clamp(150px,17vw,300px)]" style={{ "--depth": 16, "--dur": "9s", "--off": "-3s" } as CSSProperties}>
+          <Image src="/3d/coin-a.webp" alt="" width={1398} height={1400} priority sizes="300px" className="h-auto w-full" />
+        </div>
+        <div className="coin left-[10%] top-[76%] w-[8vw] xl:left-[13%] xl:w-[clamp(80px,9vw,150px)]" style={{ "--depth": 22, "--dur": "8s", "--off": "-5s" } as CSSProperties}>
+          <Image src="/3d/coin-c.webp" alt="" width={1130} height={1400} sizes="150px" className="h-auto w-full" />
+        </div>
+      </div>
+      <Container className="relative pt-16 sm:pt-24">
         <div className="mx-auto flex max-w-[860px] flex-col items-center text-center">
           <p className="rv" style={delay(0)}>
             <Label>{hero.eyebrow}</Label>
@@ -47,28 +61,18 @@ export default function SectionHero() {
             ))}
           </ul>
         </div>
+      </Container>
+      </Parallax>
 
-        {/* Medienfeld: Buch und Muenzen */}
+      <Container>
+        {/* Medienfeld: Buch vor der Skyline */}
         <div className="rv mt-16 sm:mt-24" style={delay(460)}>
-          <Parallax className="card relative overflow-hidden rounded-[20px] sm:rounded-[24px]">
+          <div className="card relative overflow-hidden rounded-[20px] sm:rounded-[24px]">
             <div aria-hidden="true" className="absolute inset-0 opacity-[0.22] grayscale">
               <Image src="/hero-frankfurt.jpg" alt="" fill priority sizes="1200px" className="object-cover object-[70%_45%]" />
               <HeroVideo src="/hero-frankfurt.mp4" poster="/hero-frankfurt.jpg" />
             </div>
             <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.15)_0%,rgba(5,5,5,0.8)_100%)]" />
-
-            {/* Muenzen */}
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-              <div className="coin left-[1%] top-[24%] w-[24%] sm:left-[5%] sm:top-[30%] sm:w-[19%]" style={{ "--depth": 10, "--dur": "11s" } as CSSProperties}>
-                <Image src="/3d/coin-b.webp" alt="" width={1400} height={1389} priority sizes="(min-width: 1024px) 220px, 24vw" className="h-auto w-full" />
-              </div>
-              <div className="coin left-[70%] top-[6%] w-[30%] sm:left-[71%] sm:top-[8%] sm:w-[24%]" style={{ "--depth": 16, "--dur": "9s", "--off": "-3s" } as CSSProperties}>
-                <Image src="/3d/coin-a.webp" alt="" width={1398} height={1400} priority sizes="(min-width: 1024px) 280px, 30vw" className="h-auto w-full" />
-              </div>
-              <div className="coin hidden sm:block sm:left-[83%] sm:top-[62%] sm:w-[11%]" style={{ "--depth": 22, "--dur": "8s", "--off": "-5s" } as CSSProperties}>
-                <Image src="/3d/coin-c.webp" alt="" width={1130} height={1400} sizes="(min-width: 1024px) 130px, 14vw" className="h-auto w-full" />
-              </div>
-            </div>
 
             <div className="relative flex items-center justify-center px-8 pb-4 pt-12 sm:px-16 sm:pt-16 lg:pt-20">
               <Image
@@ -85,7 +89,7 @@ export default function SectionHero() {
               <span className="text-[0.84rem] text-white/70">{hero.mockupMeta}</span>
               <span className="text-[0.84rem] text-white/45">{cta.reassuranceShort}</span>
             </div>
-          </Parallax>
+          </div>
         </div>
       </Container>
 
